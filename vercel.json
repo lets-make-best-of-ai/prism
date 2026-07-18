@@ -1,13 +1,5 @@
 {
   "buildCommand": "npm run build",
   "outputDirectory": ".next",
-  "framework": "nextjs",
-  "env": [
-    {
-      "key": "NEXT_PUBLIC_SITE_URL",
-      "description": "Public URL of the site",
-      "example": "https://prism-equity.com",
-      "required": false
-    }
-  ]
+  "framework": "nextjs"
 }
