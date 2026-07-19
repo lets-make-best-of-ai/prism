@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+/* ═══════════════════════════════════════════════════════════════════════
+   FINTECH PREMIUM DESIGN SYSTEM
+   Global Styles & Foundation
+   ═══════════════════════════════════════════════════════════════════════ */
+
+/* ─────────────────────────────────────────────────────────────────────
+   RESET & BASE STYLES
+   ───────────────────────────────────────────────────────────────────── */
+
 * {
   margin: 0;
   padding: 0;
@@ -8,22 +17,61 @@
 
 html {
   scroll-behavior: smooth;
+  /* CSS variables for design tokens */
+  --color-canvas: #0B0F19;
+  --color-surface: #161C2A;
+  --color-border: #242F41;
+  --color-emerald: #10B981;
+  --color-text-primary: #F9FAFB;
+  --color-text-secondary: #9CA3AF;
+  --color-text-muted: #6B7280;
 }
 
-/* Dark theme (default) */
+/* ─────────────────────────────────────────────────────────────────────
+   DARK THEME (Default)
+   Premium fintech aesthetic with subtle gradients
+   ───────────────────────────────────────────────────────────────────── */
+
 body {
-  background: linear-gradient(135deg, #0a0e27 0%, #1a1f3a 50%, #0f1428 100%);
-  color: #ffffff;
-  font-family: 'Inter', system-ui, sans-serif;
+  /* Subtle gradient for depth without visual noise */
+  background: linear-gradient(
+    135deg,
+    #0B0F19 0%,
+    #0F1420 50%,
+    #0D1117 100%
+  );
+  color: var(--color-text-primary);
+  font-family: 'Geist Sans', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'system-ui', sans-serif;
   line-height: 1.6;
   overflow-x: hidden;
-  transition: background-color 0.3s ease, color 0.3s ease;
+  transition: background-color 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+              color 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
-/* Light theme */
+/* ─────────────────────────────────────────────────────────────────────
+   LIGHT THEME
+   Clean, professional fintech appearance
+   ───────────────────────────────────────────────────────────────────── */
+
 html[data-theme="light"] body {
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 50%, #e8eef7 100%);
-  color: #0f172a;
+  background: linear-gradient(
+    135deg,
+    #FFFFFF 0%,
+    #F9FAFB 50%,
+    #F3F4F6 100%
+  );
+  color: var(--color-text-inverse, #1F2937);
+
+  /* Light theme CSS variables */
+  --color-canvas: #FFFFFF;
+  --color-surface: #F9FAFB;
+  --color-border: #E5E7EB;
+  --color-text-primary: #1F2937;
+  --color-text-secondary: #6B7280;
+  --color-text-muted: #9CA3AF;
 }
 
 html[data-theme="light"] {
@@ -34,90 +82,227 @@ html[data-theme="dark"] {
   color-scheme: dark;
 }
 
-/* Smooth scrolling anchor links */
-@supports (scroll-behavior: smooth) {
-  html {
-    scroll-behavior: smooth;
-  }
-}
+/* ─────────────────────────────────────────────────────────────────────
+   CUSTOM SCROLLBAR
+   Premium appearance matching design system
+   ───────────────────────────────────────────────────────────────────── */
 
-/* Custom scrollbar - dark theme */
+/* Dark theme scrollbar */
 ::-webkit-scrollbar {
-  width: 10px;
+  width: 8px;
+  height: 8px;
 }
 
 ::-webkit-scrollbar-track {
-  background: #1a1f3a;
+  background: #0F1420;
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #10b981;
-  border-radius: 5px;
+  background: #10B981;
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #fbbf24;
+  background: #059669;
 }
 
-/* Custom scrollbar - light theme */
+/* Light theme scrollbar */
 html[data-theme="light"] ::-webkit-scrollbar-track {
-  background: #e2e8f0;
+  background: #F3F4F6;
 }
 
 html[data-theme="light"] ::-webkit-scrollbar-thumb {
-  background: #64748b;
+  background: #D1D5DB;
 }
 
 html[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
-  background: #475569;
+  background: #9CA3AF;
 }
 
-/* Button styles */
-button, a[role="button"] {
-  transition: all 0.3s ease;
+/* ─────────────────────────────────────────────────────────────────────
+   INTERACTIVE ELEMENTS
+   Premium button & link interactions
+   ───────────────────────────────────────────────────────────────────── */
+
+button,
+a[role="button"],
+[role="button"] {
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  cursor: pointer;
 }
 
-button:hover, a[role="button"]:hover {
-  transform: translateY(-2px);
+button:hover,
+a[role="button"]:hover,
+[role="button"]:hover {
+  transform: translateY(-1px);
 }
 
-/* Focus states for accessibility */
-button:focus-visible, a:focus-visible {
-  outline: 2px solid #10b981;
+button:active,
+a[role="button"]:active,
+[role="button"]:active {
+  transform: translateY(0);
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   FOCUS & ACCESSIBILITY
+   Premium focus states with emerald accent
+   ───────────────────────────────────────────────────────────────────── */
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid #10B981;
   outline-offset: 2px;
+  border-radius: 4px;
 }
 
-/* Text selection */
+/* ─────────────────────────────────────────────────────────────────────
+   TEXT SELECTION
+   Emerald highlight for premium feel
+   ───────────────────────────────────────────────────────────────────── */
+
 ::selection {
-  background: #10b981;
-  color: #0a0e27;
+  background: #10B981;
+  color: #0B0F19;
 }
 
-/* Utility classes */
+html[data-theme="light"] ::selection {
+  background: #10B981;
+  color: #FFFFFF;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   UTILITY CLASSES - Layout
+   Container & spacing utilities
+   ───────────────────────────────────────────────────────────────────── */
+
 .section-container {
   @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-24;
 }
 
+.section-container-sm {
+  @apply max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-16;
+}
+
+.section-container-lg {
+  @apply max-w-screen-2xl mx-auto px-4 sm:px-6 lg:px-8 py-20 sm:py-32;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   UTILITY CLASSES - Typography
+   Text effects & hierarchy
+   ───────────────────────────────────────────────────────────────────── */
+
 .gradient-text {
-  background: linear-gradient(135deg, #fbbf24 0%, #10b981 100%);
+  background: linear-gradient(135deg, #10B981 0%, #059669 100%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
 }
 
+.text-balance {
+  text-wrap: balance;
+}
+
+.text-pretty {
+  text-wrap: pretty;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   UTILITY CLASSES - Cards & Surfaces
+   Premium card styling with fintech aesthetic
+   ───────────────────────────────────────────────────────────────────── */
+
+/* Cards & Surfaces - Fintech Card Styles */
+.fintech-card {
+  background-color: rgb(22, 28, 42);
+  border-radius: 12px;
+  border: 1px solid rgb(36, 47, 65);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+  transition: all 0.2s ease;
+}
+
+.fintech-card:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  border-color: rgb(31, 41, 55);
+}
+
+.fintech-card-interactive {
+  cursor: pointer;
+}
+
+.fintech-card-interactive:hover {
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.18);
+  border-color: #10B981;
+}
+
+/* Glass morphism - Dark theme */
 .card-glass {
-  background: rgba(255, 255, 255, 0.05);
-  backdrop-filter: blur(10px);
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  border-radius: 0.75rem;
+  background-color: rgba(22, 28, 42, 0.8);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgb(36, 47, 65);
+  border-radius: 12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
 }
 
 html[data-theme="light"] .card-glass {
-  background: rgba(15, 23, 42, 0.05);
-  border: 1px solid rgba(15, 23, 42, 0.1);
+  background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid #E5E7EB;
 }
 
-/* Light mode text colors */
+.card-glass:hover {
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+  border-color: rgba(16, 185, 129, 0.3);
+}
+
+/* Premium card variant */
+.card-premium {
+  background: linear-gradient(to right, rgb(22, 28, 42), rgb(31, 41, 55));
+  border-radius: 12px;
+  border: 1px solid rgb(36, 47, 65);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+  transition: all 0.2s ease;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   UTILITY CLASSES - Shadows & Glows
+   Premium depth effects
+   ───────────────────────────────────────────────────────────────────── */
+
+.shadow-glow {
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.2), 0 0 40px rgba(16, 185, 129, 0.1);
+}
+
+.shadow-glow-emerald {
+  box-shadow: 0 0 20px rgba(16, 185, 129, 0.3), 0 0 40px rgba(16, 185, 129, 0.15);
+}
+
+.shadow-focus {
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+}
+
+/* Prism legacy animation */
+.prism-hero {
+  animation: prismGlow 3s ease-in-out infinite;
+}
+
+@keyframes prismGlow {
+  0%, 100% {
+    box-shadow: 0 0 40px rgba(16, 185, 129, 0.4), 0 0 80px rgba(16, 185, 129, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 50px rgba(16, 185, 129, 0.5), 0 0 100px rgba(16, 185, 129, 0.3);
+  }
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   THEME-AWARE TEXT COLORS
+   Automatic text color adaptation
+   ───────────────────────────────────────────────────────────────────── */
+
 html[data-theme="light"] .text-prism-gray {
   @apply text-slate-600;
 }
@@ -138,24 +323,155 @@ html[data-theme="light"] .bg-prism-navy {
   @apply bg-slate-50;
 }
 
-.shadow-glow {
-  box-shadow: 0 0 30px rgba(16, 185, 129, 0.3);
+/* ─────────────────────────────────────────────────────────────────────
+   BUTTON STYLES
+   Premium button variants with fintech aesthetic
+   ───────────────────────────────────────────────────────────────────── */
+
+.btn-primary {
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 14px;
+  color: white;
+  background-color: #10B981;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
 }
 
-.shadow-glow-gold {
-  box-shadow: 0 0 30px rgba(251, 191, 36, 0.3);
+.btn-primary:hover {
+  background-color: #059669;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
 }
 
-/* Prism shape animation */
-@keyframes prismGlow {
-  0%, 100% {
-    box-shadow: 0 0 40px rgba(16, 185, 129, 0.4), 0 0 80px rgba(251, 191, 36, 0.2);
-  }
-  50% {
-    box-shadow: 0 0 50px rgba(16, 185, 129, 0.5), 0 0 100px rgba(251, 191, 36, 0.3);
-  }
+.btn-primary:active {
+  transform: translateY(0);
 }
 
-.prism-hero {
-  animation: prismGlow 3s ease-in-out infinite;
+.btn-secondary {
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 14px;
+  background-color: rgb(22, 28, 42);
+  border: 1px solid rgb(36, 47, 65);
+  color: #F9FAFB;
+  transition: all 0.2s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transform: translateY(0);
+}
+
+.btn-secondary:hover {
+  border-color: #10B981;
+  transform: translateY(-2px);
+}
+
+.btn-outline {
+  padding: 12px 24px;
+  border-radius: 12px;
+  font-weight: 600;
+  font-size: 14px;
+  border: 2px solid #10B981;
+  color: #10B981;
+  background-color: transparent;
+  transition: all 0.2s ease;
+}
+
+.btn-outline:hover {
+  background-color: rgba(16, 185, 129, 0.1);
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   INPUT STYLES
+   Premium form inputs with fintech aesthetic
+   ───────────────────────────────────────────────────────────────────── */
+
+input,
+textarea,
+select {
+  background-color: rgb(22, 28, 42);
+  border: 1px solid rgb(36, 47, 65);
+  border-radius: 12px;
+  color: #F9FAFB;
+  transition: all 0.2s ease;
+}
+
+input::placeholder,
+textarea::placeholder,
+select::placeholder {
+  color: #6B7280;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+  border-color: #10B981;
+  box-shadow: 0 0 0 4px rgba(16, 185, 129, 0.1);
+}
+
+html[data-theme="light"] input,
+html[data-theme="light"] textarea,
+html[data-theme="light"] select {
+  background-color: white;
+  border-color: #E5E7EB;
+  color: #1F2937;
+}
+
+html[data-theme="light"] input::placeholder,
+html[data-theme="light"] textarea::placeholder,
+html[data-theme="light"] select::placeholder {
+  color: #9CA3AF;
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   LINK STYLES
+   Premium link appearance
+   ───────────────────────────────────────────────────────────────────── */
+
+a {
+  color: #10B981;
+  transition: color 0.2s ease;
+}
+
+a:hover {
+  color: #059669;
+}
+
+a:visited {
+  color: rgba(16, 185, 129, 0.7);
+}
+
+/* ─────────────────────────────────────────────────────────────────────
+   CODE BLOCKS
+   Terminal-friendly code styling
+   ───────────────────────────────────────────────────────────────────── */
+
+code {
+  font-family: 'Menlo', 'Monaco', 'Courier New', monospace;
+  font-size: 13px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  background-color: rgb(22, 28, 42);
+  border: 1px solid rgb(36, 47, 65);
+  color: #10B981;
+}
+
+pre {
+  background-color: rgb(22, 28, 42);
+  border: 1px solid rgb(36, 47, 65);
+  border-radius: 12px;
+  padding: 16px;
+  overflow-x: auto;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.12);
+}
+
+html[data-theme="light"] code {
+  background-color: #F3F4F6;
+  border-color: #E5E7EB;
+}
+
+html[data-theme="light"] pre {
+  background-color: #F3F4F6;
+  border-color: #E5E7EB;
 }
