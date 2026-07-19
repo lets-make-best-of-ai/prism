@@ -8,32 +8,36 @@ export default function TestimonialsCarousel() {
     {
       id: 1,
       name: 'Michael Chen',
-      title: 'CEO, Tech Startup',
-      text: 'Prism saved us $280K in our first year. Their tax strategy is bulletproof and the team is incredibly responsive.',
+      title: 'Founder & CEO',
+      company: 'Quantum Software',
+      text: 'Prism\'s strategic approach saved us $280K in our first year alone. More importantly, they built a structure that scales with our growth.',
       image: '👨‍💼',
       savings: '$280K+',
     },
     {
       id: 2,
       name: 'Sarah Johnson',
-      title: 'Real Estate Developer',
-      text: 'Finally, someone who understands real estate tax optimization. Their entity structuring alone paid for their services 10x over.',
+      title: 'Principal',
+      company: 'SJ Capital Partners',
+      text: 'Real estate tax optimization at this level is rare. Their cost segregation and entity structuring paid for their services 15x over in year one.',
       image: '👩‍💼',
       savings: '$450K+',
     },
     {
       id: 3,
       name: 'David Rodriguez',
-      title: 'E-Commerce Founder',
-      text: 'The difference between my old CPA and Prism is night and day. They think strategically, not just transactionally.',
+      title: 'CEO & Founder',
+      company: 'Global Commerce Inc',
+      text: 'The difference between my old CPA and Prism is like night and day. They think strategically about wealth building, not just transaction recording.',
       image: '🧑‍💼',
       savings: '$150K+',
     },
     {
       id: 4,
       name: 'Jennifer Wei',
-      title: 'Investment Manager',
-      text: 'Exceptional service. Their team proactively identifies tax planning opportunities we would have never found on our own.',
+      title: 'Managing Partner',
+      company: 'Ascent Investment Group',
+      text: 'Their proactive identification of tax planning opportunities has been exceptional. We would have left millions on the table without their expertise.',
       image: '👩‍💻',
       savings: '$320K+',
     },
@@ -61,138 +65,144 @@ export default function TestimonialsCarousel() {
     }),
   }
 
-  const swipeConfidenceThreshold = 10000
-  const swipePower = (offset: number, velocity: number) => Math.abs(offset) * velocity
-
   return (
-    <section className="py-24 sm:py-32 bg-gradient-to-b from-prism-navy/50 to-prism-dark">
-      <div className="section-container">
+    <section className="relative w-full py-32 sm:py-48 overflow-hidden">
+      {/* Background accent */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 0.06 }}
+        transition={{ duration: 1 }}
+        viewport={{ once: true }}
+        className="absolute top-1/2 -left-40 w-96 h-96 border border-emerald-primary/10 rounded-full pointer-events-none transform -translate-y-1/2"
+      />
+
+      <div className="relative z-10 w-full max-w-7xl px-4 sm:px-6 lg:px-8 mx-auto">
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
           viewport={{ once: true }}
-          className="text-center mb-16"
+          className="text-center max-w-3xl mx-auto mb-20 sm:mb-28"
         >
-          <h2 className="text-4xl sm:text-5xl font-bold mb-4 leading-tight">
-            Trusted by Wealth Creators
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-8 text-text-primary">
+            Trusted by
             <br />
-            <span className="gradient-text">Real Results from Real Clients</span>
+            <span className="gradient-text">Elite Entrepreneurs & Investors</span>
           </h2>
-          <p className="text-lg text-prism-gray max-w-2xl mx-auto">
-            See how we've helped successful entrepreneurs and business owners take control of their tax destiny.
+          <p className="text-lg sm:text-xl text-text-secondary leading-relaxed font-light">
+            See what high-net-worth business leaders have to say about their experience working with us.
           </p>
         </motion.div>
 
+        {/* Carousel */}
         <div className="max-w-4xl mx-auto">
-          {/* Carousel */}
-          <div className="relative h-80 sm:h-72 mb-8">
-            <AnimatePresence initial={false} custom={current} mode="wait">
-              {testimonials.map((testimonial, idx) => (
-                idx === current && (
-                  <motion.div
-                    key={testimonial.id}
-                    custom={idx > current ? 1 : -1}
-                    variants={slideVariants}
-                    initial="enter"
-                    animate="center"
-                    exit="exit"
-                    transition={{
-                      x: { type: 'spring', stiffness: 300, damping: 30 },
-                      opacity: { duration: 0.5 },
-                    }}
-                    drag="x"
-                    dragElastic={0.2}
-                    dragConstraints={{ left: 0, right: 0 }}
-                    onDragEnd={(_e, { offset, velocity }) => {
-                      const swipe = swipePower(offset.x, velocity.x)
-                      if (swipe < -swipeConfidenceThreshold) {
-                        next()
-                      } else if (swipe > swipeConfidenceThreshold) {
-                        prev()
-                      }
-                    }}
-                    className="absolute inset-0 card-glass p-8 sm:p-12 rounded-xl cursor-grab active:cursor-grabbing"
-                  >
-                    <div className="flex flex-col h-full justify-between">
-                      {/* Quote */}
-                      <div>
-                        <div className="text-4xl mb-4 text-prism-emerald">"</div>
-                        <p className="text-lg sm:text-xl text-white leading-relaxed mb-6">
-                          {testimonial.text}
-                        </p>
-                      </div>
+          <div className="relative h-auto sm:min-h-[480px] flex items-center">
+            <AnimatePresence initial={false} custom={current}>
+              <motion.div
+                key={current}
+                custom={1}
+                variants={slideVariants}
+                initial="enter"
+                animate="center"
+                exit="exit"
+                transition={{
+                  x: { type: 'spring', stiffness: 300, damping: 30 },
+                  opacity: { duration: 0.4 },
+                }}
+                className="absolute inset-0 w-full"
+              >
+                <motion.div
+                  whileHover={{ y: -4 }}
+                  className="fintech-card p-10 sm:p-12 lg:p-16 rounded-2xl border border-fintech-border h-full flex flex-col"
+                >
+                  {/* Savings badge */}
+                  <div className="inline-block w-fit mb-8 px-4 py-2 rounded-lg bg-emerald-primary/10 border border-emerald-primary/30">
+                    <p className="text-sm font-bold text-emerald-primary">
+                      {testimonials[current].savings} Saved
+                    </p>
+                  </div>
 
-                      {/* Author */}
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-4">
-                          <div className="text-4xl">{testimonial.image}</div>
-                          <div>
-                            <p className="font-bold text-white">{testimonial.name}</p>
-                            <p className="text-sm text-prism-gray">{testimonial.title}</p>
-                          </div>
-                        </div>
-                        <div className="text-right">
-                          <p className="text-xs text-prism-gray uppercase tracking-widest mb-1">Saved</p>
-                          <p className="text-2xl font-bold gradient-text">{testimonial.savings}</p>
-                        </div>
-                      </div>
+                  {/* Testimonial quote */}
+                  <p className="text-lg sm:text-2xl text-text-primary leading-relaxed font-light mb-12 flex-1">
+                    "{testimonials[current].text}"
+                  </p>
+
+                  {/* Author info */}
+                  <div className="flex items-center gap-6 pt-10 border-t border-fintech-border">
+                    <div className="text-4xl sm:text-5xl">
+                      {testimonials[current].image}
                     </div>
-                  </motion.div>
-                )
-              ))}
+                    <div>
+                      <p className="font-bold text-text-primary text-base sm:text-lg">
+                        {testimonials[current].name}
+                      </p>
+                      <p className="text-xs sm:text-sm text-text-muted uppercase tracking-widest font-medium">
+                        {testimonials[current].title}
+                      </p>
+                      <p className="text-xs sm:text-sm text-emerald-primary font-semibold">
+                        {testimonials[current].company}
+                      </p>
+                    </div>
+                  </div>
+                </motion.div>
+              </motion.div>
             </AnimatePresence>
           </div>
 
-          {/* Navigation */}
-          <div className="flex items-center justify-between">
+          {/* Navigation controls */}
+          <div className="mt-12 sm:mt-16 flex items-center justify-between">
+            {/* Left button */}
             <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ x: -4 }}
+              whileTap={{ x: 0 }}
               onClick={prev}
-              className="p-3 rounded-lg bg-prism-emerald/20 hover:bg-prism-emerald/40
-                text-prism-emerald border border-prism-emerald/50 transition-all"
+              className="p-3 rounded-xl border border-fintech-border hover:border-emerald-primary/50 hover:bg-fintech-surface transition-all duration-300"
               aria-label="Previous testimonial"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-text-secondary hover:text-emerald-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>
             </motion.button>
 
-            {/* Indicators */}
-            <div className="flex gap-2">
+            {/* Indicator dots */}
+            <div className="flex gap-3">
               {testimonials.map((_, idx) => (
                 <motion.button
                   key={idx}
                   onClick={() => setCurrent(idx)}
-                  className={`h-2 rounded-full transition-all ${
-                    idx === current
-                      ? 'bg-prism-emerald w-8'
-                      : 'bg-prism-gold/30 hover:bg-prism-gold/60 w-2'
-                  }`}
                   whileHover={{ scale: 1.2 }}
+                  whileTap={{ scale: 0.95 }}
+                  className={`w-3 h-3 rounded-full transition-all duration-300 ${
+                    idx === current
+                      ? 'bg-emerald-primary w-8'
+                      : 'bg-fintech-border hover:bg-fintech-hover'
+                  }`}
                   aria-label={`Go to testimonial ${idx + 1}`}
                 />
               ))}
             </div>
 
+            {/* Right button */}
             <motion.button
-              whileHover={{ scale: 1.1 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ x: 4 }}
+              whileTap={{ x: 0 }}
               onClick={next}
-              className="p-3 rounded-lg bg-prism-emerald/20 hover:bg-prism-emerald/40
-                text-prism-emerald border border-prism-emerald/50 transition-all"
+              className="p-3 rounded-xl border border-fintech-border hover:border-emerald-primary/50 hover:bg-fintech-surface transition-all duration-300"
               aria-label="Next testimonial"
             >
-              <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-6 h-6 text-text-secondary hover:text-emerald-primary" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
               </svg>
             </motion.button>
           </div>
 
-          {/* Slide Counter */}
-          <p className="text-center text-prism-gray text-sm mt-6">
-            {current + 1} / {testimonials.length}
-          </p>
+          {/* Counter */}
+          <div className="mt-8 text-center">
+            <p className="text-sm text-text-muted font-medium uppercase tracking-wider">
+              {current + 1} of {testimonials.length}
+            </p>
+          </div>
         </div>
       </div>
     </section>

@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
+import { motion } from 'framer-motion'
 
 export default function Hero() {
   const [isLoaded, setIsLoaded] = useState(false)
@@ -9,82 +10,134 @@ export default function Hero() {
     setIsLoaded(true)
   }, [])
 
+  const scrollToSection = (id: string) => {
+    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth' })
+  }
+
   return (
-    <section className="relative min-h-screen flex items-center justify-center overflow-hidden pt-20 pb-20">
-      {/* Animated background elements */}
-      <div className="absolute inset-0 -z-10">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-prism-emerald/5 rounded-full blur-3xl animate-pulse" />
-        <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-prism-gold/5 rounded-full blur-3xl animate-pulse" />
+    <section className="relative w-full min-h-screen flex items-center justify-center overflow-hidden pt-32 pb-32">
+      {/* Premium abstract background elements */}
+      <div className="absolute inset-0 -z-10 overflow-hidden">
+        {/* Top-left accent */}
+        <div className="absolute -top-40 -left-40 w-96 h-96 bg-emerald-primary/5 rounded-full blur-3xl" />
+        {/* Bottom-right accent */}
+        <div className="absolute -bottom-40 -right-40 w-96 h-96 bg-emerald-primary/3 rounded-full blur-3xl" />
+        {/* Center glow */}
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[500px] h-[500px] bg-gradient-to-br from-emerald-primary/5 via-transparent to-transparent rounded-full blur-3xl opacity-0 group-hover:opacity-100 transition-opacity duration-1000" />
       </div>
 
-      {/* Prism shape with SVG */}
-      <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 -z-10 opacity-30">
-        <svg width="400" height="400" viewBox="0 0 400 400" className="prism-hero">
-          <defs>
-            <linearGradient id="prismGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stopColor="#fbbf24" />
-              <stop offset="100%" stopColor="#10b981" />
-            </linearGradient>
-          </defs>
-          {/* Central prism shape */}
-          <polygon points="200,50 350,300 200,350 50,300" fill="none" stroke="url(#prismGradient)" strokeWidth="2" />
-          {/* Light rays */}
-          <line x1="200" y1="0" x2="200" y2="50" stroke="#fbbf24" strokeWidth="1" opacity="0.5" />
-          <line x1="160" y1="30" x2="115" y2="140" stroke="#10b981" strokeWidth="1" opacity="0.4" />
-          <line x1="240" y1="30" x2="285" y2="140" stroke="#10b981" strokeWidth="1" opacity="0.4" />
-        </svg>
-      </div>
+      {/* Elegant geometric accent - top right */}
+      <motion.div
+        initial={{ opacity: 0, scale: 0.8 }}
+        animate={{ opacity: isLoaded ? 0.08 : 0, scale: isLoaded ? 1 : 0.8 }}
+        transition={{ duration: 1.2 }}
+        className="absolute top-20 right-20 w-80 h-80 border border-emerald-primary/20 rounded-3xl transform rotate-45 pointer-events-none"
+      />
 
-      <div className={`section-container text-center transition-all duration-1000 ${isLoaded ? 'opacity-100' : 'opacity-0'}`}>
-        <div className="max-w-4xl mx-auto">
-          {/* Main headline */}
-          <h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 tracking-tight leading-tight
-            animate-slide-up">
-            Keep What You Earn.
+      <div className="relative z-10 w-full max-w-7xl px-4 sm:px-6 lg:px-8 mx-auto">
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
+          transition={{ duration: 0.8 }}
+          className="max-w-4xl mx-auto text-center"
+        >
+          {/* Main headline - ultra refined */}
+          <motion.h1
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 30 }}
+            transition={{ duration: 0.9, delay: 0.1 }}
+            className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-[1.15] mb-8 text-text-primary"
+          >
+            Keep What
             <br />
-            <span className="gradient-text">Build What You Dream.</span>
-          </h1>
+            <span className="gradient-text">You Earn.</span>
+            <br />
+            Build What
+            <br />
+            <span className="gradient-text">You Dream.</span>
+          </motion.h1>
 
-          {/* Subheadline */}
-          <p className="text-lg sm:text-xl text-prism-gray mb-8 max-w-2xl mx-auto leading-relaxed
-            animate-slide-up" style={{ animationDelay: '0.1s' }}>
-            Uncle Sam has a plan for your money. We have a better one. Prism Equity Partners builds aggressive, bulletproof tax strategies designed to protect your profits and scale your net worth.
-          </p>
+          {/* Subheadline - generous spacing */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
+            transition={{ duration: 0.9, delay: 0.2 }}
+            className="text-lg sm:text-xl lg:text-2xl text-text-secondary leading-relaxed max-w-3xl mx-auto mb-12 font-light"
+          >
+            Aggressive, bulletproof tax strategies designed for high-net-worth individuals and visionary entrepreneurs. We protect your profits and scale your wealth.
+          </motion.p>
 
-          {/* Primary CTA */}
-          <div className="flex flex-col sm:flex-row gap-4 justify-center items-center
-            animate-slide-up" style={{ animationDelay: '0.2s' }}>
-            <button
-              onClick={() => document.getElementById('cta')?.scrollIntoView({ behavior: 'smooth' })}
-              className="px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300
-                bg-gradient-to-r from-prism-emerald to-prism-gold text-prism-dark
-                hover:shadow-glow hover:scale-105 cursor-pointer"
+          {/* Dual-button CTA group - clean separation */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
+            transition={{ duration: 0.9, delay: 0.3 }}
+            className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-20"
+          >
+            <motion.button
+              whileHover={{ y: -3, boxShadow: '0 8px 32px rgba(16, 185, 129, 0.25)' }}
+              whileTap={{ y: 0 }}
+              onClick={() => scrollToSection('cta')}
+              className="px-8 sm:px-10 py-4 sm:py-5 rounded-xl font-semibold text-base sm:text-lg
+                bg-emerald-primary hover:bg-emerald-hover text-white
+                transition-all duration-300 shadow-lg hover:shadow-2xl"
             >
-              Schedule Your Tax Blueprint Consultation
-            </button>
-            <button
-              onClick={() => document.getElementById('problem')?.scrollIntoView({ behavior: 'smooth' })}
-              className="px-8 py-4 rounded-lg font-bold text-lg transition-all duration-300
-                border-2 border-prism-emerald text-prism-emerald
-                hover:bg-prism-emerald/10 hover:shadow-glow cursor-pointer"
+              Schedule Your Consultation
+            </motion.button>
+            <motion.button
+              whileHover={{ y: -3, borderColor: 'rgb(16, 185, 129)' }}
+              whileTap={{ y: 0 }}
+              onClick={() => scrollToSection('solution')}
+              className="px-8 sm:px-10 py-4 sm:py-5 rounded-xl font-semibold text-base sm:text-lg
+                border-2 border-emerald-primary/50 text-emerald-primary
+                hover:bg-emerald-primary/10 transition-all duration-300"
             >
-              Learn More
-            </button>
-          </div>
+              Learn Our Strategy
+            </motion.button>
+          </motion.div>
 
-          {/* Trust indicator */}
-          <div className="mt-16 pt-8 border-t border-white/10 animate-slide-up" style={{ animationDelay: '0.3s' }}>
-            <p className="text-sm text-prism-gray mb-4">Trusted by high-net-worth individuals and business owners</p>
-            <div className="flex justify-center items-center gap-8 flex-wrap">
-              {['Fortune 500', 'Private Equity', 'C-Suite', 'Entrepreneurs'].map((item, idx) => (
-                <div key={idx} className="text-xs sm:text-sm font-semibold text-prism-emerald uppercase tracking-widest">
+          {/* Trust indicators - extensive spacing & premium typography */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 20 }}
+            transition={{ duration: 0.9, delay: 0.4 }}
+            className="pt-16 border-t border-fintech-border"
+          >
+            <p className="text-xs sm:text-sm text-text-muted uppercase tracking-widest font-medium mb-8">
+              Trusted By Leading Business Minds
+            </p>
+            <div className="flex flex-wrap justify-center items-center gap-8 sm:gap-12">
+              {[
+                'Fortune 500 CEOs',
+                'Private Equity Founders',
+                'C-Suite Executives',
+                'Serial Entrepreneurs',
+              ].map((item, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: isLoaded ? 1 : 0 }}
+                  transition={{ duration: 0.6, delay: 0.5 + idx * 0.05 }}
+                  className="text-xs sm:text-sm font-semibold text-emerald-primary uppercase tracking-wider"
+                >
                   {item}
-                </div>
+                </motion.div>
               ))}
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
+
+      {/* Scroll indicator */}
+      <motion.div
+        animate={{ y: [0, 8, 0] }}
+        transition={{ duration: 2, repeat: Infinity }}
+        className="absolute bottom-8 left-1/2 transform -translate-x-1/2"
+      >
+        <svg className="w-6 h-6 text-emerald-primary/50" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
+        </svg>
+      </motion.div>
     </section>
   )
 }

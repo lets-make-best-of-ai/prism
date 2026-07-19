@@ -5,8 +5,8 @@ import { motion } from 'framer-motion'
 
 export default function TaxCalculator() {
   const [income, setIncome] = useState(500000)
-  const [businessType, setBusinessType] = useState('llc')
-  const [state, setState] = useState('california')
+  const [businessType, setBusinessType] = useState('s-corp')
+  const [state, setState] = useState('texas')
 
   const calculateSavings = () => {
     let baseTax = income * 0.37
@@ -15,6 +15,7 @@ export default function TaxCalculator() {
     if (businessType === 'llc') efficiency = 0.25
     else if (businessType === 's-corp') efficiency = 0.35
     else if (businessType === 'c-corp') efficiency = 0.30
+    else efficiency = 0.15
 
     const stateMultiplier = state === 'california' ? 0.093 : state === 'texas' ? 0 : 0.05
 
@@ -24,211 +25,238 @@ export default function TaxCalculator() {
 
   const savings = calculateSavings()
   const monthlyRecovery = Math.round(savings / 12)
+  const formattedIncome = income.toLocaleString()
+  const formattedSavings = savings.toLocaleString()
 
   const containerVariants = {
     hidden: { opacity: 0, y: 20 },
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.6 },
+      transition: { duration: 0.7 },
     },
   }
 
-  const itemVariants = {
-    hidden: { opacity: 0, x: -20 },
-    visible: (i: number) => ({
-      opacity: 1,
-      x: 0,
-      transition: { delay: i * 0.1, duration: 0.4 },
-    }),
-  }
+  const businessTypes = [
+    { value: 'llc', label: 'LLC' },
+    { value: 's-corp', label: 'S-Corp' },
+    { value: 'c-corp', label: 'C-Corp' },
+    { value: 'sole', label: 'Sole Proprietor' },
+  ]
+
+  const states = [
+    { value: 'california', label: 'California (9.3% tax)' },
+    { value: 'texas', label: 'Texas (0% tax)' },
+    { value: 'florida', label: 'Florida (5.5% avg)' },
+    { value: 'new-york', label: 'New York (6.85% tax)' },
+  ]
 
   return (
-    <section className="py-24 sm:py-32 bg-gradient-to-b from-prism-dark to-prism-navy/50">
-      <div className="section-container">
+    <section className="relative w-full py-32 sm:py-48 overflow-hidden">
+      {/* Background accent */}
+      <motion.div
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 0.06 }}
+        transition={{ duration: 1 }}
+        viewport={{ once: true }}
+        className="absolute top-1/3 right-0 w-96 h-96 border border-emerald-primary/10 rounded-full pointer-events-none transform translate-x-1/2"
+      />
+
+      <div className="relative z-10 w-full max-w-7xl px-4 sm:px-6 lg:px-8 mx-auto">
+        {/* Header */}
         <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7 }}
+          viewport={{ once: true }}
+          className="text-center max-w-3xl mx-auto mb-20 sm:mb-28"
+        >
+          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-8 text-text-primary">
+            See Your
+            <br />
+            <span className="gradient-text">Tax Savings Potential</span>
+          </h2>
+          <p className="text-lg sm:text-xl text-text-secondary leading-relaxed font-light">
+            Interactive calculator showing real, personalized tax savings based on your income, structure, and location.
+          </p>
+        </motion.div>
+
+        {/* Calculator grid */}
+        <motion.div
+          variants={containerVariants}
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: '-100px' }}
-          variants={containerVariants}
-          className="max-w-4xl mx-auto"
+          className="grid lg:grid-cols-2 gap-10 sm:gap-12 max-w-5xl mx-auto"
         >
-          <div className="text-center mb-12">
-            <h2 className="text-4xl sm:text-5xl font-bold mb-4 leading-tight">
-              Your Personalized
-              <br />
-              <span className="gradient-text">Tax Savings Blueprint</span>
-            </h2>
-            <p className="text-lg text-prism-gray max-w-2xl mx-auto">
-              See exactly how much you could save with a custom tax strategy tailored to your business structure and location.
-            </p>
-          </div>
+          {/* Input section */}
+          <motion.div
+            initial={{ opacity: 0, x: -20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true }}
+            className="fintech-card p-10 sm:p-12 rounded-2xl border border-fintech-border"
+          >
+            <h3 className="text-2xl sm:text-3xl font-bold mb-10 text-text-primary">
+              Your Profile
+            </h3>
 
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Input Section */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={containerVariants}
-              className="card-glass p-8 rounded-xl"
-            >
-              <h3 className="text-xl font-bold mb-6 text-white">Business Profile</h3>
-
-              <div className="space-y-6">
-                {/* Annual Income */}
-                <motion.div
-                  custom={0}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  variants={itemVariants}
-                >
-                  <label className="block text-sm font-semibold text-prism-gray mb-3 uppercase tracking-widest">
-                    Annual Income
-                  </label>
-                  <div className="relative">
-                    <span className="absolute left-4 top-3 text-2xl font-bold text-prism-emerald">$</span>
-                    <input
-                      type="range"
-                      min="100000"
-                      max="5000000"
-                      step="50000"
-                      value={income}
-                      onChange={(e) => setIncome(Number(e.target.value))}
-                      className="w-full h-2 bg-prism-navy/50 rounded-lg appearance-none cursor-pointer accent-prism-emerald"
-                    />
-                  </div>
-                  <div className="mt-3 text-center">
-                    <p className="text-2xl font-bold gradient-text">
-                      {income.toLocaleString()}
-                    </p>
-                    <p className="text-xs text-prism-gray mt-1">Range: $100K - $5M</p>
-                  </div>
-                </motion.div>
-
-                {/* Business Type */}
-                <motion.div
-                  custom={1}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  variants={itemVariants}
-                >
-                  <label className="block text-sm font-semibold text-prism-gray mb-3 uppercase tracking-widest">
-                    Business Structure
-                  </label>
-                  <div className="grid grid-cols-2 gap-3">
-                    {[
-                      { id: 'llc', label: 'LLC', icon: '🏢' },
-                      { id: 's-corp', label: 'S-Corp', icon: '📊' },
-                      { id: 'c-corp', label: 'C-Corp', icon: '🏛️' },
-                      { id: 'sole', label: 'Sole Prop', icon: '👤' },
-                    ].map((type) => (
-                      <button
-                        key={type.id}
-                        onClick={() => setBusinessType(type.id)}
-                        className={`p-3 rounded-lg font-semibold transition-all duration-300 ${
-                          businessType === type.id
-                            ? 'bg-prism-emerald text-prism-dark shadow-glow'
-                            : 'bg-prism-navy/50 text-white hover:bg-prism-navy/70'
-                        }`}
-                      >
-                        <div className="text-lg mb-1">{type.icon}</div>
-                        <div className="text-xs">{type.label}</div>
-                      </button>
-                    ))}
-                  </div>
-                </motion.div>
-
-                {/* State Selection */}
-                <motion.div
-                  custom={2}
-                  initial="hidden"
-                  whileInView="visible"
-                  viewport={{ once: true }}
-                  variants={itemVariants}
-                >
-                  <label className="block text-sm font-semibold text-prism-gray mb-3 uppercase tracking-widest">
-                    State of Operation
-                  </label>
-                  <select
-                    value={state}
-                    onChange={(e) => setState(e.target.value)}
-                    className="w-full px-4 py-3 rounded-lg bg-prism-navy/50 border border-white/10
-                      text-white focus:outline-none focus:border-prism-emerald focus:ring-2 focus:ring-prism-emerald/30
-                      transition-all cursor-pointer"
-                  >
-                    <option value="california">California (9.3%)</option>
-                    <option value="texas">Texas (0%)</option>
-                    <option value="florida">Florida (0%)</option>
-                    <option value="new-york">New York (6.85%)</option>
-                    <option value="other">Other State (5%)</option>
-                  </select>
-                </motion.div>
-              </div>
-            </motion.div>
-
-            {/* Results Section */}
-            <motion.div
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-              variants={containerVariants}
-              className="space-y-4"
-            >
-              {/* Main Savings Card */}
-              <motion.div
-                whileHover={{ scale: 1.02 }}
-                className="card-glass p-8 rounded-xl border-2 border-prism-emerald/50 hover:border-prism-emerald transition-all cursor-pointer shadow-glow"
-              >
-                <p className="text-prism-gray text-sm uppercase tracking-widest mb-2">Potential Annual Savings</p>
-                <p className="text-5xl sm:text-6xl font-bold gradient-text mb-3">${savings.toLocaleString()}</p>
-                <p className="text-prism-gray">
-                  That's approximately <span className="text-prism-gold font-bold">${monthlyRecovery.toLocaleString()}/month</span> in your pocket
-                </p>
-              </motion.div>
-
-              {/* Benefits Grid */}
-              <div className="grid grid-cols-2 gap-3">
-                {[
-                  { label: 'Tax Efficiency', value: `${Math.round((savings / (income * 0.37)) * 100)}%`, icon: '📈' },
-                  { label: 'Annual Return', value: `${((savings / income) * 100).toFixed(1)}%`, icon: '💰' },
-                ].map((benefit, idx) => (
-                  <motion.div
-                    key={idx}
-                    initial={{ opacity: 0, scale: 0.9 }}
-                    whileInView={{ opacity: 1, scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ delay: idx * 0.2 }}
-                    className="card-glass p-4 rounded-lg text-center hover:shadow-glow-gold transition-all"
-                  >
-                    <div className="text-2xl mb-2">{benefit.icon}</div>
-                    <p className="text-xs text-prism-gray uppercase tracking-widest mb-1">{benefit.label}</p>
-                    <p className="text-2xl font-bold gradient-text">{benefit.value}</p>
-                  </motion.div>
-                ))}
+            <div className="space-y-10">
+              {/* Annual Income */}
+              <div>
+                <label className="block text-xs uppercase tracking-widest text-text-muted font-medium mb-6">
+                  Annual Income
+                </label>
+                <div className="mb-4 p-4 rounded-lg bg-fintech-surface/50">
+                  <p className="text-4xl sm:text-5xl font-bold text-emerald-primary">
+                    ${formattedIncome}
+                  </p>
+                </div>
+                <input
+                  type="range"
+                  min="100000"
+                  max="5000000"
+                  step="50000"
+                  value={income}
+                  onChange={(e) => setIncome(Number(e.target.value))}
+                  className="w-full h-2 bg-fintech-border rounded-lg appearance-none cursor-pointer accent-emerald-primary"
+                />
+                <div className="flex justify-between text-xs text-text-muted mt-4 font-medium">
+                  <span>$100K</span>
+                  <span>$5M</span>
+                </div>
               </div>
 
-              {/* CTA Button */}
-              <motion.button
-                whileHover={{ scale: 1.05 }}
-                whileTap={{ scale: 0.98 }}
-                onClick={() => document.getElementById('cta')?.scrollIntoView({ behavior: 'smooth' })}
-                className="w-full px-6 py-4 rounded-lg font-bold text-lg transition-all duration-300
-                  bg-gradient-to-r from-prism-emerald to-prism-gold text-prism-dark
-                  hover:shadow-glow cursor-pointer"
-              >
-                Lock In Your Custom Strategy
-              </motion.button>
+              {/* Business Type */}
+              <div>
+                <label className="block text-xs uppercase tracking-widest text-text-muted font-medium mb-6">
+                  Business Structure
+                </label>
+                <div className="grid grid-cols-2 gap-4">
+                  {businessTypes.map((type) => (
+                    <motion.button
+                      key={type.value}
+                      whileHover={{ y: -2 }}
+                      whileTap={{ y: 0 }}
+                      onClick={() => setBusinessType(type.value)}
+                      className={`p-4 rounded-xl font-semibold transition-all duration-300 text-sm sm:text-base ${
+                        businessType === type.value
+                          ? 'bg-emerald-primary text-white shadow-lg'
+                          : 'bg-fintech-surface border border-fintech-border text-text-secondary hover:border-emerald-primary/30'
+                      }`}
+                    >
+                      {type.label}
+                    </motion.button>
+                  ))}
+                </div>
+              </div>
 
-              {/* Disclaimer */}
-              <p className="text-xs text-prism-gray text-center italic">
-                * This is an estimate. Actual savings depend on your complete financial picture and current tax laws.
+              {/* State */}
+              <div>
+                <label className="block text-xs uppercase tracking-widest text-text-muted font-medium mb-6">
+                  Operating State
+                </label>
+                <select
+                  value={state}
+                  onChange={(e) => setState(e.target.value)}
+                  className="w-full p-4 rounded-xl bg-fintech-surface border border-fintech-border
+                    text-text-primary font-semibold
+                    focus:border-emerald-primary focus:ring-2 focus:ring-emerald-primary/20
+                    transition-all outline-none cursor-pointer"
+                >
+                  {states.map((s) => (
+                    <option key={s.value} value={s.value}>
+                      {s.label}
+                    </option>
+                  ))}
+                </select>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Results section */}
+          <motion.div
+            initial={{ opacity: 0, x: 20 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.7 }}
+            viewport={{ once: true }}
+            className="flex flex-col gap-8 sm:gap-10"
+          >
+            {/* Annual savings - premium card */}
+            <motion.div
+              whileHover={{ y: -4 }}
+              className="fintech-card p-10 sm:p-12 rounded-2xl border-2 border-emerald-primary/30 hover:border-emerald-primary/50 transition-all duration-300"
+            >
+              <p className="text-xs uppercase tracking-widest text-text-muted font-medium mb-4">
+                Estimated Annual Savings
               </p>
+              <div className="mb-8">
+                <p className="text-5xl sm:text-6xl lg:text-7xl font-bold gradient-text leading-tight">
+                  ${formattedSavings}
+                </p>
+              </div>
+              <div className="space-y-4 pt-8 border-t border-fintech-border">
+                <div className="flex justify-between items-center">
+                  <span className="text-text-secondary text-sm">Monthly Recovery</span>
+                  <span className="font-bold text-text-primary text-lg">
+                    ${monthlyRecovery.toLocaleString()}
+                  </span>
+                </div>
+                <div className="flex justify-between items-center">
+                  <span className="text-text-secondary text-sm">5-Year Cumulative</span>
+                  <span className="font-bold text-emerald-primary text-lg">
+                    ${(savings * 5).toLocaleString()}
+                  </span>
+                </div>
+              </div>
             </motion.div>
-          </div>
+
+            {/* Benefits list */}
+            <div className="space-y-4">
+              {[
+                'Based on current tax law & proven strategies',
+                'Assumes engaged, ongoing optimization',
+                'Results vary by individual situation',
+                'Consultation required for final analysis',
+              ].map((benefit, idx) => (
+                <motion.div
+                  key={idx}
+                  initial={{ opacity: 0, y: 10 }}
+                  whileInView={{ opacity: 1, y: 0 }}
+                  transition={{ duration: 0.5, delay: idx * 0.1 }}
+                  viewport={{ once: true }}
+                  className="flex gap-4 items-start text-sm text-text-secondary leading-relaxed"
+                >
+                  <div className="mt-1.5 w-1.5 h-1.5 rounded-full bg-emerald-primary flex-shrink-0" />
+                  <span>{benefit}</span>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* CTA button */}
+            <motion.button
+              whileHover={{ y: -3 }}
+              whileTap={{ y: 0 }}
+              onClick={() => document.getElementById('cta')?.scrollIntoView({ behavior: 'smooth' })}
+              className="mt-auto px-8 py-4 sm:py-5 rounded-xl font-semibold text-base sm:text-lg
+                bg-emerald-primary hover:bg-emerald-hover text-white
+                transition-all duration-300 shadow-lg hover:shadow-xl"
+            >
+              Discuss Your Strategy
+            </motion.button>
+          </motion.div>
         </motion.div>
+
+        {/* Disclaimer */}
+        <motion.p
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.6, delay: 0.3 }}
+          viewport={{ once: true }}
+          className="mt-16 sm:mt-20 text-center text-xs sm:text-sm text-text-muted max-w-2xl mx-auto leading-relaxed font-light"
+        >
+          This calculator provides estimates for informational purposes only and does not constitute financial or tax advice. Actual results depend on your complete financial situation, applicable tax law, and personalized strategy implementation.
+        </motion.p>
       </div>
     </section>
   )
