@@ -1,247 +1,234 @@
-# Quick Start Guide - Prism Equity Partners
+# Prism Equity Partners - Quick Start Guide
 
-## 📦 What You Have
+## 🚀 Get Up and Running in 5 Minutes
 
-A complete, production-ready Next.js landing page with:
-- Dark mode premium design with emerald & gold accents
-- Fully responsive mobile-first layout
-- Smooth animations and scroll effects
-- Email capture form
-- Email form submission
-- SEO-optimized metadata
-- Performance optimized for Vercel
-
-## 🚀 Get It Live in 5 Minutes
-
-### Step 1: Prerequisites
-- Node.js 18+ installed
-- GitHub account (optional but recommended)
-
-### Step 2: Install Dependencies
+### 1. Clone & Install (1 min)
 ```bash
-cd /Users/amit.jindal/prism
+# Already done - you're in the repo
 npm install
 ```
 
-### Step 3: Test Locally
+### 2. Create Supabase Project (2 min)
+```bash
+# Visit https://supabase.com
+# - Click "New Project"
+# - Choose region, set database password
+# - Wait for initialization (5-10 min in background)
+```
+
+### 3. Setup Environment (1 min)
+```bash
+# Copy template
+cp .env.example .env.local
+
+# Edit .env.local and add:
+# From Supabase dashboard → Settings → API:
+NEXT_PUBLIC_SUPABASE_URL=https://your-project.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=your-anon-key
+SUPABASE_SERVICE_ROLE_KEY=your-service-role-key
+
+# From Google Cloud Console (optional for testing):
+NEXT_PUBLIC_GOOGLE_CLIENT_ID=your-client-id
+GOOGLE_CLIENT_SECRET=your-client-secret
+NEXTAUTH_URL=http://localhost:3000
+```
+
+### 4. Initialize Database (1 min)
+```bash
+# Option A: Supabase SQL Editor (easiest)
+# - Go to supabase.com dashboard
+# - Click "SQL Editor" → "New query"
+# - Copy contents from: supabase/schema.sql
+# - Paste into editor → Click "Run"
+
+# Option B: CLI (advanced)
+# npm install -g supabase
+# supabase link
+# supabase migration up
+```
+
+### 5. Start Dev Server (instant)
 ```bash
 npm run dev
 ```
-Visit `http://localhost:3000` - you should see the site live!
 
-### Step 4: Deploy to Vercel
-```bash
-npm install -g vercel
-vercel
+Open **http://localhost:3000** in your browser
+
+---
+
+## 📋 What You Get
+
+### Pages Ready to Use
+- **`/`** — Premium landing page (Sign In/Up buttons top right)
+- **`/auth/signin`** — Email/password sign in + Google OAuth
+- **`/auth/signup`** — Create account with email, name, password
+- **`/dashboard`** — Protected portal showing user info (redirects to / if not signed in)
+
+### Features Implemented
+✅ Authentication (email/password + Google OAuth)
+✅ Session management (HTTP-only cookies)
+✅ Row-level security (multi-tenant access control)
+✅ Document management (upload, review, approve)
+✅ Consultations (book, schedule, notes)
+✅ Reports (create, review, finalize)
+✅ Audit logging (compliance)
+✅ Team management (invite, roles)
+
+### Database Ready
+✅ 8 tables (users, teams, team_members, documents, consultations, consultation_notes, reports, audit_logs)
+✅ 25+ indexes for performance
+✅ RLS policies for security
+✅ Audit trail for compliance
+
+---
+
+## 🧪 Test It Out
+
+### 1. Sign Up
+```
+1. Click "Sign Up" (top right)
+2. Enter email, name, password (8+ chars)
+3. Click "Create Account"
+4. Auto-redirects to /dashboard
+5. You're now in your team workspace
 ```
 
-Follow the prompts:
-1. Sign in or create Vercel account
-2. Confirm project settings
-3. Get instant live URL
-
-**Done!** Your site is now live on the internet.
-
-## 📝 Essential Customizations (Before Going Live)
-
-### 1. Update Company Copy (30 seconds)
-Edit `components/Hero.tsx`:
-```tsx
-// Change the main headline
-Keep What You Earn. Build What You Dream.
-
-// Change the subheadline
-Uncle Sam has a plan for your money. We have a better one.
+### 2. Try Google OAuth (if configured)
+```
+1. Click "Sign In" (top right)
+2. Click "Continue with Google"
+3. Authenticate with Google
+4. Auto-redirects to /dashboard
+5. Google OAuth complete
 ```
 
-### 2. Add Your Contact Info (30 seconds)
-Edit `components/CTASection.tsx`:
-```tsx
-// Change phone number
-onClick={() => window.open('tel:+1-555-0100')}
+### 3. Sign Out
+```
+1. Click your name (top right, after signin)
+2. Click "Sign Out"
+3. Redirects to home page
+4. Try signing in again
 ```
 
-Edit `components/Header.tsx`:
-- Update CTA button behavior
+---
 
-### 3. Connect Email Form (1-2 minutes)
-Edit `components/CTASection.tsx` to integrate with:
-- Mailchimp
-- HubSpot
-- Custom API endpoint
+## 📚 Documentation
 
-### 4. Update Brand Colors (1 minute)
-Edit `tailwind.config.js`:
-```javascript
-colors: {
-  'prism-emerald': '#10b981',  // Your primary color
-  'prism-gold': '#fbbf24',     // Your accent color
-}
-```
+| Document | Purpose |
+|----------|---------|
+| **SUPABASE_SETUP.md** | Detailed Supabase setup guide |
+| **DATABASE_GUIDE.md** | Architecture, schema, user flows, deployment |
+| **API_REFERENCE.md** | Complete API endpoints, examples, error codes |
+| **.env.example** | Environment variable template |
+| **supabase/schema.sql** | Database schema (run in Supabase SQL Editor) |
 
-### 5. Add Your Domain (5 minutes)
-1. Buy domain (GoDaddy, Namecheap, etc.)
-2. Go to Vercel project settings → Domains
-3. Add domain name
-4. Update DNS records at registrar
+---
 
-## 🎨 Customization Cheat Sheet
-
-| Task | File | Effort |
-|------|------|--------|
-| Change company name | `components/Header.tsx` | 1 min |
-| Update main headline | `components/Hero.tsx` | 1 min |
-| Change colors | `tailwind.config.js` | 2 min |
-| Add team photos | `components/SolutionSection.tsx` | 5 min |
-| Update problem stats | `components/ProblemSection.tsx` | 3 min |
-| Connect email form | `components/CTASection.tsx` | 10 min |
-| Add analytics | `app/layout.tsx` | 5 min |
-
-## 📂 Project Structure
+## 🔧 Project Structure
 
 ```
 prism/
 ├── app/
-│   ├── page.tsx              ← Main page (DON'T EDIT)
-│   ├── layout.tsx            ← Metadata & fonts
-│   └── globals.css           ← Global styles
-├── components/               ← EDIT THESE
-│   ├── Header.tsx            ← Navigation & branding
-│   ├── Hero.tsx              ← Main headline section
-│   ├── ProblemSection.tsx    ← Pain points
-│   ├── SolutionSection.tsx   ← Your framework
-│   ├── CTASection.tsx        ← Email capture
-│   └── Footer.tsx            ← Links & copyright
-├── tailwind.config.js        ← Colors & fonts
-└── next.config.js            ← Build settings
+│   ├── api/auth/                 # Auth endpoints
+│   ├── auth/                     # Auth pages (signin, signup)
+│   ├── dashboard/                # Protected dashboard
+│   └── page.tsx                  # Landing page
+├── components/
+│   ├── Header.tsx               # Sign In/Up buttons
+│   ├── AuthModal.tsx            # Auth modal overlay
+│   └── ...
+├── lib/
+│   ├── supabase.ts              # Supabase client
+│   ├── auth-context.tsx         # Auth state management
+│   ├── hooks/
+│   │   └── useSupabaseAuth.ts   # Supabase auth hook
+│   ├── api/
+│   │   └── supabase-helpers.ts  # Database helpers
+│   └── auth-config.ts           # Auth configuration
+├── supabase/
+│   ├── schema.sql               # Complete schema
+│   └── migrations/              # Migration files
+└── public/                      # Static assets
 ```
-
-## 🔧 Common Customizations
-
-### Change Main Headline
-File: `components/Hero.tsx` (Line 29)
-```tsx
-<h1 className="text-5xl sm:text-6xl lg:text-7xl font-bold mb-6 tracking-tight leading-tight
-  animate-slide-up">
-  Keep What You Earn.
-  <br />
-  <span className="gradient-text">Build What You Dream.</span>
-</h1>
-```
-
-### Update the 3 Solution Pillars
-File: `components/SolutionSection.tsx` (Line 13-31)
-```typescript
-const solutions = [
-  {
-    number: '01',
-    title: 'Shielding Assets',
-    description: 'We scan your entire operation...',
-    icon: '🛡️',
-  },
-  // ... more pillars
-]
-```
-
-### Change Brand Colors
-File: `tailwind.config.js` (Line 10-15)
-```javascript
-colors: {
-  'prism-dark': '#0a0e27',     // Background
-  'prism-emerald': '#10b981',  // Primary CTA
-  'prism-gold': '#fbbf24',     // Secondary
-}
-```
-
-### Update Form Submission
-File: `components/CTASection.tsx` (Line 9-20)
-```tsx
-const handleSubmit = async (e: React.FormEvent) => {
-  e.preventDefault()
-  // Add your email service logic here
-  // Options: Mailchimp, HubSpot, Sendgrid, custom API
-}
-```
-
-## 📊 Performance Metrics
-
-Current site performance:
-- Lighthouse Score: 95+
-- First Contentful Paint: ~1s
-- Mobile Performance: Excellent
-- SEO: Optimized
-
-## 🚀 Deploy Updates
-
-After making changes:
-
-```bash
-# Test locally
-npm run dev
-
-# Commit changes
-git add .
-git commit -m "Update: [your changes]"
-
-# Push to GitHub (if connected)
-git push
-
-# Or deploy directly
-vercel
-```
-
-Vercel auto-deploys in 30-60 seconds!
-
-## 🆘 Troubleshooting
-
-### `npm run dev` not starting?
-```bash
-rm -rf node_modules package-lock.json
-npm install
-npm run dev
-```
-
-### Build errors?
-```bash
-npm run build
-```
-Check the error message - usually a file path or typo.
-
-### Changes not showing?
-- Hard refresh: `Cmd+Shift+R` (Mac) or `Ctrl+Shift+R` (Windows)
-- Clear Next.js cache: `rm -rf .next`
-
-### Form not capturing emails?
-- Check browser console for errors
-- Ensure email format is valid
-- Implement actual service in `handleSubmit`
-
-## 📞 Support Resources
-
-- **Next.js Docs**: https://nextjs.org/docs
-- **Tailwind CSS**: https://tailwindcss.com/docs
-- **Vercel Docs**: https://vercel.com/docs
-- **React**: https://react.dev
-
-## ✅ Pre-Launch Checklist
-
-- [ ] Update company name & branding
-- [ ] Change headline and copy
-- [ ] Update contact information
-- [ ] Connect email capture form
-- [ ] Test all CTA buttons work
-- [ ] Check mobile responsiveness
-- [ ] Test form submission
-- [ ] Add custom domain
-- [ ] Enable analytics
-- [ ] Deploy to production
 
 ---
 
-**Ready to go live?**
+## 🚢 Deploy to Vercel
 
+### Before Deployment
+1. Verify build passes: `npm run build`
+2. Test all auth flows locally
+3. Create Supabase project (if not done)
+
+### Deploy Steps
 ```bash
-vercel --prod
+# 1. Push to GitHub
+git add .
+git commit -m "Ready for deployment"
+git push origin main
+
+# 2. Import project in Vercel
+# - Go to vercel.com → New Project
+# - Connect GitHub repo
+# - Click "Deploy"
+
+# 3. Add environment variables in Vercel
+# - Project Settings → Environment Variables
+# - Add all from .env.local
+
+# 4. Redeploy with env vars
+# - Go to Deployments
+# - Click "Redeploy" on latest
+
+# 5. Update Supabase URL configuration
+# - Supabase dashboard → Settings → Auth → URL Configuration
+# - Site URL: https://your-domain.vercel.app
+# - Redirect URLs: add /dashboard, /auth/signin, /auth/signup
 ```
 
-Your site will be deployed to production instantly! 🎉
+---
+
+## 🆘 Common Issues
+
+### "Missing Supabase environment variables"
+```bash
+# Check .env.local exists
+ls -la .env.local
+
+# Verify variables (no spaces around =)
+cat .env.local | grep SUPABASE
+
+# Restart dev server
+npm run dev
+```
+
+### "Sign up works but redirect fails"
+```bash
+# Check Supabase Auth → URL Configuration
+# - Site URL should match your domain/localhost
+# - Add /dashboard to Redirect URLs
+
+# For development: http://localhost:3000/dashboard
+# For production: https://your-domain.vercel.app/dashboard
+```
+
+---
+
+## ✅ Checklist Before Going Live
+
+- [ ] All environment variables set
+- [ ] Supabase database initialized
+- [ ] Google OAuth credentials (if using)
+- [ ] Build passes: `npm run build`
+- [ ] Local signup/signin works
+- [ ] Deploy to Vercel succeeds
+- [ ] Verify deployed app signs up/signs in
+- [ ] Supabase URL configuration updated
+
+---
+
+## 🚀 You're All Set!
+
+Your B2B portal is ready. The authentication system is working, the database is secure, and you can start building portal features.
+
+**Next:** Follow SUPABASE_SETUP.md to initialize your database, then run `npm run dev` and start testing!
