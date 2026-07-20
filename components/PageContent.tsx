@@ -1,5 +1,6 @@
 'use client'
 
+import { AuthProvider } from '@/lib/auth-context'
 import Header from './Header'
 import Hero from './Hero'
 import ProblemSection from './ProblemSection'
@@ -12,7 +13,7 @@ import TestimonialsCarousel from './TestimonialsCarousel'
 import CTASection from './CTASection'
 import Footer from './Footer'
 
-export default function PageContent() {
+function PageContentInner() {
   return (
     <main className="flex-1 w-full bg-fintech-canvas text-text-primary">
       <Header />
@@ -27,5 +28,13 @@ export default function PageContent() {
       <CTASection />
       <Footer />
     </main>
+  )
+}
+
+export default function PageContent() {
+  return (
+    <AuthProvider>
+      <PageContentInner />
+    </AuthProvider>
   )
 }
