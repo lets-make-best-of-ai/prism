@@ -16,6 +16,8 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@supabase/auth-helpers-nextjs": "^0.15.0",
+    "@supabase/supabase-js": "^2.110.7",
     "@tailwindcss/postcss": "^4.3.3",
     "framer-motion": "^12.42.2",
     "jose": "^6.2.3",
