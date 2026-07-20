@@ -42,7 +42,8 @@ export default function Header() {
           initial={{ opacity: 0, x: -20 }}
           animate={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.5 }}
-          className="flex items-center gap-2"
+          className="flex items-center gap-2 cursor-pointer"
+          onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
         >
           <div className="text-2xl sm:text-3xl font-bold tracking-tighter">
             <span className="gradient-text">Prism</span>
@@ -71,26 +72,28 @@ export default function Header() {
               <Suspense fallback={<div className="w-9 h-9" />}>
                 <ThemeToggle />
               </Suspense>
-              <motion.button
-                whileHover={{ y: -2 }}
-                whileTap={{ y: 0 }}
-                onClick={handleSignIn}
-                className="px-6 py-2.5 rounded-xl font-semibold text-sm
-                  text-emerald-primary border-2 border-emerald-primary
-                  hover:bg-emerald-primary/10 transition-all duration-300"
-              >
-                Sign In
-              </motion.button>
-              <motion.button
-                whileHover={{ y: -2 }}
-                whileTap={{ y: 0 }}
-                onClick={handleSignUp}
-                className="px-6 py-2.5 rounded-xl font-semibold text-sm
-                  bg-emerald-primary hover:bg-emerald-hover text-white
-                  transition-all duration-300 shadow-md hover:shadow-lg"
-              >
-                Sign Up
-              </motion.button>
+              <div className="flex items-center gap-3 pl-4 border-l border-fintech-border">
+                <motion.button
+                  whileHover={{ y: -2 }}
+                  whileTap={{ y: 0 }}
+                  onClick={handleSignIn}
+                  className="px-6 py-2.5 rounded-xl font-semibold text-sm
+                    text-emerald-primary border-2 border-emerald-primary
+                    hover:bg-emerald-primary/10 transition-all duration-300"
+                >
+                  Sign In
+                </motion.button>
+                <motion.button
+                  whileHover={{ y: -2 }}
+                  whileTap={{ y: 0 }}
+                  onClick={handleSignUp}
+                  className="px-6 py-2.5 rounded-xl font-semibold text-sm
+                    bg-emerald-primary hover:bg-emerald-hover text-white
+                    transition-all duration-300 shadow-md hover:shadow-lg"
+                >
+                  Sign Up
+                </motion.button>
+              </div>
             </>
           ) : (
             <>
