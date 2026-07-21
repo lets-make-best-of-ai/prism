@@ -1,16 +1,15 @@
 'use client'
 
 import { useState, Suspense, lazy } from 'react'
+import { useRouter } from 'next/navigation'
 import { motion } from 'framer-motion'
 import { useAuth } from '@/lib/auth-context'
-import AuthModal from './AuthModal'
 
 const ThemeToggle = lazy(() => import('./ThemeToggle'))
 
 export default function Header() {
   const [isOpen, setIsOpen] = useState(false)
-  const [authModalOpen, setAuthModalOpen] = useState(false)
-  const [authMode, setAuthMode] = useState<'signin' | 'signup'>('signin')
+  const router = useRouter()
   const { user, isAuthenticated, signOut } = useAuth()
 
   const scrollToSection = (id: string) => {
@@ -20,13 +19,11 @@ export default function Header() {
   }
 
   const handleSignIn = () => {
-    setAuthMode('signin')
-    setAuthModalOpen(true)
+    router.push('/auth/signin')
   }
 
   const handleSignUp = () => {
-    setAuthMode('signup')
-    setAuthModalOpen(true)
+    router.push('/auth/signup')
   }
 
   const handleSignOut = async () => {
@@ -211,12 +208,6 @@ export default function Header() {
         </motion.div>
       )}
 
-      {/* Auth Modal */}
-      <AuthModal
-        isOpen={authModalOpen}
-        onClose={() => setAuthModalOpen(false)}
-        initialMode={authMode}
-      />
     </header>
   )
 }
