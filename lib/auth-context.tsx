@@ -107,7 +107,7 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const signInWithGoogle = () => {
     // Redirect to Google OAuth
     const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID
-    const redirectUri = `${window.location.origin}/auth/callback/google`
+    const redirectUri = `${window.location.origin}/api/auth/callback/google`
     const scope = 'openid profile email'
     const responseType = 'code'
 
