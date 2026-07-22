@@ -46,7 +46,7 @@ export default function Hero() {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 30 }}
             transition={{ duration: 0.9, delay: 0.1 }}
-            className="text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-[1.15] mb-8 text-text-primary"
+            className="font-display text-5xl sm:text-6xl lg:text-7xl xl:text-8xl font-bold tracking-tight leading-[1.15] mb-8 text-text-primary"
           >
             Keep What
             <br />
@@ -75,20 +75,20 @@ export default function Hero() {
             className="flex flex-col sm:flex-row gap-6 justify-center items-center mb-20"
           >
             <motion.button
-              whileHover={{ y: -3, boxShadow: '0 8px 32px rgba(16, 185, 129, 0.25)' }}
+              whileHover={{ y: -3, boxShadow: '0 8px 32px rgba(0, 95, 157, 0.25)' }}
               whileTap={{ y: 0 }}
               onClick={() => scrollToSection('cta')}
-              className="px-8 sm:px-10 py-4 sm:py-5 rounded-xl font-semibold text-base sm:text-lg
+              className="px-8 sm:px-10 py-4 sm:py-5 rounded-full font-semibold text-base sm:text-lg
                 bg-emerald-primary hover:bg-emerald-hover text-white
                 transition-all duration-300 shadow-lg hover:shadow-2xl"
             >
               Schedule Your Consultation
             </motion.button>
             <motion.button
-              whileHover={{ y: -3, borderColor: 'rgb(16, 185, 129)' }}
+              whileHover={{ y: -3, borderColor: 'rgb(0, 95, 157)' }}
               whileTap={{ y: 0 }}
               onClick={() => scrollToSection('solution')}
-              className="px-8 sm:px-10 py-4 sm:py-5 rounded-xl font-semibold text-base sm:text-lg
+              className="px-8 sm:px-10 py-4 sm:py-5 rounded-full font-semibold text-base sm:text-lg
                 border-2 border-emerald-primary/50 text-emerald-primary
                 hover:bg-emerald-primary/10 transition-all duration-300"
             >

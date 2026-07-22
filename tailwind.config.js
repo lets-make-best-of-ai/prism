@@ -15,19 +15,19 @@ export default {
       colors: {
         /* Foundation: Slate & Charcoal - Premium dark backgrounds */
         'fintech': {
-          'canvas': '#0B0F19',        /* Background Canvas - Ultimate depth */
-          'surface': '#161C2A',       /* Card Surfaces - Elevated depth */
-          'border': '#242F41',        /* Borders - Subtle definition */
+          'canvas': '#111111',        /* Background Canvas - Ultimate depth */
+          'surface': '#2b2b2b',       /* Card Surfaces - Elevated depth */
+          'border': '#3A3A3A',        /* Borders - Subtle definition */
           'hover': '#1F2937',         /* Hover state - Interactive feedback */
           'focus': '#2D3D52',         /* Focus state - Accessibility */
         },
 
-        /* Accent: Emerald - Trust, security, tax benefit communication */
+        /* Accent: Pixel Grove Blue - Trust, precision, tax advisory communication */
         'emerald': {
-          'primary': '#10B981',       /* Primary action - Trust signal */
-          'hover': '#059669',         /* Hover state - Interactive feedback */
-          'light': '#D1FAE5',         /* Light variant - Backgrounds */
-          'dark': '#047857',          /* Dark variant - Emphasis */
+          'primary': '#005F9D',       /* Primary action - Trust signal */
+          'hover': '#345173',         /* Hover state - Interactive feedback */
+          'light': '#F5F8FE',         /* Light variant - Backgrounds */
+          'dark': '#00456f',          /* Dark variant - Emphasis */
         },
 
         /* Text Hierarchy - Optimized for readability */
@@ -99,8 +99,8 @@ export default {
          Typography: Modern font stack with fallbacks
          ═══════════════════════════════════════════════════════════════ */
       fontFamily: {
-        sans: ['Inter', 'Geist', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
-        display: ['Hanken Grotesk', 'Inter', 'system-ui', 'sans-serif'],
+        sans: ['Manrope', 'Inter', '-apple-system', 'BlinkMacSystemFont', 'system-ui', 'sans-serif'],
+        display: ['Manrope', 'Hanken Grotesk', 'Inter', 'system-ui', 'sans-serif'],
         'headline': ['Hanken Grotesk'],
         'body': ['Inter'],
         'label': ['Geist'],

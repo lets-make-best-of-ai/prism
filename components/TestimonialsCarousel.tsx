@@ -85,7 +85,7 @@ export default function TestimonialsCarousel() {
           viewport={{ once: true }}
           className="text-center max-w-3xl mx-auto mb-20 sm:mb-28"
         >
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-8 text-text-primary">
+          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-8 text-text-primary">
             Trusted by
             <br />
             <span className="gradient-text">Elite Entrepreneurs & Investors</span>

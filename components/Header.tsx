@@ -53,14 +53,14 @@ export default function Header() {
           {!isAuthenticated ? (
             <>
               <motion.button
-                whileHover={{ color: '#10B981' }}
+                whileHover={{ color: '#005F9D' }}
                 onClick={() => scrollToSection('solution')}
                 className="text-text-secondary hover:text-emerald-primary transition-colors font-medium text-sm"
               >
                 Strategy
               </motion.button>
               <motion.button
-                whileHover={{ color: '#10B981' }}
+                whileHover={{ color: '#005F9D' }}
                 onClick={() => scrollToSection('cta')}
                 className="text-text-secondary hover:text-emerald-primary transition-colors font-medium text-sm"
               >
@@ -74,7 +74,7 @@ export default function Header() {
                   whileHover={{ y: -2 }}
                   whileTap={{ y: 0 }}
                   onClick={handleSignIn}
-                  className="px-6 py-2.5 rounded-xl font-semibold text-sm
+                  className="px-6 py-2.5 rounded-full font-semibold text-sm
                     text-emerald-primary border-2 border-emerald-primary
                     hover:bg-emerald-primary/10 transition-all duration-300"
                 >
@@ -84,7 +84,7 @@ export default function Header() {
                   whileHover={{ y: -2 }}
                   whileTap={{ y: 0 }}
                   onClick={handleSignUp}
-                  className="px-6 py-2.5 rounded-xl font-semibold text-sm
+                  className="px-6 py-2.5 rounded-full font-semibold text-sm
                     bg-emerald-primary hover:bg-emerald-hover text-white
                     transition-all duration-300 shadow-md hover:shadow-lg"
                 >
@@ -113,7 +113,7 @@ export default function Header() {
                   whileHover={{ y: -2 }}
                   whileTap={{ y: 0 }}
                   onClick={handleSignOut}
-                  className="px-6 py-2.5 rounded-xl font-semibold text-sm
+                  className="px-6 py-2.5 rounded-full font-semibold text-sm
                     text-emerald-primary border-2 border-emerald-primary
                     hover:bg-emerald-primary/10 transition-all duration-300"
                 >
@@ -174,7 +174,7 @@ export default function Header() {
               </motion.button>
               <button
                 onClick={handleSignIn}
-                className="w-full px-6 py-3 rounded-xl font-semibold
+                className="w-full px-6 py-3 rounded-full font-semibold
                   border-2 border-emerald-primary text-emerald-primary
                   hover:bg-emerald-primary/10 transition-all"
               >
@@ -182,7 +182,7 @@ export default function Header() {
               </button>
               <button
                 onClick={handleSignUp}
-                className="w-full px-6 py-3 rounded-xl font-semibold
+                className="w-full px-6 py-3 rounded-full font-semibold
                   bg-emerald-primary hover:bg-emerald-hover text-white
                   transition-all"
               >
@@ -197,7 +197,7 @@ export default function Header() {
               </div>
               <button
                 onClick={handleSignOut}
-                className="w-full px-6 py-3 rounded-xl font-semibold
+                className="w-full px-6 py-3 rounded-full font-semibold
                   border-2 border-emerald-primary text-emerald-primary
                   hover:bg-emerald-primary/10 transition-all"
               >

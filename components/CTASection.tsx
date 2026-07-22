@@ -51,7 +51,7 @@ export default function CTASection() {
           viewport={{ once: true }}
           className="fintech-card p-12 sm:p-16 lg:p-20 rounded-3xl border border-fintech-border text-center mb-20 sm:mb-28"
         >
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-8 text-text-primary">
+          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-8 text-text-primary">
             Your Wealth.
             <br />
             <span className="gradient-text">Your Rules.</span>
@@ -91,7 +91,7 @@ export default function CTASection() {
                   whileTap={{ y: 0 }}
                   type="submit"
                   disabled={isSubmitting}
-                  className="px-8 sm:px-10 py-4 rounded-xl font-semibold text-base sm:text-lg
+                  className="px-8 sm:px-10 py-4 rounded-full font-semibold text-base sm:text-lg
                     bg-emerald-primary hover:bg-emerald-hover text-white
                     transition-all duration-300 disabled:opacity-50 disabled:cursor-not-allowed
                     shadow-lg hover:shadow-xl"
@@ -135,7 +135,7 @@ export default function CTASection() {
               whileHover={{ y: -4 }}
               className="p-10 sm:p-12 text-center hover:bg-fintech-surface/50 rounded-xl transition-all duration-300"
             >
-              <p className="text-4xl sm:text-5xl lg:text-6xl font-bold gradient-text mb-4 leading-tight">
+              <p className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold gradient-text mb-4 leading-tight">
                 {item.stat}
               </p>
               <p className="text-sm sm:text-base text-text-muted uppercase tracking-widest font-medium">

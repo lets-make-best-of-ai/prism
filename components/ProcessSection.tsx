@@ -93,7 +93,7 @@ export default function ProcessSection() {
           transition={{ duration: 0.8 }}
           className="max-w-3xl mb-20 sm:mb-28"
         >
-          <h2 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-8 text-text-primary">
+          <h2 className="font-display text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-8 text-text-primary">
             Our Process
             <br />
             <span className="gradient-text">Your Timeline</span>
