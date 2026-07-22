@@ -3,17 +3,28 @@
 import { useAuth } from '@/lib/auth-context'
 import { useRouter } from 'next/navigation'
 import { useEffect } from 'react'
+import React from 'react'
 import { motion } from 'framer-motion'
 
 export default function DashboardPage() {
   const { user, isAuthenticated, isLoading } = useAuth()
   const router = useRouter()
+  const [onboardingChecked, setOnboardingChecked] = React.useState(false)
 
   useEffect(() => {
     if (!isLoading && !isAuthenticated) {
       router.push('/')
+      return
     }
-  }, [isAuthenticated, isLoading, router])
+
+    // Check if onboarding is completed
+    if (!isLoading && isAuthenticated && user) {
+      // For now, redirect all users to onboarding
+      // In production, this would check if they completed it
+      router.push('/onboarding')
+      setOnboardingChecked(true)
+    }
+  }, [isAuthenticated, isLoading, router, user])
 
   if (isLoading) {
     return (
