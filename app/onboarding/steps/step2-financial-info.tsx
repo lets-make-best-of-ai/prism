@@ -3,11 +3,11 @@
 import { useState, useEffect } from 'react'
 
 interface Step2Data {
-  housingStatus?: string
-  primaryIncomeSources?: string[]
-  primaryOtherIncome?: string
-  spouseIncomeSources?: string[]
-  spouseOtherIncome?: string
+  primarySalary?: string
+  spouseSalary?: string
+  bonuses?: string
+  rental?: string
+  dividends?: string
 }
 
 interface Step2Props {
@@ -15,161 +15,120 @@ interface Step2Props {
   onDataChange: (data: Step2Data) => void
 }
 
-const INCOME_OPTIONS = [
-  { id: 'salary', label: 'Salary' },
-  { id: 'social_security', label: 'Social Security' },
-  { id: 'self_employment', label: 'Self Employment' },
-  { id: 'investment_stocks', label: 'Investment Income (Stocks)' },
-  { id: 'esop', label: 'ESOP' },
-  { id: 'rental', label: 'Rental Income' },
-  { id: 'royalties', label: 'Royalty Income' },
-]
-
 export default function Step2FinancialInfo({ data, onDataChange }: Step2Props) {
   const [formData, setFormData] = useState<Step2Data>(data || {})
+  const [activeCards, setActiveCards] = useState<Set<string>>(new Set())
 
   useEffect(() => {
     onDataChange(formData)
   }, [formData])
 
-  const handleHousingChange = (value: string) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target
     setFormData(prev => ({
       ...prev,
-      housingStatus: value,
+      [name]: value,
     }))
   }
 
-  const handleIncomeChange = (
-    type: 'primary' | 'spouse',
-    sourceId: string,
-    checked: boolean
-  ) => {
-    const key = type === 'primary' ? 'primaryIncomeSources' : 'spouseIncomeSources'
-    setFormData(prev => ({
-      ...prev,
-      [key]: checked
-        ? [...(prev[key] || []), sourceId]
-        : (prev[key] || []).filter(s => s !== sourceId),
-    }))
+  const toggleCard = (cardId: string) => {
+    const newActive = new Set(activeCards)
+    if (newActive.has(cardId)) {
+      newActive.delete(cardId)
+    } else {
+      newActive.add(cardId)
+    }
+    setActiveCards(newActive)
   }
 
-  const handleOtherIncomeChange = (type: 'primary' | 'spouse', value: string) => {
-    const key = type === 'primary' ? 'primaryOtherIncome' : 'spouseOtherIncome'
-    setFormData(prev => ({
-      ...prev,
-      [key]: value,
-    }))
-  }
-
-  const renderIncomeCheckboxes = (
-    type: 'primary' | 'spouse',
-    sources: string[] = []
-  ) => {
-    const otherIncome = type === 'primary' ? formData.primaryOtherIncome : formData.spouseOtherIncome
-
-    return (
-      <div className="space-y-3">
-        {INCOME_OPTIONS.map(option => (
-          <label key={option.id} className="flex items-center gap-3 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={sources.includes(option.id)}
-              onChange={(e) => handleIncomeChange(type, option.id, e.target.checked)}
-              className="w-5 h-5 rounded border-slate-200 accent-indigo-600 cursor-pointer"
-            />
-            <span className="text-sm font-medium text-slate-700">
-              {option.label}
-            </span>
-          </label>
-        ))}
-
-        {/* Other Income */}
-        <div className="pt-2">
-          <label className="flex items-start gap-3 cursor-pointer">
-            <input
-              type="checkbox"
-              checked={!!otherIncome}
-              onChange={(e) => handleOtherIncomeChange(type, e.target.checked ? 'other' : '')}
-              className="w-5 h-5 rounded border-slate-200 accent-indigo-600 cursor-pointer mt-0.5"
-            />
-            <div className="flex-1">
-              <span className="text-sm font-medium text-slate-700">Other Source</span>
-              {otherIncome && (
-                <input
-                  type="text"
-                  placeholder="Please specify"
-                  value={otherIncome === 'other' ? '' : otherIncome}
-                  onChange={(e) => handleOtherIncomeChange(type, e.target.value)}
-                  className="w-full mt-2 px-4 py-2 rounded-2xl border border-slate-200 bg-slate-50 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent focus:bg-white transition-colors"
-                />
-              )}
-            </div>
-          </label>
-        </div>
-      </div>
-    )
-  }
-
-  const isMarried = true
+  const incomeCards = [
+    { id: 'bonuses', label: 'Bonuses', description: 'Annual performance-based equity or cash incentives.', icon: 'redeem' },
+    { id: 'rental', label: 'Rental', description: 'Passive net income from real estate portfolios.', icon: 'real_estate_agent' },
+    { id: 'dividends', label: 'Dividends', description: 'Recurring payouts from equity and fund holdings.', icon: 'show_chart' },
+  ]
 
   return (
-    <div className="space-y-6">
-      <h2 className="text-lg font-bold text-slate-900">Housing & Income</h2>
-
-      {/* Housing Status */}
-      <div className="space-y-3">
-        <label className="block text-sm font-semibold text-slate-700">
-          Housing Status <span className="text-red-500">*</span>
-        </label>
-        <p className="text-xs text-slate-600 mb-3">Do you rent or own your house?</p>
-
-        <div className="flex gap-3">
-          {['renting', 'owning'].map(status => (
-            <label
-              key={status}
-              className={`flex-1 p-3 rounded-xl border-2 cursor-pointer transition-all ${
-                formData.housingStatus === status
-                  ? 'bg-indigo-50 border-indigo-600'
-                  : 'bg-white border-slate-200 hover:border-slate-300'
-              }`}
-            >
+    <div className="space-y-8">
+      {/* Primary Income Section */}
+      <section className="glass-card rounded-xl p-stack-lg flex flex-col gap-6 neon-glow-indigo">
+        <div className="flex items-center gap-3">
+          <div className="bg-primary/20 p-2 rounded-lg">
+            <span className="material-symbols-outlined text-primary">work</span>
+          </div>
+          <h3 className="font-headline-md text-headline-md text-on-surface">Primary Income</h3>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-stack-md">
+          <div className="space-y-2">
+            <label className="font-label-sm text-label-sm text-on-surface-variant uppercase">Annual Base Salary</label>
+            <div className="relative group">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-secondary transition-colors">$</span>
               <input
-                type="radio"
-                name="housingStatus"
-                value={status}
-                checked={formData.housingStatus === status}
-                onChange={(e) => handleHousingChange(e.target.value)}
-                className="accent-indigo-600 cursor-pointer"
+                type="number"
+                name="primarySalary"
+                value={formData.primarySalary || ''}
+                onChange={handleChange}
+                placeholder="0.00"
+                className="w-full bg-surface-container-high border border-outline-variant rounded-lg pl-8 pr-4 py-4 focus:border-secondary focus:ring-0 focus:outline-none transition-all font-numeric-data text-numeric-data text-on-surface"
               />
-              <span className="ml-2 text-sm font-medium text-slate-700 capitalize">
-                {status === 'renting' ? 'Renting' : 'Owning'}
-              </span>
-            </label>
-          ))}
+            </div>
+          </div>
+          <div className="space-y-2">
+            <label className="font-label-sm text-label-sm text-on-surface-variant uppercase">Spouse/Partner Salary</label>
+            <div className="relative group">
+              <span className="absolute left-4 top-1/2 -translate-y-1/2 text-on-surface-variant group-focus-within:text-secondary transition-colors">$</span>
+              <input
+                type="number"
+                name="spouseSalary"
+                value={formData.spouseSalary || ''}
+                onChange={handleChange}
+                placeholder="0.00"
+                className="w-full bg-surface-container-high border border-outline-variant rounded-lg pl-8 pr-4 py-4 focus:border-secondary focus:ring-0 focus:outline-none transition-all font-numeric-data text-numeric-data text-on-surface"
+              />
+            </div>
+          </div>
         </div>
+      </section>
+
+      {/* Secondary Income Streams */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+        {incomeCards.map(card => (
+          <button
+            key={card.id}
+            onClick={() => toggleCard(card.id)}
+            className={`group glass-card rounded-xl p-6 text-left transition-all hover:border-secondary/50 focus:outline-none ${
+              activeCards.has(card.id) ? 'neon-glow-indigo' : ''
+            }`}
+          >
+            <div className="flex justify-between items-start mb-4">
+              <div className={`bg-secondary/10 p-2 rounded-lg transition-colors ${
+                activeCards.has(card.id) ? 'bg-secondary/30' : ''
+              }`}>
+                <span className="material-symbols-outlined text-secondary">{card.icon}</span>
+              </div>
+              {activeCards.has(card.id) && (
+                <span className="material-symbols-outlined text-on-surface-variant">check_circle</span>
+              )}
+            </div>
+            <h4 className="font-headline-md text-on-surface mb-1">{card.label}</h4>
+            <p className="text-sm text-on-surface-variant mb-4">{card.description}</p>
+            {activeCards.has(card.id) && (
+              <div className="space-y-2">
+                <div className="relative">
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-on-surface-variant">$</span>
+                  <input
+                    type="number"
+                    name={card.id}
+                    value={formData[card.id as keyof Step2Data] || ''}
+                    onChange={handleChange}
+                    placeholder={card.id === 'rental' ? 'Monthly Net' : 'Amount'}
+                    className="w-full bg-surface-container border border-outline-variant rounded-lg pl-6 pr-3 py-2 focus:border-secondary focus:ring-0 text-sm font-numeric-data text-on-surface focus:outline-none transition-all"
+                  />
+                </div>
+              </div>
+            )}
+          </button>
+        ))}
       </div>
-
-      {/* Primary Income Sources */}
-      <div className="pt-6 border-t border-slate-200 space-y-3">
-        <label className="block text-sm font-semibold text-slate-700">
-          Your Income Sources <span className="text-red-500">*</span>
-        </label>
-        <p className="text-xs text-slate-600 mb-3">Select all that apply</p>
-
-        {renderIncomeCheckboxes('primary', formData.primaryIncomeSources)}
-      </div>
-
-      {/* Spouse Income Sources */}
-      {isMarried && (
-        <div className="pt-6 border-t border-slate-200 space-y-3">
-          <label className="block text-sm font-semibold text-slate-700">
-            Spouse Income Sources <span className="text-red-500">*</span>
-          </label>
-          <p className="text-xs text-slate-600 mb-3">Select all that apply</p>
-
-          {renderIncomeCheckboxes('spouse', formData.spouseIncomeSources)}
-        </div>
-      )}
     </div>
   )
 }

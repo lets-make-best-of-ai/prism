@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Equitas Wealth | Financial Goals Onboarding</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&family=Inter:wght@400;500;600&family=Geist:wght@400;500;600&family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Geist:wght@100..900&family=Hanken+Grotesk:wght@100..900&family=Inter:wght@100..900&display=swap" rel="stylesheet"/>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.7);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+        }
+        .neon-glow-primary:hover {
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.4);
+        }
+        .neon-glow-indigo {
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+        }
+        input:focus {
+            outline: none;
+            box-shadow: 0 0 8px rgba(99, 102, 241, 0.5);
+            border-color: #6366F1 !important;
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 4px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: rgba(15, 23, 42, 0.1);
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: rgba(78, 222, 163, 0.2);
+            border-radius: 10px;
+        }
+    </style>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container": "#171f33",
+                      "primary-container": "#10b981",
+                      "surface": "#0b1326",
+                      "secondary-fixed-dim": "#c0c1ff",
+                      "primary-fixed": "#6ffbbe",
+                      "on-secondary": "#1000a9",
+                      "on-primary-container": "#00422b",
+                      "surface-container-highest": "#2d3449",
+                      "tertiary-container": "#a0a3a5",
+                      "error": "#ffb4ab",
+                      "primary-fixed-dim": "#4edea3",
+                      "on-primary-fixed-variant": "#005236",
+                      "on-surface-variant": "#bbcabf",
+                      "on-background": "#dae2fd",
+                      "inverse-surface": "#dae2fd",
+                      "surface-variant": "#2d3449",
+                      "on-secondary-fixed": "#07006c",
+                      "surface-dim": "#0b1326",
+                      "on-tertiary-fixed": "#191c1e",
+                      "on-surface": "#dae2fd",
+                      "inverse-on-surface": "#283044",
+                      "outline": "#86948a",
+                      "secondary": "#c0c1ff",
+                      "on-primary-fixed": "#002113",
+                      "secondary-fixed": "#e1e0ff",
+                      "surface-container-high": "#222a3d",
+                      "on-secondary-fixed-variant": "#2f2ebe",
+                      "on-primary": "#003824",
+                      "on-error": "#690005",
+                      "primary": "#4edea3",
+                      "tertiary": "#c4c7c9",
+                      "on-tertiary-container": "#36393b",
+                      "outline-variant": "#3c4a42",
+                      "surface-bright": "#31394d",
+                      "error-container": "#93000a",
+                      "surface-container-low": "#131b2e",
+                      "on-error-container": "#ffdad6",
+                      "on-secondary-container": "#b0b2ff",
+                      "on-tertiary-fixed-variant": "#444749",
+                      "background": "#0b1326",
+                      "on-tertiary": "#2d3133",
+                      "tertiary-fixed-dim": "#c4c7c9",
+                      "surface-container-lowest": "#060e20",
+                      "tertiary-fixed": "#e0e3e5",
+                      "surface-tint": "#4edea3",
+                      "inverse-primary": "#006c49",
+                      "secondary-container": "#3131c0"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-md": "16px",
+                      "stack-lg": "32px",
+                      "stack-sm": "8px",
+                      "margin-mobile": "16px",
+                      "margin-desktop": "40px",
+                      "container-max": "1280px",
+                      "gutter": "24px"
+              },
+              "fontFamily": {
+                      "display-lg-mobile": ["Hanken Grotesk"],
+                      "label-sm": ["Geist"],
+                      "display-lg": ["Hanken Grotesk"],
+                      "headline-md": ["Hanken Grotesk"],
+                      "body-lg": ["Inter"],
+                      "body-md": ["Inter"],
+                      "numeric-data": ["Geist"]
+              },
+              "fontSize": {
+                      "display-lg-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "numeric-data": ["20px", {"lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+      </script>
+</head>
+<body class="bg-surface text-on-surface font-body-md selection:bg-primary/30 selection:text-primary min-h-screen flex flex-col">
+<!-- TopAppBar Shell -->
+<nav class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-desktop py-4 bg-surface-container/70 backdrop-blur-xl border-b border-white/10 shadow-sm">
+<div class="font-display-lg text-headline-md tracking-tighter text-primary">Equitas Wealth</div>
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors">help</span>
+<div class="flex items-center gap-2 cursor-pointer group">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">account_circle</span>
+<span class="text-label-sm font-label-sm uppercase tracking-widest text-on-surface-variant group-hover:text-primary transition-colors">Investor Profile</span>
+</div>
+</div>
+</nav>
+<!-- Main Content Area -->
+<div class="flex pt-16 flex-1 h-full">
+<!-- SideNavBar Shell -->
+<aside class="fixed left-0 top-16 h-[calc(100vh-64px)] z-40 hidden lg:flex flex-col py-stack-lg bg-surface-container-low/50 backdrop-blur-md border-r border-white/5 w-72">
+<div class="px-6 mb-8">
+<h2 class="font-headline-md text-headline-md text-on-surface">Onboarding</h2>
+<p class="font-label-sm text-label-sm uppercase tracking-widest text-on-surface-variant mt-1">Step 4 of 4</p>
+<div class="w-full bg-surface-variant h-1 mt-4 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-full shadow-[0_0_8px_rgba(78,222,163,0.5)]"></div>
+</div>
+</div>
+<nav class="flex flex-col">
+<div class="flex items-center gap-3 text-on-surface-variant px-6 py-4 hover:bg-surface-variant/30 transition-all cursor-default">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest">Personal & Family</span>
+</div>
+<div class="flex items-center gap-3 text-on-surface-variant px-6 py-4 hover:bg-surface-variant/30 transition-all cursor-default">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest">Income</span>
+</div>
+<div class="flex items-center gap-3 text-on-surface-variant px-6 py-4 hover:bg-surface-variant/30 transition-all cursor-default">
+<span class="material-symbols-outlined text-primary" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest">Expenses</span>
+</div>
+<div class="flex items-center gap-3 text-primary bg-primary-container/10 border-r-4 border-primary px-6 py-4 transition-all duration-300 ease-in-out">
+<span class="material-symbols-outlined">flag</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest">Goals</span>
+</div>
+</nav>
+<div class="mt-auto px-6 py-8">
+<div class="glass-card p-4 rounded-xl border border-white/5">
+<p class="font-label-sm text-label-sm text-primary mb-2">STRATEGY ENGINE</p>
+<p class="text-xs text-on-surface-variant leading-relaxed">Defining your goals allows our institutional-grade algorithms to optimize asset allocation for your specific timeline.</p>
+</div>
+</div>
+</aside>
+<!-- Canvas -->
+<main class="lg:ml-72 flex-1 px-margin-mobile md:px-margin-desktop py-stack-lg overflow-y-auto custom-scrollbar">
+<div class="max-w-container-max mx-auto">
+<header class="mb-stack-lg">
+<h1 class="font-display-lg text-display-lg text-on-surface mb-2">Define Your Financial Horizon</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">Select the objectives that matter most. We’ll tailor your investment strategy to ensure liquidity when you need it and growth where it counts.</p>
+</header>
+<!-- Bento Grid for Goals -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter">
+<!-- Short Term Section -->
+<div class="md:col-span-12 lg:col-span-12 mb-4">
+<div class="flex items-center gap-4 mb-6">
+<h3 class="font-headline-md text-headline-md text-secondary">Short-Term Goals</h3>
+<span class="px-3 py-1 bg-secondary/10 text-secondary border border-secondary/20 rounded-full text-[10px] uppercase tracking-widest font-bold">1–3 Years</span>
+</div>
+</div>
+<div class="md:col-span-6 lg:col-span-4 group">
+<div class="glass-card p-6 rounded-xl h-full border-white/10 hover:border-primary/50 transition-all cursor-pointer relative overflow-hidden flex flex-col">
+<div class="flex justify-between items-start mb-6">
+<div class="p-3 bg-surface-container-high rounded-lg">
+<span class="material-symbols-outlined text-primary text-3xl">home</span>
+</div>
+<input class="w-6 h-6 rounded border-white/20 bg-surface-container text-primary focus:ring-primary ring-offset-surface-dim" type="checkbox"/>
+</div>
+<h4 class="font-headline-md text-headline-md mb-2">Home Purchase</h4>
+<p class="text-on-surface-variant text-sm mb-8">Down payment or full purchase of a primary residence or secondary property.</p>
+<div class="mt-auto space-y-4 opacity-40 group-hover:opacity-100 transition-opacity">
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase">Target Amount</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">$</span>
+<input class="w-full bg-surface-container-lowest border border-white/10 rounded-lg px-8 py-2 font-numeric-data text-numeric-data" placeholder="0.00" type="text"/>
+</div>
+</div>
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase">Timeline (Months)</label>
+<input class="w-full h-1.5 bg-surface-variant rounded-lg appearance-none cursor-pointer accent-primary" max="36" min="12" type="range"/>
+<div class="flex justify-between text-[10px] text-on-surface-variant uppercase">
+<span>12m</span>
+<span>36m</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md:col-span-6 lg:col-span-4 group">
+<div class="glass-card p-6 rounded-xl h-full border-white/10 hover:border-primary/50 transition-all cursor-pointer relative overflow-hidden flex flex-col">
+<div class="flex justify-between items-start mb-6">
+<div class="p-3 bg-surface-container-high rounded-lg">
+<span class="material-symbols-outlined text-primary text-3xl">emergency</span>
+</div>
+<input class="w-6 h-6 rounded border-white/20 bg-surface-container text-primary focus:ring-primary ring-offset-surface-dim" type="checkbox"/>
+</div>
+<h4 class="font-headline-md text-headline-md mb-2">Liquid Reserve</h4>
+<p class="text-on-surface-variant text-sm mb-8">Building a robust 6-12 month emergency buffer in low-volatility assets.</p>
+<div class="mt-auto space-y-4 opacity-40 group-hover:opacity-100 transition-opacity">
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase">Target Amount</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">$</span>
+<input class="w-full bg-surface-container-lowest border border-white/10 rounded-lg px-8 py-2 font-numeric-data text-numeric-data" placeholder="0.00" type="text"/>
+</div>
+</div>
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase">Timeline (Months)</label>
+<input class="w-full h-1.5 bg-surface-variant rounded-lg appearance-none cursor-pointer accent-primary" max="24" min="6" type="range"/>
+<div class="flex justify-between text-[10px] text-on-surface-variant uppercase">
+<span>6m</span>
+<span>24m</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Long Term Section -->
+<div class="md:col-span-12 lg:col-span-12 mt-stack-lg mb-4">
+<div class="flex items-center gap-4 mb-6">
+<h3 class="font-headline-md text-headline-md text-primary">Long-Term Goals</h3>
+<span class="px-3 py-1 bg-primary/10 text-primary border border-primary/20 rounded-full text-[10px] uppercase tracking-widest font-bold">3+ Years</span>
+</div>
+</div>
+<div class="md:col-span-12 lg:col-span-8 group">
+<div class="glass-card p-8 rounded-xl h-full border-white/10 hover:border-primary/50 transition-all cursor-pointer relative overflow-hidden flex flex-col md:flex-row gap-8">
+<div class="md:w-1/2">
+<div class="flex justify-between items-start mb-6">
+<div class="p-3 bg-surface-container-high rounded-lg">
+<span class="material-symbols-outlined text-primary text-4xl">elderly</span>
+</div>
+<input checked="" class="w-6 h-6 rounded border-white/20 bg-surface-container text-primary focus:ring-primary ring-offset-surface-dim" type="checkbox"/>
+</div>
+<h4 class="font-headline-md text-headline-md mb-2">Wealth Retirement</h4>
+<p class="text-on-surface-variant text-sm">Long-term capital appreciation and dividend-focused growth for institutional-grade retirement planning.</p>
+</div>
+<div class="md:w-1/2 space-y-6 self-end">
+<div class="space-y-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase">Desired Retirement Income (Annual)</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">$</span>
+<input class="w-full bg-surface-container-lowest border border-white/10 rounded-lg px-8 py-3 font-numeric-data text-numeric-data" type="text" value="250,000"/>
+</div>
+</div>
+<div class="space-y-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase">Expected Horizon (Years)</label>
+<div class="flex items-center gap-4">
+<input class="flex-1 h-1.5 bg-surface-variant rounded-lg appearance-none cursor-pointer accent-primary" max="40" min="10" type="range" value="25"/>
+<span class="font-numeric-data text-primary">25y</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="md:col-span-6 lg:col-span-4 group">
+<div class="glass-card p-6 rounded-xl h-full border-white/10 hover:border-primary/50 transition-all cursor-pointer relative overflow-hidden flex flex-col">
+<div class="flex justify-between items-start mb-6">
+<div class="p-3 bg-surface-container-high rounded-lg">
+<span class="material-symbols-outlined text-primary text-3xl">school</span>
+</div>
+<input class="w-6 h-6 rounded border-white/20 bg-surface-container text-primary focus:ring-primary ring-offset-surface-dim" type="checkbox"/>
+</div>
+<h4 class="font-headline-md text-headline-md mb-2">Education Fund</h4>
+<p class="text-on-surface-variant text-sm mb-8">Strategic funding for higher education, including tuition and global housing requirements.</p>
+<div class="mt-auto space-y-4 opacity-40 group-hover:opacity-100 transition-opacity">
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase">Target Amount</label>
+<div class="relative">
+<span class="absolute left-3 top-1/2 -translate-y-1/2 text-on-surface-variant">$</span>
+<input class="w-full bg-surface-container-lowest border border-white/10 rounded-lg px-8 py-2 font-numeric-data text-numeric-data" placeholder="0.00" type="text"/>
+</div>
+</div>
+<div class="space-y-1">
+<label class="font-label-sm text-label-sm text-on-surface-variant uppercase">Years until Start</label>
+<input class="w-full bg-surface-container-lowest border border-white/10 rounded-lg px-4 py-2 font-numeric-data" max="20" min="1" type="number"/>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Footer Actions -->
+<div class="mt-12 flex flex-col md:flex-row justify-between items-center gap-6 py-8 border-t border-white/10">
+<button class="flex items-center gap-2 text-on-tertiary-fixed-variant hover:text-on-surface transition-colors font-label-sm text-label-sm uppercase tracking-widest cursor-pointer">
+<span class="material-symbols-outlined">arrow_back</span>
+                        Back to Expenses
+                    </button>
+<div class="flex items-center gap-8">
+<div class="hidden md:block text-right">
+<p class="text-[10px] text-on-surface-variant uppercase tracking-widest font-bold">Estimated Model Fit</p>
+<p class="font-numeric-data text-primary">94.2% Precise</p>
+</div>
+<button class="bg-primary text-on-primary-container px-10 py-4 rounded-lg font-headline-md text-headline-md neon-glow-primary transition-all active:scale-95 shadow-lg shadow-primary/20">
+                            Complete Strategy
+                        </button>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Footer Shell -->
+<footer class="w-full py-4 px-margin-desktop flex flex-col md:flex-row justify-between items-center mt-auto bg-surface-container-highest border-t border-white/10">
+<div class="font-label-sm text-label-sm text-on-tertiary-fixed-variant">
+            © 2024 Equitas Wealth Management. Institutional Grade Security.
+        </div>
+<div class="flex gap-8 mt-4 md:mt-0">
+<a class="text-on-tertiary-fixed-variant font-label-sm text-label-sm hover:text-on-surface transition-colors cursor-pointer" href="#">Privacy Policy</a>
+<a class="text-on-tertiary-fixed-variant font-label-sm text-label-sm hover:text-on-surface transition-colors cursor-pointer" href="#">Terms of Service</a>
+<a class="text-on-tertiary-fixed-variant font-label-sm text-label-sm hover:text-on-surface transition-colors cursor-pointer" href="#">Security Disclosure</a>
+</div>
+</footer>
+<script>
+        // Simple logic for card selection styling
+        document.querySelectorAll('.glass-card').forEach(card => {
+            const checkbox = card.querySelector('input[type="checkbox"]');
+            if (checkbox) {
+                card.addEventListener('click', (e) => {
+                    // Don't trigger if clicking the inner inputs
+                    if (e.target.tagName !== 'INPUT') {
+                        checkbox.checked = !checkbox.checked;
+                        updateCardState(card, checkbox.checked);
+                    }
+                });
+                
+                checkbox.addEventListener('change', () => {
+                    updateCardState(card, checkbox.checked);
+                });
+
+                // Set initial state
+                updateCardState(card, checkbox.checked);
+            }
+        });
+
+        function updateCardState(card, isActive) {
+            const controls = card.querySelector('.opacity-40');
+            if (isActive) {
+                card.classList.remove('border-white/10');
+                card.classList.add('border-primary/50', 'neon-glow-indigo');
+                if (controls) controls.classList.replace('opacity-40', 'opacity-100');
+            } else {
+                card.classList.add('border-white/10');
+                card.classList.remove('border-primary/50', 'neon-glow-indigo');
+                if (controls) controls.classList.replace('opacity-100', 'opacity-40');
+            }
+        }
+    </script>
+</body></html>

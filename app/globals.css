@@ -475,3 +475,40 @@ html[data-theme="light"] pre {
   background-color: #F3F4F6;
   border-color: #E5E7EB;
 }
+
+/* ─────────────────────────────────────────────────────────────────────
+   STITCH DESIGN SYSTEM - LUMINA WEALTH
+   Modern wealth management aesthetic with glassmorphism
+   ───────────────────────────────────────────────────────────────────── */
+
+.glass-card {
+  background: rgba(30, 41, 59, 0.5);
+  backdrop-filter: blur(20px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+}
+
+.neon-glow {
+  transition: all 0.3s ease;
+}
+
+.neon-glow:focus-within {
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+  border-color: #6366f1;
+}
+
+.neon-glow-indigo {
+  box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+  border-color: #6366f1;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  display: inline-block;
+}
+
+/* Material icons styling for filled state */
+.material-symbols-outlined[style*="font-variation-settings: 'FILL' 1"] {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+}

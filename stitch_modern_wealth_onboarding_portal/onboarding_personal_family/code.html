@@ -1,0 +1,395 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Equitas Wealth | Onboarding</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Hanken+Grotesk:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Geist:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "surface-container": "#171f33",
+                      "primary-container": "#10b981",
+                      "surface": "#0b1326",
+                      "secondary-fixed-dim": "#c0c1ff",
+                      "primary-fixed": "#6ffbbe",
+                      "on-secondary": "#1000a9",
+                      "on-primary-container": "#00422b",
+                      "surface-container-highest": "#2d3449",
+                      "tertiary-container": "#a0a3a5",
+                      "error": "#ffb4ab",
+                      "primary-fixed-dim": "#4edea3",
+                      "on-primary-fixed-variant": "#005236",
+                      "on-surface-variant": "#bbcabf",
+                      "on-background": "#dae2fd",
+                      "inverse-surface": "#dae2fd",
+                      "surface-variant": "#2d3449",
+                      "on-secondary-fixed": "#07006c",
+                      "surface-dim": "#0b1326",
+                      "on-tertiary-fixed": "#191c1e",
+                      "on-surface": "#dae2fd",
+                      "inverse-on-surface": "#283044",
+                      "outline": "#86948a",
+                      "secondary": "#c0c1ff",
+                      "on-primary-fixed": "#002113",
+                      "secondary-fixed": "#e1e0ff",
+                      "surface-container-high": "#222a3d",
+                      "on-secondary-fixed-variant": "#2f2ebe",
+                      "on-primary": "#003824",
+                      "on-error": "#690005",
+                      "primary": "#4edea3",
+                      "tertiary": "#c4c7c9",
+                      "on-tertiary-container": "#36393b",
+                      "outline-variant": "#3c4a42",
+                      "surface-bright": "#31394d",
+                      "error-container": "#93000a",
+                      "surface-container-low": "#131b2e",
+                      "on-error-container": "#ffdad6",
+                      "on-secondary-container": "#b0b2ff",
+                      "on-tertiary-fixed-variant": "#444749",
+                      "background": "#0b1326",
+                      "on-tertiary": "#2d3133",
+                      "tertiary-fixed-dim": "#c4c7c9",
+                      "surface-container-lowest": "#060e20",
+                      "tertiary-fixed": "#e0e3e5",
+                      "surface-tint": "#4edea3",
+                      "inverse-primary": "#006c49",
+                      "secondary-container": "#3131c0"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "stack-md": "16px",
+                      "stack-lg": "32px",
+                      "stack-sm": "8px",
+                      "margin-mobile": "16px",
+                      "margin-desktop": "40px",
+                      "container-max": "1280px",
+                      "gutter": "24px"
+              },
+              "fontFamily": {
+                      "display-lg-mobile": ["Hanken Grotesk"],
+                      "label-sm": ["Geist"],
+                      "display-lg": ["Hanken Grotesk"],
+                      "headline-md": ["Hanken Grotesk"],
+                      "body-lg": ["Inter"],
+                      "body-md": ["Inter"],
+                      "numeric-data": ["Geist"]
+              },
+              "fontSize": {
+                      "display-lg-mobile": ["36px", {"lineHeight": "44px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "label-sm": ["12px", {"lineHeight": "16px", "letterSpacing": "0.05em", "fontWeight": "500"}],
+                      "display-lg": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "700"}],
+                      "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "600"}],
+                      "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                      "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                      "numeric-data": ["20px", {"lineHeight": "24px", "letterSpacing": "-0.01em", "fontWeight": "600"}]
+              }
+            },
+          },
+        }
+    </script>
+<style>
+        body {
+            background-color: #0b1326;
+            color: #dae2fd;
+            font-family: 'Inter', sans-serif;
+        }
+        .glass-card {
+            background: rgba(30, 41, 59, 0.4);
+            backdrop-filter: blur(20px);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+        }
+        .step-line {
+            background: linear-gradient(to bottom, #10b981 50%, #2d3449 50%);
+        }
+        .neon-glow:focus-within {
+            box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+            border-color: #6366f1;
+        }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+    </style>
+</head>
+<body class="min-h-screen flex flex-col">
+<!-- TopAppBar -->
+<header class="fixed top-0 w-full z-50 flex justify-between items-center px-margin-desktop py-4 bg-surface-container/70 backdrop-blur-xl border-b border-white/10 shadow-sm">
+<div class="flex items-center gap-2">
+<span class="font-display-lg-mobile text-display-lg-mobile tracking-tighter text-primary">Equitas Wealth</span>
+</div>
+<div class="flex items-center gap-6">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors">help</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors">account_circle</span>
+</div>
+</header>
+<!-- SideNavBar (Progress Tracker) -->
+<nav class="fixed left-0 top-16 h-[calc(100vh-64px)] z-40 hidden lg:flex flex-col py-stack-lg bg-surface-container-low/50 backdrop-blur-md border-r border-white/5 w-72">
+<div class="px-6 mb-8">
+<h2 class="font-headline-md text-headline-md text-on-surface">Onboarding</h2>
+<p class="text-on-surface-variant text-sm">Step 1 of 4</p>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-3 text-primary bg-primary-container/10 border-r-4 border-primary px-6 py-4 transition-all duration-300 ease-in-out cursor-pointer">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">person</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest">Personal &amp; Family</span>
+</div>
+<div class="flex items-center gap-3 text-on-surface-variant px-6 py-4 hover:bg-surface-variant/30 transition-all cursor-pointer">
+<span class="material-symbols-outlined">payments</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest">Income</span>
+</div>
+<div class="flex items-center gap-3 text-on-surface-variant px-6 py-4 hover:bg-surface-variant/30 transition-all cursor-pointer">
+<span class="material-symbols-outlined">receipt_long</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest">Expenses</span>
+</div>
+<div class="flex items-center gap-3 text-on-surface-variant px-6 py-4 hover:bg-surface-variant/30 transition-all cursor-pointer">
+<span class="material-symbols-outlined">flag</span>
+<span class="font-label-sm text-label-sm uppercase tracking-widest">Goals</span>
+</div>
+</div>
+<!-- Summary Panel Mini -->
+<div class="mt-auto px-6 pb-8">
+<div class="glass-card rounded-xl p-4">
+<h4 class="font-label-sm text-label-sm text-primary mb-2 uppercase">Live Summary</h4>
+<div class="space-y-2">
+<div class="flex justify-between text-xs">
+<span class="text-on-surface-variant">Profile Completion</span>
+<span class="text-primary font-numeric-data">25%</span>
+</div>
+<div class="w-full bg-surface-container-highest h-1 rounded-full overflow-hidden">
+<div class="bg-primary w-1/4 h-full"></div>
+</div>
+</div>
+</div>
+</div>
+</nav>
+<!-- Main Canvas -->
+<main class="flex-1 lg:ml-72 pt-24 pb-12 px-margin-mobile md:px-margin-desktop max-w-container-max mx-auto w-full relative overflow-hidden">
+<!-- Subtle Background Animation -->
+
+<!-- Hero Section -->
+<div class="relative z-10 mb-stack-lg">
+<h1 class="font-display-lg text-display-lg text-on-surface mb-2">Welcome to Your Financial Journey</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                Let’s build a tailored investment strategy that fits your life, your family, and your future.
+            </p>
+</div>
+<div class="grid grid-cols-1 xl:grid-cols-3 gap-8 relative z-10">
+<!-- Form Column -->
+<div class="xl:col-span-2 space-y-8">
+<!-- Basic Info Card -->
+<section class="glass-card rounded-xl p-8">
+<h3 class="font-headline-md text-headline-md mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">id_card</span>
+                        Identity Details
+                    </h3>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-stack-md">
+<div class="space-y-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Full Legal Name</label>
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-lg px-4 py-3 text-on-surface focus:outline-none focus:border-primary transition-all neon-glow" placeholder="Johnathan Doe" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Date of Birth</label>
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-lg px-4 py-3 text-on-surface focus:outline-none focus:border-primary transition-all neon-glow" type="date"/>
+</div>
+<div class="space-y-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Email Address</label>
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-lg px-4 py-3 text-on-surface focus:outline-none focus:border-primary transition-all neon-glow" placeholder="john@equitas.com" type="email"/>
+</div>
+<div class="space-y-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Phone Number</label>
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-lg px-4 py-3 text-on-surface focus:outline-none focus:border-primary transition-all neon-glow" placeholder="+1 (555) 000-0000" type="tel"/>
+</div>
+<div class="md:col-span-2 space-y-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Primary Residence Address</label>
+<input class="w-full bg-surface-container-low border border-outline-variant rounded-lg px-4 py-3 text-on-surface focus:outline-none focus:border-primary transition-all neon-glow" placeholder="123 Wealth Avenue, Finance District" type="text"/>
+</div>
+<div class="space-y-2">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Employment Status</label>
+<select class="w-full bg-surface-container-low border border-outline-variant rounded-lg px-4 py-3 text-on-surface focus:outline-none focus:border-primary transition-all neon-glow">
+<option>Full-time Employed</option>
+<option>Self-Employed</option>
+<option>Business Owner</option>
+<option>Retired</option>
+</select>
+</div>
+</div>
+</section>
+<!-- Marital Status Section -->
+<section class="glass-card rounded-xl p-8">
+<h3 class="font-headline-md text-headline-md mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">family_restroom</span>
+                        Family Structure
+                    </h3>
+<div class="mb-8">
+<label class="font-label-sm text-label-sm text-on-surface-variant block mb-4">Marital Status</label>
+<div class="grid grid-cols-2 sm:grid-cols-4 gap-4">
+<button class="flex flex-col items-center justify-center gap-2 p-4 rounded-xl border border-primary bg-primary-container/10 text-primary transition-all">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">favorite</span>
+<span class="text-xs font-medium">Married</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-2 p-4 rounded-xl border border-outline-variant hover:border-primary transition-all group">
+<span class="material-symbols-outlined group-hover:text-primary">person</span>
+<span class="text-xs font-medium">Single</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-2 p-4 rounded-xl border border-outline-variant hover:border-primary transition-all group">
+<span class="material-symbols-outlined group-hover:text-primary">diversity_1</span>
+<span class="text-xs font-medium">Partnership</span>
+</button>
+<button class="flex flex-col items-center justify-center gap-2 p-4 rounded-xl border border-outline-variant hover:border-primary transition-all group">
+<span class="material-symbols-outlined group-hover:text-primary">heart_broken</span>
+<span class="text-xs font-medium">Divorced</span>
+</button>
+</div>
+</div>
+<!-- Dynamic Toggle for Spouse -->
+<div class="flex items-center justify-between p-4 bg-surface-container-high rounded-xl mb-6">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">supervisor_account</span>
+<div>
+<p class="font-body-md text-body-md text-on-surface">Include Spouse in Strategy?</p>
+<p class="text-xs text-on-surface-variant">Recommended for joint tax-efficiency planning.</p>
+</div>
+</div>
+<label class="relative inline-flex items-center cursor-pointer">
+<input checked="" class="sr-only peer" type="checkbox"/>
+<div class="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+</label>
+</div>
+<!-- Dependent List -->
+<div class="space-y-4">
+<div class="flex justify-between items-center">
+<label class="font-label-sm text-label-sm text-on-surface-variant">Dependents</label>
+<button class="text-primary flex items-center gap-1 text-xs hover:underline">
+<span class="material-symbols-outlined text-sm">add</span> Add Dependent
+                            </button>
+</div>
+<div class="space-y-3">
+<div class="flex items-center gap-4 p-4 bg-surface-container/30 border border-outline-variant/30 rounded-xl">
+<div class="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">child_care</span>
+</div>
+<div class="flex-1">
+<p class="font-body-md text-body-md">Emma Doe</p>
+<p class="text-xs text-on-surface-variant">Daughter • Age 8</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-error">delete</span>
+</div>
+<div class="flex items-center gap-4 p-4 bg-surface-container/30 border border-outline-variant/30 rounded-xl">
+<div class="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary">
+<span class="material-symbols-outlined">child_care</span>
+</div>
+<div class="flex-1">
+<p class="font-body-md text-body-md">Liam Doe</p>
+<p class="text-xs text-on-surface-variant">Son • Age 12</p>
+</div>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-error">delete</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Navigation Buttons -->
+<div class="flex justify-between items-center pt-8">
+<button class="px-8 py-3 rounded-lg border border-outline-variant text-on-surface hover:bg-surface-variant transition-all flex items-center gap-2">
+<span class="material-symbols-outlined">arrow_back</span> Save &amp; Exit
+                    </button>
+<button class="px-10 py-3 rounded-lg bg-primary text-on-primary font-semibold hover:brightness-110 shadow-[0_0_20px_rgba(16,185,129,0.3)] transition-all flex items-center gap-2 group">
+                        Next Step
+                        <span class="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+</button>
+</div>
+</div>
+<!-- Summary Sidebar -->
+<div class="space-y-6">
+<div class="glass-card rounded-xl p-6 sticky top-24">
+<h4 class="font-headline-md text-headline-md text-on-surface mb-6">Profile Insight</h4>
+<div class="space-y-6">
+<div class="flex gap-4">
+<div class="w-1 rounded-full bg-primary h-auto"></div>
+<div>
+<p class="text-xs text-on-surface-variant uppercase tracking-wider">Household Status</p>
+<p class="font-body-md text-body-md text-on-surface">Married with 2 children</p>
+</div>
+</div>
+<div class="flex gap-4">
+<div class="w-1 rounded-full bg-secondary h-auto"></div>
+<div>
+<p class="text-xs text-on-surface-variant uppercase tracking-wider">Tax Profile Hint</p>
+<p class="font-body-md text-body-md text-on-surface">Potential Joint Filing Benefits</p>
+</div>
+</div>
+<div class="p-4 bg-surface-container-highest/30 rounded-lg">
+<div class="w-full h-40 rounded-lg mb-4 bg-cover bg-center" data-alt="A sophisticated 3D abstract visualization of a growing network of emerald and indigo lines, representing a interconnected financial family tree. The background is a deep slate grey, with soft volumetric lighting and a high-gloss digital finish that evokes a sense of security and elite wealth management." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAj4sQBo9xlOui6SA7y_JVu4TVFR1GXB2yGKRoPVmwFZlYKyQN-dU24JQ4s2KsORIsrwE8xY-AXfzU5fYjlwFBuVe8dVFt3t-aBBX9wRBWgboGtoG0Cg2wDhg1oSbUBemZC4iputSWtE6QByEectIn8zoflKIkD3bnT1CeOmZm53TsMtsEe8V1d0dFEimZyqtD19suVUWIT8glRBv0V0vejyogs6zgzTkiBDiiU8vjVRN3dFRp-ncs')"></div>
+<p class="text-xs text-on-surface-variant leading-relaxed italic">
+                                "A well-defined family structure allows us to project long-term wealth transfer and education funding requirements."
+                            </p>
+</div>
+<div class="pt-4 border-t border-white/5">
+<div class="flex justify-between items-center mb-2">
+<span class="text-sm font-medium">Confidence Score</span>
+<span class="text-primary font-numeric-data">High</span>
+</div>
+<div class="w-full bg-surface-container-highest h-2 rounded-full overflow-hidden">
+<div class="bg-primary w-4/5 h-full"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="glass-card rounded-xl p-6 border-l-4 border-secondary">
+<div class="flex items-start gap-3">
+<span class="material-symbols-outlined text-secondary">verified_user</span>
+<div>
+<h5 class="font-label-sm text-label-sm text-secondary uppercase mb-1">Privacy Guarantee</h5>
+<p class="text-xs text-on-surface-variant">Your data is protected by institutional-grade AES-256 encryption. We never share personal details with third parties.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="w-full py-4 px-margin-desktop flex flex-col md:flex-row justify-between items-center mt-auto bg-surface-container-highest border-t border-white/10">
+<div class="flex items-center gap-4 mb-4 md:mb-0">
+<span class="font-label-sm text-label-sm text-on-tertiary-fixed-variant">© 2024 Equitas Wealth Management. Institutional Grade Security.</span>
+</div>
+<div class="flex gap-6">
+<a class="font-label-sm text-label-sm text-on-tertiary-fixed-variant hover:text-on-surface transition-colors" href="#">Privacy Policy</a>
+<a class="font-label-sm text-label-sm text-on-tertiary-fixed-variant hover:text-on-surface transition-colors" href="#">Terms of Service</a>
+<a class="font-label-sm text-label-sm text-on-tertiary-fixed-variant hover:text-on-surface transition-colors" href="#">Security Disclosure</a>
+</div>
+</footer>
+<script>
+        // Simple micro-interaction for input focus
+        const inputs = document.querySelectorAll('input, select');
+        inputs.forEach(input => {
+            input.addEventListener('focus', () => {
+                input.parentElement.classList.add('scale-[1.01]');
+            });
+            input.addEventListener('blur', () => {
+                input.parentElement.classList.remove('scale-[1.01]');
+            });
+        });
+
+        // Toggle handling (visual only for this step)
+        const toggle = document.querySelector('input[type="checkbox"]');
+        toggle.addEventListener('change', (e) => {
+            const container = e.target.closest('div');
+            if(e.target.checked) {
+                console.log('Spouse details enabled');
+            } else {
+                console.log('Spouse details disabled');
+            }
+        });
+    </script>
+</body></html>
