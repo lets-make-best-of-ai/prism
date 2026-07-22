@@ -78,7 +78,7 @@ export default function Step1PersonalInfo({ data, onDataChange }: Step1Props) {
               value={formData.name || ''}
               onChange={handleChange}
               placeholder="Johnathan Doe"
-              className="w-full px-4 py-3 focus:outline-none transition-all"
+              className="w-full bg-surface-container-low border border-outline-variant rounded-lg px-4 py-3 text-on-surface focus:outline-none focus:border-primary transition-all neon-glow"
             />
           </div>
           <div className="space-y-2">
@@ -88,7 +88,7 @@ export default function Step1PersonalInfo({ data, onDataChange }: Step1Props) {
               name="dob"
               value={formData.dob || ''}
               onChange={handleChange}
-              className="w-full px-4 py-3 focus:outline-none transition-all"
+              className="w-full bg-surface-container-low border border-outline-variant rounded-lg px-4 py-3 text-on-surface focus:outline-none focus:border-primary transition-all neon-glow"
             />
           </div>
           <div className="space-y-2">
@@ -99,7 +99,7 @@ export default function Step1PersonalInfo({ data, onDataChange }: Step1Props) {
               value={formData.email || ''}
               onChange={handleChange}
               placeholder="john@prism.com"
-              className="w-full px-4 py-3 focus:outline-none transition-all"
+              className="w-full bg-surface-container-low border border-outline-variant rounded-lg px-4 py-3 text-on-surface focus:outline-none focus:border-primary transition-all neon-glow"
             />
           </div>
           <div className="space-y-2">
@@ -110,7 +110,7 @@ export default function Step1PersonalInfo({ data, onDataChange }: Step1Props) {
               value={formData.phone || ''}
               onChange={handleChange}
               placeholder="+1 (555) 000-0000"
-              className="w-full px-4 py-3 focus:outline-none transition-all"
+              className="w-full bg-surface-container-low border border-outline-variant rounded-lg px-4 py-3 text-on-surface focus:outline-none focus:border-primary transition-all neon-glow"
             />
           </div>
           <div className="md:col-span-2 space-y-2">
@@ -121,7 +121,7 @@ export default function Step1PersonalInfo({ data, onDataChange }: Step1Props) {
               value={formData.address || ''}
               onChange={handleChange}
               placeholder="123 Wealth Avenue, Finance District"
-              className="w-full px-4 py-3 focus:outline-none transition-all"
+              className="w-full bg-surface-container-low border border-outline-variant rounded-lg px-4 py-3 text-on-surface focus:outline-none focus:border-primary transition-all neon-glow"
             />
           </div>
           <div className="space-y-2">
@@ -130,7 +130,7 @@ export default function Step1PersonalInfo({ data, onDataChange }: Step1Props) {
               name="employmentStatus"
               value={formData.employmentStatus || ''}
               onChange={handleChange}
-              className="w-full px-4 py-3 focus:outline-none transition-all"
+              className="w-full bg-surface-container-low border border-outline-variant rounded-lg px-4 py-3 text-on-surface focus:outline-none focus:border-primary transition-all neon-glow"
             >
               <option value="">Select Status</option>
               <option value="full-time">Full-time Employed</option>
