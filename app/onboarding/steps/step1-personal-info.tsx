@@ -41,7 +41,6 @@ export default function Step1PersonalInfo({ data, onDataChange }: Step1Props) {
     setFormData(prev => ({
       ...prev,
       includeSpouse: checked,
-      spouseName: checked ? prev.spouseName : undefined,
     }))
   }
 
@@ -66,27 +65,11 @@ export default function Step1PersonalInfo({ data, onDataChange }: Step1Props) {
     }))
   }
 
-  const handleDependentChange = (index: number, field: string, value: string) => {
-    const dependents = [...(formData.dependents || [])]
-    if (!dependents[index]) {
-      dependents[index] = { name: '', age: '' }
-    }
-    dependents[index] = { ...dependents[index], [field]: value }
-    setFormData(prev => ({
-      ...prev,
-      dependents,
-    }))
-  }
-
   return (
     <div className="space-y-8">
-      {/* Identity Details Section */}
-      <section className="glass-card rounded-xl p-8">
-        <h3 className="font-headline-md text-headline-md text-on-surface mb-6 flex items-center gap-3">
-          <span className="material-symbols-outlined text-primary">id_card</span>
-          Identity Details
-        </h3>
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-stack-md">
+      {/* Identity Details */}
+      <div className="space-y-4">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           <div className="space-y-2">
             <label className="font-label-sm text-label-sm text-on-surface-variant uppercase">Full Legal Name</label>
             <input
@@ -95,7 +78,7 @@ export default function Step1PersonalInfo({ data, onDataChange }: Step1Props) {
               value={formData.name || ''}
               onChange={handleChange}
               placeholder="Johnathan Doe"
-              className="w-full bg-surface-container-low border border-outline-variant rounded-lg px-4 py-3 text-on-surface focus:outline-none focus:border-primary transition-all neon-glow"
+              className="w-full bg-surface-container-low border border-outline-variant rounded-lg px-4 py-3 text-on-surface placeholder-on-surface-variant/50 focus:outline-none focus:border-primary transition-all neon-glow"
             />
           </div>
           <div className="space-y-2">
@@ -116,7 +99,7 @@ export default function Step1PersonalInfo({ data, onDataChange }: Step1Props) {
               value={formData.email || ''}
               onChange={handleChange}
               placeholder="john@prism.com"
-              className="w-full bg-surface-container-low border border-outline-variant rounded-lg px-4 py-3 text-on-surface focus:outline-none focus:border-primary transition-all neon-glow"
+              className="w-full bg-surface-container-low border border-outline-variant rounded-lg px-4 py-3 text-on-surface placeholder-on-surface-variant/50 focus:outline-none focus:border-primary transition-all neon-glow"
             />
           </div>
           <div className="space-y-2">
@@ -127,7 +110,7 @@ export default function Step1PersonalInfo({ data, onDataChange }: Step1Props) {
               value={formData.phone || ''}
               onChange={handleChange}
               placeholder="+1 (555) 000-0000"
-              className="w-full bg-surface-container-low border border-outline-variant rounded-lg px-4 py-3 text-on-surface focus:outline-none focus:border-primary transition-all neon-glow"
+              className="w-full bg-surface-container-low border border-outline-variant rounded-lg px-4 py-3 text-on-surface placeholder-on-surface-variant/50 focus:outline-none focus:border-primary transition-all neon-glow"
             />
           </div>
           <div className="md:col-span-2 space-y-2">
@@ -138,7 +121,7 @@ export default function Step1PersonalInfo({ data, onDataChange }: Step1Props) {
               value={formData.address || ''}
               onChange={handleChange}
               placeholder="123 Wealth Avenue, Finance District"
-              className="w-full bg-surface-container-low border border-outline-variant rounded-lg px-4 py-3 text-on-surface focus:outline-none focus:border-primary transition-all neon-glow"
+              className="w-full bg-surface-container-low border border-outline-variant rounded-lg px-4 py-3 text-on-surface placeholder-on-surface-variant/50 focus:outline-none focus:border-primary transition-all neon-glow"
             />
           </div>
           <div className="space-y-2">
@@ -157,128 +140,108 @@ export default function Step1PersonalInfo({ data, onDataChange }: Step1Props) {
             </select>
           </div>
         </div>
-      </section>
+      </div>
 
-      {/* Family Structure Section */}
-      <section className="glass-card rounded-xl p-8">
-        <h3 className="font-headline-md text-headline-md text-on-surface mb-6 flex items-center gap-3">
-          <span className="material-symbols-outlined text-primary">family_restroom</span>
-          Family Structure
-        </h3>
+      {/* Marital Status */}
+      <div className="space-y-4 pt-6 border-t border-white/10">
+        <label className="font-label-sm text-label-sm text-on-surface-variant uppercase">Marital Status</label>
+        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+          {[
+            { value: 'married', label: 'Married', icon: 'favorite' },
+            { value: 'single', label: 'Single', icon: 'person' },
+            { value: 'partnership', label: 'Partnership', icon: 'diversity_1' },
+            { value: 'divorced', label: 'Divorced', icon: 'heart_broken' },
+          ].map(option => (
+            <button
+              key={option.value}
+              onClick={() => handleMaritalChange(option.value)}
+              className={`flex flex-col items-center justify-center gap-2 p-4 rounded-xl border transition-all ${
+                formData.maritalStatus === option.value
+                  ? 'border-primary bg-primary-container/10 text-primary'
+                  : 'border-outline-variant text-on-surface-variant hover:border-primary'
+              }`}
+            >
+              <span className="material-symbols-outlined">{option.icon}</span>
+              <span className="text-xs font-medium">{option.label}</span>
+            </button>
+          ))}
+        </div>
+      </div>
 
-        {/* Marital Status */}
-        <div className="mb-8">
-          <label className="font-label-sm text-label-sm text-on-surface-variant block mb-4 uppercase">Marital Status</label>
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
-            {[
-              { value: 'married', label: 'Married', icon: 'favorite' },
-              { value: 'single', label: 'Single', icon: 'person' },
-              { value: 'partnership', label: 'Partnership', icon: 'diversity_1' },
-              { value: 'divorced', label: 'Divorced', icon: 'heart_broken' },
-            ].map(option => (
-              <button
-                key={option.value}
-                onClick={() => handleMaritalChange(option.value)}
-                className={`flex flex-col items-center justify-center gap-2 p-4 rounded-xl border transition-all ${
-                  formData.maritalStatus === option.value
-                    ? 'border-primary bg-primary-container/10 text-primary'
-                    : 'border-outline-variant text-on-surface-variant hover:border-primary'
-                }`}
+      {/* Spouse Toggle */}
+      <div className="flex items-center justify-between p-4 bg-surface-container-high rounded-xl">
+        <div className="flex items-center gap-3">
+          <span className="material-symbols-outlined text-secondary">supervisor_account</span>
+          <div>
+            <p className="font-body-md text-on-surface">Include Spouse in Strategy?</p>
+            <p className="text-xs text-on-surface-variant">Recommended for joint tax-efficiency planning.</p>
+          </div>
+        </div>
+        <label className="relative inline-flex items-center cursor-pointer">
+          <input
+            type="checkbox"
+            checked={showSpouseForm}
+            onChange={(e) => handleToggleSpouse(e.target.checked)}
+            className="sr-only peer"
+          />
+          <div className="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
+        </label>
+      </div>
+
+      {/* Spouse Details */}
+      {showSpouseForm && (
+        <div className="space-y-3 p-4 bg-surface-container/30 rounded-xl">
+          <label className="font-label-sm text-label-sm text-on-surface-variant uppercase">Spouse Name</label>
+          <input
+            type="text"
+            name="spouseName"
+            value={formData.spouseName || ''}
+            onChange={handleChange}
+            placeholder="Jane Doe"
+            className="w-full bg-surface-container-low border border-outline-variant rounded-lg px-4 py-3 text-on-surface placeholder-on-surface-variant/50 focus:outline-none focus:border-primary transition-all neon-glow"
+          />
+        </div>
+      )}
+
+      {/* Dependents */}
+      <div className="space-y-4 pt-6 border-t border-white/10">
+        <div className="flex justify-between items-center">
+          <label className="font-label-sm text-label-sm text-on-surface-variant uppercase">Dependents</label>
+          <button
+            type="button"
+            onClick={addDependent}
+            className="text-primary flex items-center gap-1 text-xs hover:underline transition-colors"
+          >
+            <span className="material-symbols-outlined text-sm">add</span> Add Dependent
+          </button>
+        </div>
+
+        {formData.dependents && formData.dependents.length > 0 && (
+          <div className="space-y-3">
+            {formData.dependents.map((dependent, index) => (
+              <div
+                key={index}
+                className="flex items-center gap-4 p-4 bg-surface-container/30 border border-outline-variant/30 rounded-xl"
               >
-                <span className="material-symbols-outlined">{option.icon}</span>
-                <span className="text-xs font-medium">{option.label}</span>
-              </button>
+                <div className="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary flex-shrink-0">
+                  <span className="material-symbols-outlined">child_care</span>
+                </div>
+                <div className="flex-1">
+                  <p className="font-body-md text-on-surface">{dependent.name || 'Unnamed'}</p>
+                  <p className="text-xs text-on-surface-variant">{dependent.age ? `Age ${dependent.age}` : 'No age'}</p>
+                </div>
+                <button
+                  type="button"
+                  onClick={() => removeDependent(index)}
+                  className="text-on-surface-variant cursor-pointer hover:text-error transition-colors flex-shrink-0"
+                >
+                  <span className="material-symbols-outlined">delete</span>
+                </button>
+              </div>
             ))}
           </div>
-        </div>
-
-        {/* Spouse Toggle */}
-        <div className="flex items-center justify-between p-4 bg-surface-container-high rounded-xl mb-6">
-          <div className="flex items-center gap-3">
-            <span className="material-symbols-outlined text-secondary">supervisor_account</span>
-            <div>
-              <p className="font-body-md text-on-surface">Include Spouse/Partner in Strategy?</p>
-              <p className="text-xs text-on-surface-variant">Recommended for joint tax-efficiency planning.</p>
-            </div>
-          </div>
-          <label className="relative inline-flex items-center cursor-pointer">
-            <input
-              type="checkbox"
-              checked={showSpouseForm}
-              onChange={(e) => handleToggleSpouse(e.target.checked)}
-              className="sr-only peer"
-            />
-            <div className="w-11 h-6 bg-surface-container-highest peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-primary"></div>
-          </label>
-        </div>
-
-        {/* Spouse Details */}
-        {showSpouseForm && (
-          <div className="space-y-4 p-4 bg-surface-container/30 rounded-xl mb-6">
-            <label className="font-label-sm text-label-sm text-on-surface-variant uppercase">Spouse/Partner Name</label>
-            <input
-              type="text"
-              name="spouseName"
-              value={formData.spouseName || ''}
-              onChange={handleChange}
-              placeholder="Jane Doe"
-              className="w-full bg-surface-container-low border border-outline-variant rounded-lg px-4 py-3 text-on-surface focus:outline-none focus:border-primary transition-all neon-glow"
-            />
-          </div>
         )}
-
-        {/* Dependents */}
-        <div className="space-y-4">
-          <div className="flex justify-between items-center">
-            <label className="font-label-sm text-label-sm text-on-surface-variant uppercase">Dependents</label>
-            <button
-              type="button"
-              onClick={addDependent}
-              className="text-primary flex items-center gap-1 text-xs hover:underline transition-colors"
-            >
-              <span className="material-symbols-outlined text-sm">add</span> Add Dependent
-            </button>
-          </div>
-
-          {formData.dependents && formData.dependents.length > 0 && (
-            <div className="space-y-3">
-              {formData.dependents.map((dependent, index) => (
-                <div
-                  key={index}
-                  className="flex items-center gap-4 p-4 bg-surface-container/30 border border-outline-variant/30 rounded-xl"
-                >
-                  <div className="w-10 h-10 rounded-full bg-secondary/20 flex items-center justify-center text-secondary flex-shrink-0">
-                    <span className="material-symbols-outlined">child_care</span>
-                  </div>
-                  <div className="flex-1 grid grid-cols-2 gap-3">
-                    <input
-                      type="text"
-                      placeholder="Name"
-                      value={dependent.name || ''}
-                      onChange={(e) => handleDependentChange(index, 'name', e.target.value)}
-                      className="bg-surface-container-low border border-outline-variant rounded-lg px-3 py-2 text-xs text-on-surface focus:outline-none focus:border-primary transition-all"
-                    />
-                    <input
-                      type="number"
-                      placeholder="Age"
-                      value={dependent.age || ''}
-                      onChange={(e) => handleDependentChange(index, 'age', e.target.value)}
-                      className="bg-surface-container-low border border-outline-variant rounded-lg px-3 py-2 text-xs text-on-surface focus:outline-none focus:border-primary transition-all"
-                    />
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => removeDependent(index)}
-                    className="text-on-surface-variant cursor-pointer hover:text-error transition-colors flex-shrink-0"
-                  >
-                    <span className="material-symbols-outlined text-lg">delete</span>
-                  </button>
-                </div>
-              ))}
-            </div>
-          )}
-        </div>
-      </section>
+      </div>
     </div>
   )
 }

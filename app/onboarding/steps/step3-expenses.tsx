@@ -25,51 +25,61 @@ const EXPENSE_OPTIONS = [
     id: 'childCareExpenses',
     label: 'Child Care Expenses',
     description: 'Daycare, preschool, babysitting',
+    icon: 'child_care',
   },
   {
     id: 'kidsEducationFees',
     label: 'Kids Tuition Fees',
     description: 'School, college, educational programs',
+    icon: 'school',
   },
   {
     id: 'mortgageInterest',
     label: 'Mortgage Interest',
     description: 'Home mortgage payments',
+    icon: 'home',
   },
   {
     id: 'medicalExpenses',
     label: 'Medical Expenses',
     description: 'Healthcare, insurance, prescriptions',
+    icon: 'medical_services',
   },
   {
     id: 'charitableDonations',
     label: 'Charitable Donations',
     description: 'Charitable contributions and donations',
+    icon: 'volunteer_activism',
   },
   {
     id: 'businessExpenses',
     label: 'Business Expenses',
     description: 'Self-employment business costs',
+    icon: 'business_center',
   },
   {
     id: 'studentLoanInterest',
     label: 'Student Loan Interest',
     description: 'Educational loan interest payments',
+    icon: 'school',
   },
   {
     id: 'homeOfficeExpenses',
     label: 'Home Office Expenses',
     description: 'Office supplies, equipment, utilities',
+    icon: 'home_work',
   },
   {
     id: 'vehicleExpenses',
     label: 'Vehicle Expenses',
     description: 'Car loans, maintenance, fuel',
+    icon: 'directions_car',
   },
   {
     id: 'investmentAdvisoryFees',
     label: 'Investment Advisory Fees',
     description: 'Financial advisor, investment management',
+    icon: 'trending_up',
   },
 ]
 
@@ -90,49 +100,57 @@ export default function Step3Expenses({ data, onDataChange }: Step3Props) {
   const selectedCount = Object.values(formData).filter(Boolean).length
 
   return (
-    <div className="space-y-6">
-      <div>
-        <h2 className="text-lg font-bold text-slate-900 mb-1">Major Expenses & Deductions</h2>
-        <p className="text-sm text-slate-600">Select all expenses that apply to your situation</p>
+    <div className="space-y-8">
+      {/* Header */}
+      <div className="space-y-2">
+        <h2 className="font-body-lg text-body-lg text-on-surface-variant">Select all expenses that apply to your situation. This helps us identify tax optimization opportunities.</h2>
       </div>
 
       {/* Expenses Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-gutter">
         {EXPENSE_OPTIONS.map(expense => (
           <label
             key={expense.id}
-            className={`p-4 rounded-xl border-2 cursor-pointer transition-all ${
+            className={`flex items-start gap-4 p-4 rounded-xl border cursor-pointer transition-all ${
               formData[expense.id as keyof Step3Data]
-                ? 'bg-indigo-50 border-indigo-600'
-                : 'bg-white border-slate-200 hover:border-slate-300'
+                ? 'bg-primary-container/10 border-primary glass-card neon-glow'
+                : 'glass-card border-outline-variant hover:border-primary/50'
             }`}
           >
-            <div className="flex items-start gap-3">
-              <input
-                type="checkbox"
-                checked={formData[expense.id as keyof Step3Data] || false}
-                onChange={(e) => handleExpenseChange(expense.id, e.target.checked)}
-                className="w-5 h-5 rounded border-slate-200 accent-indigo-600 cursor-pointer mt-0.5 flex-shrink-0"
-              />
-              <div className="flex-1">
-                <div className="font-semibold text-slate-900 text-sm">
+            <div className="flex-shrink-0">
+              <div className={`w-10 h-10 rounded-lg flex items-center justify-center transition-colors ${
+                formData[expense.id as keyof Step3Data]
+                  ? 'bg-primary/20 text-primary'
+                  : 'bg-secondary/10 text-secondary'
+              }`}>
+                <span className="material-symbols-outlined text-lg">{expense.icon}</span>
+              </div>
+            </div>
+            <div className="flex-1">
+              <div className="flex items-center gap-2">
+                <input
+                  type="checkbox"
+                  checked={formData[expense.id as keyof Step3Data] || false}
+                  onChange={(e) => handleExpenseChange(expense.id, e.target.checked)}
+                  className="w-4 h-4 rounded border-outline-variant cursor-pointer"
+                />
+                <div className="font-label-sm text-label-sm text-on-surface uppercase tracking-wider">
                   {expense.label}
                 </div>
-                <div className="text-xs text-slate-600 mt-1">{expense.description}</div>
               </div>
+              <p className="text-xs text-on-surface-variant mt-1">{expense.description}</p>
             </div>
           </label>
         ))}
       </div>
 
-      {/* Summary */}
-      <div className="p-4 rounded-xl bg-indigo-50 border border-indigo-200">
-        <p className="text-sm font-medium text-slate-700">
-          <span className="text-indigo-600 font-semibold">{selectedCount}</span> expense {selectedCount === 1 ? 'category' : 'categories'} selected
-        </p>
-        <p className="text-xs text-slate-600 mt-1">
-          These will help us identify tax optimization opportunities for your situation.
-        </p>
+      {/* Summary Card */}
+      <div className="glass-card p-4 rounded-xl border border-secondary/20">
+        <p className="font-label-sm text-label-sm text-secondary uppercase mb-2">Summary</p>
+        <div className="flex justify-between items-center">
+          <span className="text-on-surface-variant text-sm">Deduction Categories Selected</span>
+          <span className="font-numeric-data text-numeric-data text-primary">{selectedCount} of {EXPENSE_OPTIONS.length}</span>
+        </div>
       </div>
     </div>
   )

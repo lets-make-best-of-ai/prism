@@ -8,6 +8,8 @@ interface Step2Data {
   bonuses?: string
   rental?: string
   dividends?: string
+  activeCards?: string[]
+  ownsHome?: boolean
 }
 
 interface Step2Props {
@@ -17,11 +19,14 @@ interface Step2Props {
 
 export default function Step2FinancialInfo({ data, onDataChange }: Step2Props) {
   const [formData, setFormData] = useState<Step2Data>(data || {})
-  const [activeCards, setActiveCards] = useState<Set<string>>(new Set())
+  const [activeCards, setActiveCards] = useState<Set<string>>(new Set(data?.activeCards || []))
 
   useEffect(() => {
-    onDataChange(formData)
-  }, [formData])
+    onDataChange({
+      ...formData,
+      activeCards: Array.from(activeCards),
+    })
+  }, [formData, activeCards])
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target
@@ -50,8 +55,8 @@ export default function Step2FinancialInfo({ data, onDataChange }: Step2Props) {
   return (
     <div className="space-y-8">
       {/* Primary Income Section */}
-      <section className="glass-card rounded-xl p-stack-lg flex flex-col gap-6 neon-glow-indigo">
-        <div className="flex items-center gap-3">
+      <div className="glass-card rounded-xl p-stack-lg neon-glow-indigo">
+        <div className="flex items-center gap-3 mb-6">
           <div className="bg-primary/20 p-2 rounded-lg">
             <span className="material-symbols-outlined text-primary">work</span>
           </div>
@@ -87,47 +92,72 @@ export default function Step2FinancialInfo({ data, onDataChange }: Step2Props) {
             </div>
           </div>
         </div>
-      </section>
+      </div>
 
       {/* Secondary Income Streams */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
-        {incomeCards.map(card => (
-          <button
-            key={card.id}
-            onClick={() => toggleCard(card.id)}
-            className={`group glass-card rounded-xl p-6 text-left transition-all hover:border-secondary/50 focus:outline-none ${
-              activeCards.has(card.id) ? 'neon-glow-indigo' : ''
-            }`}
-          >
-            <div className="flex justify-between items-start mb-4">
-              <div className={`bg-secondary/10 p-2 rounded-lg transition-colors ${
-                activeCards.has(card.id) ? 'bg-secondary/30' : ''
-              }`}>
-                <span className="material-symbols-outlined text-secondary">{card.icon}</span>
-              </div>
-              {activeCards.has(card.id) && (
-                <span className="material-symbols-outlined text-on-surface-variant">check_circle</span>
-              )}
-            </div>
-            <h4 className="font-headline-md text-on-surface mb-1">{card.label}</h4>
-            <p className="text-sm text-on-surface-variant mb-4">{card.description}</p>
-            {activeCards.has(card.id) && (
-              <div className="space-y-2">
-                <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-on-surface-variant">$</span>
-                  <input
-                    type="number"
-                    name={card.id}
-                    value={formData[card.id as keyof Step2Data] || ''}
-                    onChange={handleChange}
-                    placeholder={card.id === 'rental' ? 'Monthly Net' : 'Amount'}
-                    className="w-full bg-surface-container border border-outline-variant rounded-lg pl-6 pr-3 py-2 focus:border-secondary focus:ring-0 text-sm font-numeric-data text-on-surface focus:outline-none transition-all"
-                  />
+      <div className="space-y-4 pt-6 border-t border-white/10">
+        <h3 className="font-headline-md text-headline-md text-on-surface">Additional Income Streams</h3>
+        <p className="text-sm text-on-surface-variant">Select income sources that apply to you.</p>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-gutter">
+          {incomeCards.map(card => (
+            <button
+              key={card.id}
+              onClick={() => toggleCard(card.id)}
+              className={`group glass-card rounded-xl p-6 text-left transition-all focus:outline-none ${
+                activeCards.has(card.id) ? 'border-secondary/50 neon-glow-indigo' : 'hover:border-secondary/50'
+              }`}
+            >
+              <div className="flex justify-between items-start mb-4">
+                <div className={`bg-secondary/10 p-2 rounded-lg transition-colors ${
+                  activeCards.has(card.id) ? 'bg-secondary/30' : ''
+                }`}>
+                  <span className="material-symbols-outlined text-secondary">{card.icon}</span>
                 </div>
+                <span className={`material-symbols-outlined text-on-surface-variant text-lg transition-opacity ${
+                  activeCards.has(card.id) ? 'opacity-100' : 'opacity-0'
+                }`}>
+                  check_circle
+                </span>
               </div>
-            )}
-          </button>
-        ))}
+              <h4 className="font-headline-md text-on-surface mb-1 text-lg">{card.label}</h4>
+              <p className="text-sm text-on-surface-variant mb-4">{card.description}</p>
+              {activeCards.has(card.id) && (
+                <div className="space-y-2 pt-4 border-t border-white/5">
+                  <div className="relative">
+                    <span className="absolute left-3 top-1/2 -translate-y-1/2 text-xs text-on-surface-variant">$</span>
+                    <input
+                      type="number"
+                      name={card.id}
+                      value={formData[card.id as keyof Step2Data] || ''}
+                      onChange={handleChange}
+                      placeholder={card.id === 'rental' ? 'Monthly Net' : 'Annual Amount'}
+                      className="w-full bg-surface-container border border-outline-variant rounded-lg pl-6 pr-3 py-2 focus:border-secondary focus:ring-0 text-sm font-numeric-data text-on-surface placeholder-on-surface-variant/50 transition-all"
+                    />
+                  </div>
+                </div>
+              )}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      {/* Property Ownership */}
+      <div className="flex items-center justify-between p-4 bg-surface-container-high rounded-xl pt-6 border-t border-white/10">
+        <div className="flex items-center gap-3">
+          <span className="material-symbols-outlined text-secondary">home</span>
+          <div>
+            <p className="font-body-md text-on-surface">Do you own or rent your primary residence?</p>
+            <p className="text-xs text-on-surface-variant">This helps us tailor deduction recommendations.</p>
+          </div>
+        </div>
+        <select
+          value={formData.ownsHome ? 'own' : 'rent'}
+          onChange={(e) => setFormData(prev => ({ ...prev, ownsHome: e.target.value === 'own' }))}
+          className="bg-surface-container-low border border-outline-variant rounded-lg px-3 py-2 text-sm text-on-surface focus:outline-none focus:border-primary transition-all"
+        >
+          <option value="rent">Rent</option>
+          <option value="own">Own</option>
+        </select>
       </div>
     </div>
   )
