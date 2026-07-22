@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
 import { useRouter } from 'next/navigation'
 import { useAuth } from '@/lib/auth-context'
 import Step1PersonalInfo from './steps/step1-personal-info'
@@ -70,7 +69,6 @@ export default function OnboardingForm() {
         throw new Error('Failed to save onboarding data')
       }
 
-      // Redirect to dashboard
       router.push('/dashboard')
     } catch (error) {
       console.error('Onboarding submission error:', error)
@@ -80,101 +78,57 @@ export default function OnboardingForm() {
     }
   }
 
-  const steps = [
-    { number: 1, title: 'Personal', subtitle: 'Your Information' },
-    { number: 2, title: 'Financial', subtitle: 'Income & Assets' },
-    { number: 3, title: 'Expenses', subtitle: 'Deductions' },
-  ]
-
   return (
-    <div className="min-h-screen bg-fintech-canvas py-16 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-3xl mx-auto">
+    <div className="min-h-screen bg-slate-50 py-8 px-4">
+      <div className="max-w-2xl mx-auto">
         {/* Header */}
-        <motion.div
-          initial={{ opacity: 0, y: -20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="mb-16"
-        >
-          <div className="mb-6">
-            <h1 className="text-5xl font-bold text-text-primary mb-3">Welcome to Prism</h1>
-            <p className="text-lg text-text-secondary leading-relaxed max-w-2xl">
-              Let's get to know you better. This quick onboarding will help us build your personalized tax strategy.
-            </p>
-          </div>
-        </motion.div>
+        <div className="mb-8">
+          <h1 className="text-2xl font-bold text-slate-900 mb-1">Complete Your Profile</h1>
+          <p className="text-sm text-slate-600">
+            Help us tailor your tax strategy. We'll use this info to provide personalized recommendations.
+          </p>
+        </div>
 
-        {/* Progress Section */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          className="mb-16"
-        >
-          <div className="flex items-center justify-between mb-4">
-            <div>
-              <p className="text-sm font-semibold text-text-muted uppercase tracking-widest mb-1">Progress</p>
-              <p className="text-2xl font-bold text-text-primary">Step {currentStep} of 3</p>
-            </div>
-            <div className="text-right">
-              <p className="text-4xl font-bold text-emerald-primary">{Math.round((currentStep / 3) * 100)}%</p>
-            </div>
+        {/* Progress Bar */}
+        <div className="mb-8">
+          <div className="flex items-center justify-between mb-2">
+            <span className="text-xs font-semibold text-slate-600 uppercase">Step {currentStep} of 3</span>
+            <span className="text-xs font-semibold text-slate-600">{Math.round((currentStep / 3) * 100)}%</span>
           </div>
-          <div className="h-3 bg-fintech-surface rounded-full overflow-hidden">
-            <motion.div
-              className="h-full bg-gradient-to-r from-emerald-primary to-emerald-hover rounded-full"
-              initial={{ width: '0%' }}
-              animate={{ width: `${(currentStep / 3) * 100}%` }}
-              transition={{ duration: 0.6, ease: 'easeOut' }}
+          <div className="w-full h-2 bg-slate-200 rounded-full overflow-hidden">
+            <div
+              className="h-full bg-indigo-600 transition-all duration-300"
+              style={{ width: `${(currentStep / 3) * 100}%` }}
             />
           </div>
-        </motion.div>
+        </div>
 
-        {/* Step Indicators */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="grid grid-cols-3 gap-4 mb-16"
-        >
-          {steps.map(step => (
-            <motion.button
-              key={step.number}
-              onClick={() => step.number < currentStep && setCurrentStep(step.number)}
-              className={`p-6 rounded-2xl border-2 transition-all duration-300 cursor-pointer group ${
-                step.number === currentStep
-                  ? 'bg-emerald-primary/15 border-emerald-primary shadow-lg'
-                  : step.number < currentStep
-                  ? 'bg-emerald-primary/5 border-emerald-primary/50 hover:border-emerald-primary/70'
-                  : 'bg-fintech-surface border-fintech-border hover:border-emerald-primary/30'
+        {/* Step Tabs */}
+        <div className="flex gap-3 mb-8">
+          {[
+            { num: 1, label: 'Personal' },
+            { num: 2, label: 'Financial' },
+            { num: 3, label: 'Expenses' },
+          ].map(step => (
+            <button
+              key={step.num}
+              onClick={() => step.num < currentStep && setCurrentStep(step.num)}
+              className={`flex-1 px-4 py-3 rounded-xl text-sm font-semibold transition-all ${
+                step.num === currentStep
+                  ? 'bg-indigo-600 text-white shadow-sm'
+                  : step.num < currentStep
+                  ? 'bg-indigo-50 text-indigo-600 hover:bg-indigo-100'
+                  : 'bg-white text-slate-600 border border-slate-200 hover:border-slate-300'
               }`}
-              whileHover={{ scale: 1.02 }}
+              disabled={step.num > currentStep}
             >
-              <div className="text-left">
-                <div
-                  className={`text-sm font-semibold mb-2 transition-colors ${
-                    step.number === currentStep ? 'text-emerald-primary' : 'text-text-muted'
-                  }`}
-                >
-                  Step {step.number}
-                </div>
-                <div className={`text-lg font-bold ${step.number === currentStep ? 'text-text-primary' : 'text-text-secondary'}`}>
-                  {step.title}
-                </div>
-                <div className={`text-xs mt-1 ${step.number === currentStep ? 'text-text-secondary' : 'text-text-muted'}`}>
-                  {step.subtitle}
-                </div>
-              </div>
-            </motion.button>
+              {step.label}
+            </button>
           ))}
-        </motion.div>
+        </div>
 
-        {/* Step Content */}
-        <motion.div
-          key={currentStep}
-          initial={{ opacity: 0, x: 20 }}
-          animate={{ opacity: 1, x: 0 }}
-          exit={{ opacity: 0, x: -20 }}
-          transition={{ duration: 0.4 }}
-          className="fintech-card p-12 rounded-2xl border border-fintech-border mb-12"
-        >
+        {/* Content Card */}
+        <div className="bg-white rounded-2xl border border-slate-200 p-8 mb-6 shadow-sm">
           {currentStep === 1 && (
             <Step1PersonalInfo
               data={data.step1}
@@ -193,45 +147,34 @@ export default function OnboardingForm() {
               onDataChange={(stepData) => handleStepData(3, stepData)}
             />
           )}
-        </motion.div>
+        </div>
 
-        {/* Navigation Buttons */}
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="flex gap-4"
-        >
-          <motion.button
-            whileHover={{ y: -2 }}
-            whileTap={{ y: 0 }}
+        {/* Navigation */}
+        <div className="flex gap-3">
+          <button
             onClick={handlePrevious}
             disabled={currentStep === 1 || isLoading}
-            className="flex-1 px-8 py-4 rounded-xl font-semibold text-lg text-text-primary border-2 border-fintech-border hover:border-emerald-primary/50 disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-300"
+            className="flex-1 px-4 py-3 rounded-xl text-sm font-semibold border border-slate-200 text-slate-700 hover:bg-slate-50 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
           >
             Previous
-          </motion.button>
-
+          </button>
           {currentStep < 3 ? (
-            <motion.button
-              whileHover={{ y: -2 }}
-              whileTap={{ y: 0 }}
+            <button
               onClick={handleNext}
-              className="flex-1 px-8 py-4 rounded-xl font-semibold text-lg bg-emerald-primary hover:bg-emerald-hover text-white transition-all duration-300 shadow-lg hover:shadow-xl"
+              className="flex-1 px-4 py-3 rounded-xl text-sm font-semibold bg-indigo-600 text-white hover:bg-indigo-700 transition-colors shadow-sm"
             >
-              Next Step
-            </motion.button>
+              Next
+            </button>
           ) : (
-            <motion.button
-              whileHover={{ y: -2 }}
-              whileTap={{ y: 0 }}
+            <button
               onClick={handleSubmit}
               disabled={isLoading}
-              className="flex-1 px-8 py-4 rounded-xl font-semibold text-lg bg-emerald-primary hover:bg-emerald-hover text-white disabled:opacity-40 disabled:cursor-not-allowed transition-all duration-300 shadow-lg hover:shadow-xl"
+              className="flex-1 px-4 py-3 rounded-xl text-sm font-semibold bg-indigo-600 text-white hover:bg-indigo-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors shadow-sm"
             >
-              {isLoading ? 'Completing...' : 'Complete Profile'}
-            </motion.button>
+              {isLoading ? 'Saving...' : 'Complete'}
+            </button>
           )}
-        </motion.div>
+        </div>
       </div>
     </div>
   )
