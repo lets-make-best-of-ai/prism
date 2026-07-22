@@ -105,9 +105,10 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   }
 
   const signInWithGoogle = () => {
-    // Redirect to Google OAuth
+    // Redirect to Google OAuth - use protocol and host from current page
     const clientId = '1031467531589-pto1alcpolltqtda3v43jkkkd7cv9s5d.apps.googleusercontent.com'
-    const redirectUri = `${window.location.origin}/api/auth/callback/google`
+    const baseUrl = typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.host}` : 'http://localhost:3000'
+    const redirectUri = `${baseUrl}/api/auth/callback/google`
     const scope = 'openid profile email'
     const responseType = 'code'
 
