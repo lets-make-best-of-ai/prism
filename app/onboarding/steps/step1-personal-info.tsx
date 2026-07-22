@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
 
 interface Step1Data {
   name?: string
@@ -51,7 +50,7 @@ export default function Step1PersonalInfo({ data, onDataChange }: Step1Props) {
   }
 
   const addDependent = () => {
-    setDependentCount(prev => prev + 1)
+    setDependentCount((prev: number) => prev + 1)
     if (!formData.dependents) {
       setFormData(prev => ({ ...prev, dependents: [{ name: '', age: '', ssn: '' }] }))
     } else {
@@ -63,7 +62,7 @@ export default function Step1PersonalInfo({ data, onDataChange }: Step1Props) {
   }
 
   const removeDependent = (index: number) => {
-    setDependentCount(prev => Math.max(0, prev - 1))
+    setDependentCount((prev: number) => Math.max(0, prev - 1))
     setFormData(prev => ({
       ...prev,
       dependents: prev.dependents?.filter((_, i) => i !== index) || [],
@@ -73,242 +72,239 @@ export default function Step1PersonalInfo({ data, onDataChange }: Step1Props) {
   const isMarried = formData.maritalStatus === 'married'
 
   return (
-    <div className="space-y-12">
+    <div className="space-y-6">
+      <h2 className="text-lg font-bold text-slate-900">Your Information</h2>
+
+      {/* Full Name */}
       <div>
-        <h2 className="text-3xl font-bold text-text-primary mb-2">Personal Information</h2>
-        <p className="text-text-secondary">Tell us about yourself so we can provide tailored tax strategies</p>
+        <label className="block text-sm font-semibold text-slate-700 mb-1">
+          Full Name <span className="text-red-500">*</span>
+        </label>
+        <input
+          type="text"
+          name="name"
+          value={formData.name || ''}
+          onChange={handleChange}
+          placeholder="John Doe"
+          required
+          className="w-full px-4 py-3 rounded-2xl border border-slate-200 bg-slate-50 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent focus:bg-white transition-colors"
+        />
       </div>
 
-      {/* Individual Information */}
-      <motion.div
-        initial={{ opacity: 0, y: 10 }}
-        animate={{ opacity: 1, y: 0 }}
-        className="space-y-8"
-      >
-        <div className="pb-8 border-b border-fintech-border">
-          <h3 className="text-xl font-bold text-text-primary mb-8">Your Information</h3>
-
-          <div className="space-y-6">
-            <div>
-              <label className="block text-sm font-semibold text-text-primary mb-3">Full Name *</label>
-              <input
-                type="text"
-                name="name"
-                value={formData.name || ''}
-                onChange={handleChange}
-                className="w-full px-4 py-4 rounded-xl bg-fintech-surface border border-fintech-border text-text-primary placeholder-text-muted focus:border-emerald-primary focus:ring-2 focus:ring-emerald-primary/20 transition-all outline-none text-base"
-                placeholder="John Doe"
-                required
-              />
-            </div>
-
-            <div className="grid grid-cols-2 gap-6">
-              <div>
-                <label className="block text-sm font-semibold text-text-primary mb-3">Gender *</label>
-                <select
-                  name="gender"
-                  value={formData.gender || ''}
-                  onChange={handleChange}
-                  className="w-full px-4 py-4 rounded-xl bg-fintech-surface border border-fintech-border text-text-primary focus:border-emerald-primary focus:ring-2 focus:ring-emerald-primary/20 transition-all outline-none text-base"
-                  required
-                >
-                  <option value="">Select Gender</option>
-                  <option value="male">Male</option>
-                  <option value="female">Female</option>
-                  <option value="other">Other</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-text-primary mb-3">Date of Birth *</label>
-                <input
-                  type="date"
-                  name="dob"
-                  value={formData.dob || ''}
-                  onChange={handleChange}
-                  className="w-full px-4 py-4 rounded-xl bg-fintech-surface border border-fintech-border text-text-primary focus:border-emerald-primary focus:ring-2 focus:ring-emerald-primary/20 transition-all outline-none text-base"
-                  required
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-2 gap-6">
-              <div>
-                <label className="block text-sm font-semibold text-text-primary mb-3">Marital Status *</label>
-                <select
-                  name="maritalStatus"
-                  value={formData.maritalStatus || ''}
-                  onChange={handleChange}
-                  className="w-full px-4 py-4 rounded-xl bg-fintech-surface border border-fintech-border text-text-primary focus:border-emerald-primary focus:ring-2 focus:ring-emerald-primary/20 transition-all outline-none text-base"
-                  required
-                >
-                  <option value="">Select Status</option>
-                  <option value="single">Single</option>
-                  <option value="married">Married</option>
-                  <option value="divorced">Divorced</option>
-                  <option value="widowed">Widowed</option>
-                </select>
-              </div>
-
-              <div>
-                <label className="block text-sm font-semibold text-text-primary mb-3">Social Security Number *</label>
-                <input
-                  type="text"
-                  name="ssn"
-                  value={formData.ssn || ''}
-                  onChange={handleChange}
-                  placeholder="XXX-XX-XXXX"
-                  maxLength={11}
-                  className="w-full px-4 py-4 rounded-xl bg-fintech-surface border border-fintech-border text-text-primary placeholder-text-muted focus:border-emerald-primary focus:ring-2 focus:ring-emerald-primary/20 transition-all outline-none text-base"
-                  required
-                />
-              </div>
-            </div>
-
-            <div>
-              <label className="block text-sm font-semibold text-text-primary mb-3">Address *</label>
-              <input
-                type="text"
-                name="address"
-                value={formData.address || ''}
-                onChange={handleChange}
-                className="w-full px-4 py-4 rounded-xl bg-fintech-surface border border-fintech-border text-text-primary placeholder-text-muted focus:border-emerald-primary focus:ring-2 focus:ring-emerald-primary/20 transition-all outline-none text-base"
-                placeholder="123 Main Street, City, State, ZIP"
-                required
-              />
-            </div>
-
-            <label className="flex items-center gap-3 p-4 rounded-lg bg-fintech-surface border border-fintech-border cursor-pointer hover:border-emerald-primary/50 transition-all">
-              <input
-                type="checkbox"
-                name="changedAddressThisYear"
-                checked={formData.changedAddressThisYear || false}
-                onChange={handleChange}
-                className="w-5 h-5 rounded border-fintech-border accent-emerald-primary cursor-pointer"
-              />
-              <span className="text-base text-text-primary font-medium">
-                Did you change your address in the last year?
-              </span>
-            </label>
-          </div>
+      {/* Gender & DOB */}
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-semibold text-slate-700 mb-1">
+            Gender <span className="text-red-500">*</span>
+          </label>
+          <select
+            name="gender"
+            value={formData.gender || ''}
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-3 rounded-2xl border border-slate-200 bg-slate-50 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent focus:bg-white transition-colors"
+          >
+            <option value="">Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
         </div>
 
-        {/* Spouse Information */}
-        {isMarried && (
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="space-y-8 pb-8 border-b border-fintech-border"
+        <div>
+          <label className="block text-sm font-semibold text-slate-700 mb-1">
+            Date of Birth <span className="text-red-500">*</span>
+          </label>
+          <input
+            type="date"
+            name="dob"
+            value={formData.dob || ''}
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-3 rounded-2xl border border-slate-200 bg-slate-50 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent focus:bg-white transition-colors"
+          />
+        </div>
+      </div>
+
+      {/* Marital Status & SSN */}
+      <div className="grid grid-cols-2 gap-4">
+        <div>
+          <label className="block text-sm font-semibold text-slate-700 mb-1">
+            Marital Status <span className="text-red-500">*</span>
+          </label>
+          <select
+            name="maritalStatus"
+            value={formData.maritalStatus || ''}
+            onChange={handleChange}
+            required
+            className="w-full px-4 py-3 rounded-2xl border border-slate-200 bg-slate-50 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent focus:bg-white transition-colors"
           >
-            <h3 className="text-xl font-bold text-text-primary">Spouse Information</h3>
+            <option value="">Select Status</option>
+            <option value="single">Single</option>
+            <option value="married">Married</option>
+            <option value="divorced">Divorced</option>
+            <option value="widowed">Widowed</option>
+          </select>
+        </div>
 
-            <div className="space-y-6">
-              <div>
-                <label className="block text-sm font-semibold text-text-primary mb-3">Spouse Name *</label>
-                <input
-                  type="text"
-                  name="spouseName"
-                  value={formData.spouseName || ''}
-                  onChange={handleChange}
-                  className="w-full px-4 py-4 rounded-xl bg-fintech-surface border border-fintech-border text-text-primary placeholder-text-muted focus:border-emerald-primary focus:ring-2 focus:ring-emerald-primary/20 transition-all outline-none text-base"
-                  placeholder="Jane Doe"
-                />
-              </div>
+        <div>
+          <label className="block text-sm font-semibold text-slate-700 mb-1">
+            SSN <span className="text-red-500">*</span>
+          </label>
+          <input
+            type="text"
+            name="ssn"
+            value={formData.ssn || ''}
+            onChange={handleChange}
+            placeholder="XXX-XX-XXXX"
+            maxLength={11}
+            required
+            className="w-full px-4 py-3 rounded-2xl border border-slate-200 bg-slate-50 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent focus:bg-white transition-colors"
+          />
+        </div>
+      </div>
 
-              <div className="grid grid-cols-2 gap-6">
-                <div>
-                  <label className="block text-sm font-semibold text-text-primary mb-3">Spouse SSN *</label>
-                  <input
-                    type="text"
-                    name="spouseSSN"
-                    value={formData.spouseSSN || ''}
-                    onChange={handleChange}
-                    placeholder="XXX-XX-XXXX"
-                    maxLength={11}
-                    className="w-full px-4 py-4 rounded-xl bg-fintech-surface border border-fintech-border text-text-primary placeholder-text-muted focus:border-emerald-primary focus:ring-2 focus:ring-emerald-primary/20 transition-all outline-none text-base"
-                  />
-                </div>
+      {/* Address */}
+      <div>
+        <label className="block text-sm font-semibold text-slate-700 mb-1">
+          Address <span className="text-red-500">*</span>
+        </label>
+        <input
+          type="text"
+          name="address"
+          value={formData.address || ''}
+          onChange={handleChange}
+          placeholder="123 Main Street, City, State, ZIP"
+          required
+          className="w-full px-4 py-3 rounded-2xl border border-slate-200 bg-slate-50 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent focus:bg-white transition-colors"
+        />
+      </div>
 
-                <div>
-                  <label className="block text-sm font-semibold text-text-primary mb-3">Spouse DOB *</label>
-                  <input
-                    type="date"
-                    name="spouseDOB"
-                    value={formData.spouseDOB || ''}
-                    onChange={handleChange}
-                    className="w-full px-4 py-4 rounded-xl bg-fintech-surface border border-fintech-border text-text-primary focus:border-emerald-primary focus:ring-2 focus:ring-emerald-primary/20 transition-all outline-none text-base"
-                  />
-                </div>
-              </div>
-            </div>
-          </motion.div>
-        )}
+      {/* Address Change Checkbox */}
+      <label className="flex items-center gap-3">
+        <input
+          type="checkbox"
+          name="changedAddressThisYear"
+          checked={formData.changedAddressThisYear || false}
+          onChange={handleChange}
+          className="w-5 h-5 rounded border-slate-200 accent-indigo-600 cursor-pointer"
+        />
+        <span className="text-sm font-medium text-slate-700">
+          Did you change your address in the last year?
+        </span>
+      </label>
 
-        {/* Dependents */}
-        <motion.div className="space-y-8">
-          <div className="flex items-center justify-between">
-            <div>
-              <h3 className="text-xl font-bold text-text-primary">Dependents</h3>
-              <p className="text-sm text-text-secondary mt-1">Add any dependents for tax purposes</p>
-            </div>
-            <motion.button
-              whileHover={{ scale: 1.05 }}
-              onClick={addDependent}
-              className="px-6 py-3 rounded-lg bg-emerald-primary/15 text-emerald-primary hover:bg-emerald-primary/25 text-sm font-semibold transition-all border border-emerald-primary/30"
-            >
-              + Add Dependent
-            </motion.button>
+      {/* Spouse Information */}
+      {isMarried && (
+        <div className="pt-6 border-t border-slate-200 space-y-4">
+          <h3 className="text-lg font-bold text-slate-900">Spouse Information</h3>
+
+          <div>
+            <label className="block text-sm font-semibold text-slate-700 mb-1">
+              Spouse Name <span className="text-red-500">*</span>
+            </label>
+            <input
+              type="text"
+              name="spouseName"
+              value={formData.spouseName || ''}
+              onChange={handleChange}
+              placeholder="Jane Doe"
+              className="w-full px-4 py-3 rounded-2xl border border-slate-200 bg-slate-50 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent focus:bg-white transition-colors"
+            />
           </div>
 
-          {dependentCount > 0 && (
-            <div className="space-y-4">
-              {Array.from({ length: dependentCount }).map((_, index) => (
-                <motion.div
-                  key={index}
-                  initial={{ opacity: 0, y: 10 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  className="p-6 rounded-xl bg-fintech-surface border-2 border-fintech-border space-y-4"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="text-base font-semibold text-text-primary">Dependent {index + 1}</span>
-                    <button
-                      onClick={() => removeDependent(index)}
-                      className="text-red-500 hover:text-red-600 text-sm font-semibold"
-                    >
-                      Remove
-                    </button>
-                  </div>
-
-                  <div className="grid grid-cols-3 gap-4">
-                    <input
-                      type="text"
-                      placeholder="Full Name"
-                      value={formData.dependents?.[index]?.name || ''}
-                      onChange={(e) => handleDependentChange(index, 'name', e.target.value)}
-                      className="px-4 py-3 rounded-lg bg-fintech-canvas border border-fintech-border text-text-primary placeholder-text-muted focus:border-emerald-primary outline-none text-sm"
-                    />
-                    <input
-                      type="number"
-                      placeholder="Age"
-                      value={formData.dependents?.[index]?.age || ''}
-                      onChange={(e) => handleDependentChange(index, 'age', e.target.value)}
-                      className="px-4 py-3 rounded-lg bg-fintech-canvas border border-fintech-border text-text-primary placeholder-text-muted focus:border-emerald-primary outline-none text-sm"
-                    />
-                    <input
-                      type="text"
-                      placeholder="SSN"
-                      value={formData.dependents?.[index]?.ssn || ''}
-                      onChange={(e) => handleDependentChange(index, 'ssn', e.target.value)}
-                      maxLength={11}
-                      className="px-4 py-3 rounded-lg bg-fintech-canvas border border-fintech-border text-text-primary placeholder-text-muted focus:border-emerald-primary outline-none text-sm"
-                    />
-                  </div>
-                </motion.div>
-              ))}
+          <div className="grid grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-semibold text-slate-700 mb-1">
+                Spouse SSN <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="text"
+                name="spouseSSN"
+                value={formData.spouseSSN || ''}
+                onChange={handleChange}
+                placeholder="XXX-XX-XXXX"
+                maxLength={11}
+                className="w-full px-4 py-3 rounded-2xl border border-slate-200 bg-slate-50 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent focus:bg-white transition-colors"
+              />
             </div>
-          )}
-        </motion.div>
-      </motion.div>
+
+            <div>
+              <label className="block text-sm font-semibold text-slate-700 mb-1">
+                Spouse DOB <span className="text-red-500">*</span>
+              </label>
+              <input
+                type="date"
+                name="spouseDOB"
+                value={formData.spouseDOB || ''}
+                onChange={handleChange}
+                className="w-full px-4 py-3 rounded-2xl border border-slate-200 bg-slate-50 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent focus:bg-white transition-colors"
+              />
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Dependents */}
+      <div className="pt-6 border-t border-slate-200 space-y-4">
+        <div className="flex items-center justify-between">
+          <h3 className="text-lg font-bold text-slate-900">Dependents</h3>
+          <button
+            type="button"
+            onClick={addDependent}
+            className="px-3 py-1.5 rounded-full text-xs font-semibold text-indigo-600 hover:bg-indigo-50 transition-colors"
+          >
+            + Add
+          </button>
+        </div>
+
+        {dependentCount > 0 && (
+          <div className="space-y-3">
+            {Array.from({ length: dependentCount }).map((_, index) => (
+              <div
+                key={index}
+                className="p-4 rounded-xl bg-slate-50 border border-slate-200 space-y-3"
+              >
+                <div className="flex items-center justify-between">
+                  <span className="text-sm font-semibold text-slate-700">Dependent {index + 1}</span>
+                  <button
+                    type="button"
+                    onClick={() => removeDependent(index)}
+                    className="text-xs font-semibold text-red-600 hover:text-red-700"
+                  >
+                    Remove
+                  </button>
+                </div>
+
+                <div className="grid grid-cols-3 gap-3">
+                  <input
+                    type="text"
+                    placeholder="Name"
+                    value={formData.dependents?.[index]?.name || ''}
+                    onChange={(e) => handleDependentChange(index, 'name', e.target.value)}
+                    className="px-3 py-2 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
+                  />
+                  <input
+                    type="number"
+                    placeholder="Age"
+                    value={formData.dependents?.[index]?.age || ''}
+                    onChange={(e) => handleDependentChange(index, 'age', e.target.value)}
+                    className="px-3 py-2 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
+                  />
+                  <input
+                    type="text"
+                    placeholder="SSN"
+                    maxLength={11}
+                    value={formData.dependents?.[index]?.ssn || ''}
+                    onChange={(e) => handleDependentChange(index, 'ssn', e.target.value)}
+                    className="px-3 py-2 rounded-lg border border-slate-200 bg-white text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent transition-colors"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </div>
   )
 }

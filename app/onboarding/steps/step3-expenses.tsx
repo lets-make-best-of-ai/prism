@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
 
 interface Step3Data {
   childCareExpenses?: boolean
@@ -88,62 +87,53 @@ export default function Step3Expenses({ data, onDataChange }: Step3Props) {
     }))
   }
 
+  const selectedCount = Object.values(formData).filter(Boolean).length
+
   return (
-    <div className="space-y-8">
+    <div className="space-y-6">
       <div>
-        <h2 className="text-2xl font-bold text-text-primary mb-2">Major Expenses & Deductions</h2>
-        <p className="text-text-secondary">Select all expenses that apply to your situation</p>
+        <h2 className="text-lg font-bold text-slate-900 mb-1">Major Expenses & Deductions</h2>
+        <p className="text-sm text-slate-600">Select all expenses that apply to your situation</p>
       </div>
 
       {/* Expenses Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-        {EXPENSE_OPTIONS.map((expense, index) => (
-          <motion.label
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+        {EXPENSE_OPTIONS.map(expense => (
+          <label
             key={expense.id}
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.05 }}
-            className={`p-4 rounded-xl border-2 cursor-pointer transition-all group ${
+            className={`p-4 rounded-xl border-2 cursor-pointer transition-all ${
               formData[expense.id as keyof Step3Data]
-                ? 'bg-emerald-primary/20 border-emerald-primary'
-                : 'bg-fintech-surface border-fintech-border hover:border-emerald-primary/50'
+                ? 'bg-indigo-50 border-indigo-600'
+                : 'bg-white border-slate-200 hover:border-slate-300'
             }`}
-            whileHover={{ scale: 1.02 }}
           >
             <div className="flex items-start gap-3">
               <input
                 type="checkbox"
                 checked={formData[expense.id as keyof Step3Data] || false}
                 onChange={(e) => handleExpenseChange(expense.id, e.target.checked)}
-                className="w-5 h-5 rounded border-fintech-border accent-emerald-primary cursor-pointer mt-0.5 flex-shrink-0"
+                className="w-5 h-5 rounded border-slate-200 accent-indigo-600 cursor-pointer mt-0.5 flex-shrink-0"
               />
               <div className="flex-1">
-                <div className="font-semibold text-text-primary group-hover:text-emerald-primary transition-colors">
+                <div className="font-semibold text-slate-900 text-sm">
                   {expense.label}
                 </div>
-                <div className="text-xs text-text-muted mt-1">{expense.description}</div>
+                <div className="text-xs text-slate-600 mt-1">{expense.description}</div>
               </div>
             </div>
-          </motion.label>
+          </label>
         ))}
       </div>
 
       {/* Summary */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        className="mt-8 p-4 rounded-lg bg-emerald-primary/10 border border-emerald-primary/20"
-      >
-        <p className="text-sm text-text-secondary">
-          <span className="font-semibold text-emerald-primary">
-            {Object.values(formData).filter(Boolean).length}
-          </span>{' '}
-          expense categories selected
+      <div className="p-4 rounded-xl bg-indigo-50 border border-indigo-200">
+        <p className="text-sm font-medium text-slate-700">
+          <span className="text-indigo-600 font-semibold">{selectedCount}</span> expense {selectedCount === 1 ? 'category' : 'categories'} selected
         </p>
-        <p className="text-xs text-text-muted mt-1">
+        <p className="text-xs text-slate-600 mt-1">
           These will help us identify tax optimization opportunities for your situation.
         </p>
-      </motion.div>
+      </div>
     </div>
   )
 }

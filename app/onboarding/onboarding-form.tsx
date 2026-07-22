@@ -14,7 +14,7 @@ interface OnboardingData {
 }
 
 export default function OnboardingForm() {
-  const { user, isAuthenticated } = useAuth()
+  const { isAuthenticated } = useAuth()
   const router = useRouter()
   const [currentStep, setCurrentStep] = useState(1)
   const [isLoading, setIsLoading] = useState(false)

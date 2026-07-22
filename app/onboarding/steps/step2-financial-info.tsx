@@ -1,7 +1,6 @@
 'use client'
 
 import { useState, useEffect } from 'react'
-import { motion } from 'framer-motion'
 
 interface Step2Data {
   housingStatus?: string
@@ -71,68 +70,67 @@ export default function Step2FinancialInfo({ data, onDataChange }: Step2Props) {
     return (
       <div className="space-y-3">
         {INCOME_OPTIONS.map(option => (
-          <label key={option.id} className="flex items-center gap-3 cursor-pointer group">
+          <label key={option.id} className="flex items-center gap-3 cursor-pointer">
             <input
               type="checkbox"
               checked={sources.includes(option.id)}
               onChange={(e) => handleIncomeChange(type, option.id, e.target.checked)}
-              className="w-5 h-5 rounded border-fintech-border accent-emerald-primary cursor-pointer"
+              className="w-5 h-5 rounded border-slate-200 accent-indigo-600 cursor-pointer"
             />
-            <span className="text-sm text-text-primary group-hover:text-emerald-primary transition-colors">
+            <span className="text-sm font-medium text-slate-700">
               {option.label}
             </span>
           </label>
         ))}
 
         {/* Other Income */}
-        <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="pt-3">
+        <div className="pt-2">
           <label className="flex items-start gap-3 cursor-pointer">
             <input
               type="checkbox"
               checked={!!otherIncome}
               onChange={(e) => handleOtherIncomeChange(type, e.target.checked ? 'other' : '')}
-              className="w-5 h-5 rounded border-fintech-border accent-emerald-primary cursor-pointer mt-1"
+              className="w-5 h-5 rounded border-slate-200 accent-indigo-600 cursor-pointer mt-0.5"
             />
             <div className="flex-1">
-              <span className="text-sm text-text-primary">Other Source</span>
+              <span className="text-sm font-medium text-slate-700">Other Source</span>
               {otherIncome && (
-                <motion.input
-                  initial={{ opacity: 0, height: 0 }}
-                  animate={{ opacity: 1, height: 'auto' }}
+                <input
                   type="text"
                   placeholder="Please specify"
                   value={otherIncome === 'other' ? '' : otherIncome}
                   onChange={(e) => handleOtherIncomeChange(type, e.target.value)}
-                  className="w-full mt-2 px-3 py-2 rounded-lg bg-fintech-surface border border-fintech-border text-text-primary placeholder-text-muted focus:border-emerald-primary outline-none text-sm"
+                  className="w-full mt-2 px-4 py-2 rounded-2xl border border-slate-200 bg-slate-50 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent focus:bg-white transition-colors"
                 />
               )}
             </div>
           </label>
-        </motion.div>
+        </div>
       </div>
     )
   }
 
-  const isMarried = true // Assuming married based on context, adjust as needed
+  const isMarried = true
 
   return (
-    <div className="space-y-8">
-      <h2 className="text-2xl font-bold text-text-primary">Financial Information</h2>
+    <div className="space-y-6">
+      <h2 className="text-lg font-bold text-slate-900">Housing & Income</h2>
 
       {/* Housing Status */}
-      <div className="space-y-4">
-        <h3 className="text-lg font-semibold text-text-primary">Housing Status</h3>
-        <p className="text-sm text-text-secondary">Do you rent or own your house?</p>
+      <div className="space-y-3">
+        <label className="block text-sm font-semibold text-slate-700">
+          Housing Status <span className="text-red-500">*</span>
+        </label>
+        <p className="text-xs text-slate-600 mb-3">Do you rent or own your house?</p>
 
-        <div className="flex gap-4">
+        <div className="flex gap-3">
           {['renting', 'owning'].map(status => (
-            <motion.label
+            <label
               key={status}
-              whileHover={{ scale: 1.02 }}
-              className={`flex-1 p-4 rounded-xl border-2 cursor-pointer transition-all ${
+              className={`flex-1 p-3 rounded-xl border-2 cursor-pointer transition-all ${
                 formData.housingStatus === status
-                  ? 'bg-emerald-primary/20 border-emerald-primary'
-                  : 'bg-fintech-surface border-fintech-border hover:border-emerald-primary/50'
+                  ? 'bg-indigo-50 border-indigo-600'
+                  : 'bg-white border-slate-200 hover:border-slate-300'
               }`}
             >
               <input
@@ -141,36 +139,36 @@ export default function Step2FinancialInfo({ data, onDataChange }: Step2Props) {
                 value={status}
                 checked={formData.housingStatus === status}
                 onChange={(e) => handleHousingChange(e.target.value)}
-                className="w-5 h-5 rounded-full accent-emerald-primary cursor-pointer"
+                className="accent-indigo-600 cursor-pointer"
               />
-              <span className="ml-3 text-sm font-semibold text-text-primary capitalize">
+              <span className="ml-2 text-sm font-medium text-slate-700 capitalize">
                 {status === 'renting' ? 'Renting' : 'Owning'}
               </span>
-            </motion.label>
+            </label>
           ))}
         </div>
       </div>
 
       {/* Primary Income Sources */}
-      <div className="space-y-4 pt-6 border-t border-fintech-border">
-        <h3 className="text-lg font-semibold text-text-primary">Your Income Sources</h3>
-        <p className="text-sm text-text-secondary">Select all that apply</p>
+      <div className="pt-6 border-t border-slate-200 space-y-3">
+        <label className="block text-sm font-semibold text-slate-700">
+          Your Income Sources <span className="text-red-500">*</span>
+        </label>
+        <p className="text-xs text-slate-600 mb-3">Select all that apply</p>
 
         {renderIncomeCheckboxes('primary', formData.primaryIncomeSources)}
       </div>
 
       {/* Spouse Income Sources */}
       {isMarried && (
-        <motion.div
-          initial={{ opacity: 0, y: 10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="space-y-4 pt-6 border-t border-fintech-border"
-        >
-          <h3 className="text-lg font-semibold text-text-primary">Spouse Income Sources</h3>
-          <p className="text-sm text-text-secondary">Select all that apply</p>
+        <div className="pt-6 border-t border-slate-200 space-y-3">
+          <label className="block text-sm font-semibold text-slate-700">
+            Spouse Income Sources <span className="text-red-500">*</span>
+          </label>
+          <p className="text-xs text-slate-600 mb-3">Select all that apply</p>
 
           {renderIncomeCheckboxes('spouse', formData.spouseIncomeSources)}
-        </motion.div>
+        </div>
       )}
     </div>
   )
