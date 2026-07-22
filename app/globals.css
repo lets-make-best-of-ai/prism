@@ -481,34 +481,182 @@ html[data-theme="light"] pre {
    Modern wealth management aesthetic with glassmorphism
    ───────────────────────────────────────────────────────────────────── */
 
+/* Base glass-card styling with proper glassmorphism */
 .glass-card {
-  background: rgba(30, 41, 59, 0.5);
+  background: rgba(23, 31, 51, 0.4);
   backdrop-filter: blur(20px);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-top: 1px solid rgba(255, 255, 255, 0.15);
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+  box-shadow:
+    0 8px 32px 0 rgba(31, 38, 135, 0.37),
+    inset 0 1px 2px rgba(255, 255, 255, 0.08);
 }
 
+/* Neon glow effect for focused/active states */
 .neon-glow {
   transition: all 0.3s ease;
 }
 
 .neon-glow:focus-within {
-  box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
-  border-color: #6366f1;
+  box-shadow:
+    0 0 15px rgba(78, 222, 163, 0.3),
+    0 0 20px rgba(78, 222, 163, 0.15),
+    inset 0 1px 2px rgba(255, 255, 255, 0.08);
+  border-color: #4edea3;
 }
 
+/* Indigo glow for secondary focus state */
 .neon-glow-indigo {
-  box-shadow: 0 0 15px rgba(99, 102, 241, 0.3);
+  box-shadow:
+    0 0 15px rgba(99, 102, 241, 0.3),
+    0 0 20px rgba(99, 102, 241, 0.15),
+    inset 0 1px 2px rgba(255, 255, 255, 0.08);
   border-color: #6366f1;
 }
 
-.material-symbols-outlined {
-  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
-  display: inline-block;
+/* Stitch form inputs - dark theme */
+.stitch-input {
+  background: rgba(19, 27, 46, 0.6);
+  border: 1px solid rgba(187, 202, 191, 0.2);
+  border-radius: 0.75rem;
+  color: #dae2fd;
+  padding: 0.75rem 1rem;
+  transition: all 0.2s ease;
+  font-family: 'Inter', sans-serif;
 }
 
-/* Material icons styling for filled state */
-.material-symbols-outlined[style*="font-variation-settings: 'FILL' 1"] {
-  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+.stitch-input::placeholder {
+  color: rgba(187, 202, 191, 0.5);
+}
+
+.stitch-input:focus {
+  border-color: #4edea3;
+  background: rgba(19, 27, 46, 0.8);
+  outline: none;
+  box-shadow: 0 0 12px rgba(78, 222, 163, 0.25);
+}
+
+.stitch-input:hover {
+  border-color: rgba(187, 202, 191, 0.4);
+}
+
+/* Select dropdown styling */
+select,
+select.stitch-input {
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23dae2fd' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 0.75rem center;
+  padding-right: 2.5rem;
+  appearance: none;
+}
+
+/* Material icons base styling */
+.material-symbols-outlined {
+  font-family: 'Material Symbols Outlined';
+  font-weight: normal;
+  font-style: normal;
+  font-size: 1.5rem;
+  line-height: 1;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 40;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Filled material icons */
+.material-symbols-outlined.filled {
+  font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 40;
+}
+
+/* Primary color icons */
+.material-symbols-outlined.text-primary {
+  color: #4edea3;
+}
+
+/* Secondary color icons */
+.material-symbols-outlined.text-secondary {
+  color: #c0c1ff;
+}
+
+/* Stitch button base styling */
+button {
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+}
+
+/* Primary button - Emerald */
+button.bg-primary {
+  background-color: #4edea3;
+  color: #003824;
+  border: none;
+  border-radius: 0.75rem;
+  padding: 0.75rem 1.5rem;
+  font-weight: 600;
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 15px rgba(78, 222, 163, 0.2);
+}
+
+button.bg-primary:hover {
+  background-color: #3ec495;
+  box-shadow: 0 6px 20px rgba(78, 222, 163, 0.3);
+  transform: translateY(-2px);
+}
+
+button.bg-primary:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(78, 222, 163, 0.2);
+}
+
+/* Border button styling */
+button.border {
+  background: transparent;
+  border: 1px solid rgba(187, 202, 191, 0.3);
+  color: #dae2fd;
+  padding: 0.75rem 1.5rem;
+  border-radius: 0.75rem;
+  transition: all 0.2s ease;
+}
+
+button.border:hover {
+  border-color: #4edea3;
+  color: #4edea3;
+  background: rgba(78, 222, 163, 0.05);
+}
+
+/* Checkbox styling for Stitch */
+input[type="checkbox"] {
+  appearance: none;
+  width: 1rem;
+  height: 1rem;
+  border: 1.5px solid rgba(187, 202, 191, 0.4);
+  border-radius: 0.25rem;
+  background: rgba(19, 27, 46, 0.6);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+input[type="checkbox"]:hover {
+  border-color: rgba(187, 202, 191, 0.6);
+}
+
+input[type="checkbox"]:checked {
+  background: #4edea3;
+  border-color: #4edea3;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 16 16' fill='white' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M12.207 4.793a1 1 0 010 1.414l-5 5a1 1 0 01-1.414 0l-2-2a1 1 0 011.414-1.414L6.5 8.086l4.293-4.293a1 1 0 011.414 0z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100%;
+}
+
+/* Label styling */
+label {
+  font-family: 'Geist', 'Inter', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 500;
+  letter-spacing: 0.05em;
+  color: #bbcabf;
+  text-transform: uppercase;
+  display: block;
+  margin-bottom: 0.5rem;
 }

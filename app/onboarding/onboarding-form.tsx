@@ -80,21 +80,21 @@ export default function OnboardingForm() {
   const completionPercent = Math.round((currentStep / 3) * 100)
 
   return (
-    <div className="min-h-screen bg-background text-on-background flex flex-col">
+    <div className="min-h-screen bg-surface-dim text-on-surface flex flex-col">
       {/* Header */}
-      <header className="fixed top-0 w-full z-50 flex justify-between items-center px-margin-desktop py-4 bg-surface-container/70 backdrop-blur-xl border-b border-white/10">
+      <header className="fixed top-0 w-full z-50 flex justify-between items-center px-margin-desktop py-4 bg-surface-container/50 backdrop-blur-2xl border-b border-white/10 glass-card" style={{ margin: 0, borderRadius: 0 }}>
         <div className="flex items-center gap-2">
           <h1 className="font-display-lg-mobile text-display-lg-mobile tracking-tighter text-primary">Prism</h1>
         </div>
         <div className="flex items-center gap-6">
-          <span className="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary">help</span>
-          <span className="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary">account_circle</span>
+          <span className="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors">help</span>
+          <span className="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-primary transition-colors">account_circle</span>
         </div>
       </header>
 
       {/* Sidebar Navigation */}
       <div className="flex flex-1 pt-16">
-        <aside className="hidden lg:flex flex-col w-72 py-stack-lg bg-surface-container-low/50 backdrop-blur-md border-r border-white/5 px-6">
+        <aside className="hidden lg:flex flex-col w-72 py-stack-lg bg-surface-container-low/40 backdrop-blur-md border-r border-white/5 px-6">
           <div className="mb-8">
             <h2 className="font-headline-md text-headline-md text-on-surface">Onboarding</h2>
             <p className="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-widest mt-2">Step {currentStep} of {STEPS.length}</p>
