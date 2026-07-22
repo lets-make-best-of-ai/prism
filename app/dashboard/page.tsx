@@ -14,14 +14,7 @@ export default function DashboardPage() {
       router.push('/')
       return
     }
-
-    // Check if onboarding is completed
-    if (!isLoading && isAuthenticated && user) {
-      // For now, redirect all users to onboarding
-      // In production, this would check if they completed it
-      router.push('/onboarding')
-    }
-  }, [isAuthenticated, isLoading, router, user])
+  }, [isAuthenticated, isLoading, router])
 
   if (isLoading) {
     return (

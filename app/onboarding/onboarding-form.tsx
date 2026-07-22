@@ -1,8 +1,7 @@
 'use client'
 
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { useRouter } from 'next/navigation'
-import { useAuth } from '@/lib/auth-context'
 import Step1PersonalInfo from './steps/step1-personal-info'
 import Step2FinancialInfo from './steps/step2-financial-info'
 import Step3Expenses from './steps/step3-expenses'
@@ -14,7 +13,6 @@ interface OnboardingData {
 }
 
 export default function OnboardingForm() {
-  const { isAuthenticated } = useAuth()
   const router = useRouter()
   const [currentStep, setCurrentStep] = useState(1)
   const [isLoading, setIsLoading] = useState(false)
@@ -24,11 +22,12 @@ export default function OnboardingForm() {
     step3: {},
   })
 
-  useEffect(() => {
-    if (!isAuthenticated) {
-      router.push('/auth/signin')
-    }
-  }, [isAuthenticated, router])
+  // Don't redirect - let user fill form without auth for now
+  // useEffect(() => {
+  //   if (!isAuthenticated) {
+  //     router.push('/auth/signin')
+  //   }
+  // }, [isAuthenticated, router])
 
   const handleStepData = (stepNumber: number, stepData: Record<string, any>) => {
     setData(prev => ({
