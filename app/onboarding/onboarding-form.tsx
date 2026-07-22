@@ -133,49 +133,54 @@ export default function OnboardingForm() {
           </div>
         </aside>
 
-        {/* Main Content */}
-        <main className="flex-1 px-margin-mobile md:px-margin-desktop py-stack-lg max-w-4xl mx-auto w-full">
-          {/* Header */}
-          <div className="relative z-10 mb-stack-lg">
-            <h2 className="font-display-lg text-display-lg text-on-surface mb-2">Complete Your Profile</h2>
-            <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
-              Help us tailor your tax strategy. We'll use this info to provide personalized recommendations.
-            </p>
-          </div>
-
-          {/* Progress Indicator */}
-          <div className="mb-stack-lg md:hidden">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-semibold text-on-surface-variant uppercase">Step {currentStep} of {STEPS.length}</span>
-              <span className="text-xs font-semibold text-on-surface-variant">{completionPercent}%</span>
+        {/* Main Content - Two Column Layout */}
+        <main className="flex-1 px-margin-mobile md:px-margin-desktop py-stack-lg w-full">
+          <div className="max-w-container-max mx-auto">
+            {/* Header */}
+            <div className="relative z-10 mb-stack-lg">
+              <h2 className="font-display-lg text-display-lg text-on-surface mb-2">Complete Your Profile</h2>
+              <p className="font-body-lg text-body-lg text-on-surface-variant max-w-2xl">
+                Help us tailor your tax strategy. We'll use this info to provide personalized recommendations.
+              </p>
             </div>
-            <div className="w-full h-2 bg-surface-container-highest rounded-full overflow-hidden">
-              <div className="h-full bg-primary transition-all" style={{ width: `${completionPercent}%` }} />
-            </div>
-          </div>
 
-          {/* Step Tabs */}
-          <div className="flex gap-3 mb-stack-lg md:hidden overflow-x-auto pb-2">
-            {STEPS.map(step => (
-              <button
-                key={step.id}
-                onClick={() => step.id < currentStep && setCurrentStep(step.id)}
-                disabled={step.id > currentStep}
-                className={`flex-shrink-0 px-4 py-2 rounded-full text-xs font-semibold transition-all ${
-                  step.id === currentStep
-                    ? 'bg-primary text-on-primary'
-                    : step.id < currentStep
-                    ? 'bg-primary/10 text-primary'
-                    : 'bg-surface-container-high text-on-surface-variant'
-                }`}
-              >
-                {step.short}
-              </button>
-            ))}
-          </div>
+            {/* Two Column Grid: Form + Sidebar */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-gutter">
+              {/* Left Column - Form */}
+              <div className="lg:col-span-8">
+                {/* Progress Indicator */}
+                <div className="mb-stack-lg md:hidden">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs font-semibold text-on-surface-variant uppercase">Step {currentStep} of {STEPS.length}</span>
+                    <span className="text-xs font-semibold text-on-surface-variant">{completionPercent}%</span>
+                  </div>
+                  <div className="w-full h-2 bg-surface-container-highest rounded-full overflow-hidden">
+                    <div className="h-full bg-primary transition-all" style={{ width: `${completionPercent}%` }} />
+                  </div>
+                </div>
 
-          {/* Content Card */}
-          <div className="glass-card rounded-xl p-stack-lg mb-stack-lg">
+                {/* Step Tabs */}
+                <div className="flex gap-3 mb-stack-lg md:hidden overflow-x-auto pb-2">
+                  {STEPS.map(step => (
+                    <button
+                      key={step.id}
+                      onClick={() => step.id < currentStep && setCurrentStep(step.id)}
+                      disabled={step.id > currentStep}
+                      className={`flex-shrink-0 px-4 py-2 rounded-full text-xs font-semibold transition-all ${
+                        step.id === currentStep
+                          ? 'bg-primary text-on-primary'
+                          : step.id < currentStep
+                          ? 'bg-primary/10 text-primary'
+                          : 'bg-surface-container-high text-on-surface-variant'
+                      }`}
+                    >
+                      {step.short}
+                    </button>
+                  ))}
+                </div>
+
+                {/* Content Card */}
+                <div className="glass-card rounded-xl p-stack-lg mb-stack-lg">
             <div className="flex items-center gap-3 mb-6">
               <div className="bg-primary/20 p-2 rounded-lg">
                 <span className="material-symbols-outlined text-primary">{currentStepData.icon}</span>
@@ -203,23 +208,66 @@ export default function OnboardingForm() {
             )}
           </div>
 
-          {/* Navigation Buttons */}
-          <div className="flex justify-between items-center gap-4">
-            <button
-              onClick={handlePrevious}
-              disabled={currentStep === 1 || isLoading}
-              className="px-8 py-3 rounded-lg border border-outline-variant text-on-surface hover:bg-surface-variant transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              <span className="material-symbols-outlined">arrow_back</span> Save & Exit
-            </button>
-            <button
-              onClick={currentStep < 3 ? handleNext : handleSubmit}
-              disabled={isLoading}
-              className="px-10 py-3 rounded-full bg-primary text-on-primary font-semibold hover:brightness-110 shadow-lg transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed group"
-            >
-              {isLoading ? 'Saving...' : currentStep < 3 ? 'Next Step' : 'Complete'}
-              <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
-            </button>
+                {/* Navigation Buttons */}
+                <div className="flex justify-between items-center gap-4">
+                  <button
+                    onClick={handlePrevious}
+                    disabled={currentStep === 1 || isLoading}
+                    className="px-8 py-3 rounded-lg border border-outline-variant text-on-surface hover:bg-surface-variant transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed"
+                  >
+                    <span className="material-symbols-outlined">arrow_back</span> Save & Exit
+                  </button>
+                  <button
+                    onClick={currentStep < 3 ? handleNext : handleSubmit}
+                    disabled={isLoading}
+                    className="px-10 py-3 rounded-full bg-primary text-on-primary font-semibold hover:brightness-110 shadow-lg transition-all flex items-center gap-2 disabled:opacity-50 disabled:cursor-not-allowed group"
+                  >
+                    {isLoading ? 'Saving...' : currentStep < 3 ? 'Next Step' : 'Complete'}
+                    <span className="material-symbols-outlined group-hover:translate-x-1 transition-transform">arrow_forward</span>
+                  </button>
+                </div>
+              </div>
+
+              {/* Right Column - Summary Sidebar */}
+              <div className="lg:col-span-4 hidden lg:flex flex-col gap-gutter">
+                {/* Profile Insight Card */}
+                <div className="glass-card rounded-xl p-6 sticky top-24">
+                  <h4 className="font-headline-md text-headline-md text-on-surface mb-6">Profile Insight</h4>
+                  <div className="space-y-6">
+                    <div className="flex gap-4">
+                      <div className="w-1 rounded-full bg-primary h-auto min-h-12"></div>
+                      <div>
+                        <p className="text-xs text-on-surface-variant uppercase tracking-wider">Profile Status</p>
+                        <p className="font-body-md text-body-md text-on-surface">Step {currentStep} of 3</p>
+                      </div>
+                    </div>
+                    <div className="flex gap-4">
+                      <div className="w-1 rounded-full bg-secondary h-auto min-h-12"></div>
+                      <div>
+                        <p className="text-xs text-on-surface-variant uppercase tracking-wider">Completion</p>
+                        <p className="font-body-md text-body-md text-on-surface">{completionPercent}% Complete</p>
+                      </div>
+                    </div>
+                    <div className="p-4 bg-surface-container-highest/30 rounded-lg">
+                      <p className="text-xs text-on-surface-variant leading-relaxed italic">
+                        "Accurate information enables us to provide personalized tax strategies that work with your specific financial situation."
+                      </p>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Privacy Guarantee Card */}
+                <div className="glass-card rounded-xl p-6 border-l-4 border-secondary">
+                  <div className="flex items-start gap-3">
+                    <span className="material-symbols-outlined text-secondary">verified_user</span>
+                    <div>
+                      <h5 className="font-label-sm text-label-sm text-secondary uppercase mb-1">Privacy Guarantee</h5>
+                      <p className="text-xs text-on-surface-variant">Your data is protected by institutional-grade encryption. We never share personal details with third parties.</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
         </main>
       </div>
