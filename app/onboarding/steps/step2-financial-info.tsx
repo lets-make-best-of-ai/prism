@@ -74,7 +74,7 @@ export default function Step2FinancialInfo({ data, onDataChange }: Step2Props) {
                 value={formData.primarySalary || ''}
                 onChange={handleChange}
                 placeholder="0.00"
-                className="w-full bg-surface-container-high/60 border border-outline-variant/40 rounded-xl pl-8 pr-4 py-3 focus:border-secondary focus:shadow-md focus:ring-0 focus:outline-none transition-all font-numeric-data text-numeric-data text-on-surface neon-glow-indigo"
+                className="w-full pl-8 pr-4 py-3 focus:ring-0 focus:outline-none transition-all font-numeric-data text-numeric-data"
               />
             </div>
           </div>
@@ -132,7 +132,7 @@ export default function Step2FinancialInfo({ data, onDataChange }: Step2Props) {
                       value={formData[card.id as keyof Step2Data] || ''}
                       onChange={handleChange}
                       placeholder={card.id === 'rental' ? 'Monthly Net' : 'Annual Amount'}
-                      className="w-full bg-surface-container/60 border border-outline-variant/40 rounded-lg pl-6 pr-3 py-2 focus:border-secondary focus:shadow-sm focus:ring-0 text-sm font-numeric-data text-on-surface placeholder-on-surface-variant/40 transition-all neon-glow-indigo"
+                      className="w-full pl-6 pr-3 py-2 focus:ring-0 text-sm font-numeric-data transition-all"
                     />
                   </div>
                 </div>
@@ -154,7 +154,7 @@ export default function Step2FinancialInfo({ data, onDataChange }: Step2Props) {
         <select
           value={formData.ownsHome ? 'own' : 'rent'}
           onChange={(e) => setFormData(prev => ({ ...prev, ownsHome: e.target.value === 'own' }))}
-          className="bg-surface-container-low/60 border border-outline-variant/40 rounded-xl px-3 py-2 text-sm text-on-surface focus:outline-none focus:border-primary focus:shadow-sm transition-all"
+          className="px-3 py-2 text-sm focus:outline-none transition-all"
         >
           <option value="rent">Rent</option>
           <option value="own">Own</option>
