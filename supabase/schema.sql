@@ -100,6 +100,21 @@ create table if not exists public.reports (
   updated_at timestamp with time zone default now()
 );
 
+-- Onboarding data
+create table if not exists public.onboarding (
+  id uuid primary key default uuid_generate_v4(),
+  user_id uuid not null references public.users(id) on delete cascade,
+  team_id uuid not null references public.teams(id) on delete cascade,
+  step_completed integer default 0, -- 0, 1, 2, 3 (1-3 for completed steps)
+  step1_data jsonb, -- Personal information
+  step2_data jsonb, -- Financial information
+  step3_data jsonb, -- Major expenses & deductions
+  is_completed boolean default false,
+  completed_at timestamp with time zone,
+  created_at timestamp with time zone default now(),
+  updated_at timestamp with time zone default now()
+);
+
 -- Audit logs for compliance
 create table if not exists public.audit_logs (
   id uuid primary key default uuid_generate_v4(),
@@ -129,6 +144,8 @@ create index idx_reports_team_id on public.reports(team_id);
 create index idx_reports_status on public.reports(status);
 create index idx_audit_logs_user_id on public.audit_logs(user_id);
 create index idx_audit_logs_team_id on public.audit_logs(team_id);
+create index idx_onboarding_user_id on public.onboarding(user_id);
+create index idx_onboarding_team_id on public.onboarding(team_id);
 
 -- Row Level Security (RLS) Policies
 
@@ -320,6 +337,22 @@ create policy "Advisors can update reports"
       and role in ('advisor', 'admin')
     )
   );
+
+-- Onboarding table
+alter table public.onboarding enable row level security;
+
+create policy "Users can read own onboarding"
+  on public.onboarding for select
+  using (user_id = auth.uid());
+
+create policy "Users can update own onboarding"
+  on public.onboarding for update
+  using (user_id = auth.uid())
+  with check (user_id = auth.uid());
+
+create policy "Users can insert own onboarding"
+  on public.onboarding for insert
+  with check (user_id = auth.uid());
 
 -- Audit logs (no select policy, logs are system-only)
 alter table public.audit_logs enable row level security;
