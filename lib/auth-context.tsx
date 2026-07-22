@@ -106,13 +106,13 @@ export function AuthProvider({ children }: { children: ReactNode }) {
 
   const signInWithGoogle = () => {
     // Redirect to Google OAuth
-    const clientId = process.env.NEXT_PUBLIC_GOOGLE_CLIENT_ID
+    const clientId = '1031467531589-pto1alcpolltqtda3v43jkkkd7cv9s5d.apps.googleusercontent.com'
     const redirectUri = `${window.location.origin}/api/auth/callback/google`
     const scope = 'openid profile email'
     const responseType = 'code'
 
     const authUrl = new URL('https://accounts.google.com/o/oauth2/v2/auth')
-    authUrl.searchParams.set('client_id', clientId || '')
+    authUrl.searchParams.set('client_id', clientId)
     authUrl.searchParams.set('redirect_uri', redirectUri)
     authUrl.searchParams.set('response_type', responseType)
     authUrl.searchParams.set('scope', scope)
